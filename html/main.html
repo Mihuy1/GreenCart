@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/main.js" defer></script>
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
@@ -37,12 +38,12 @@
             >
           </li>
           <li>
-            <a href="#"
+            <a href="#" class="login-link"
               ><span class="material-symbols-outlined"> login </span> Login</a
             >
           </li>
           <li>
-            <a href="#"
+            <a href="#" class="register-link"
               ><span class="material-symbols-outlined"> person_add </span>
               Register</a
             >
@@ -50,13 +51,63 @@
           <li>
             <a href="#"
               ><span class="material-symbols-outlined"> shopping_cart </span>
-              Cart</a
+              </a
             >
           </li>
         </ul>
       </nav>
     </div>
+    <header>
+      <img class= frontphoto src="https://img.freepik.com/free-photo/supermarket-banner-concept-with-ingredients_23-2149421156.jpg?t=st=1712934443~exp=1712938043~hmac=2eb27fc2c7b350d9a279b56cc72a5dd45d335aeaa242820472ff581715d02527&w=1480" height="300" width="200" alt="Description of the image" />
+    </header>
     <div class="container">
+      <dialog class="login-modal modal">
+        <form id="login-form">
+          <button class="close-button login-close-button">X</button>
+          <h1>Login</h1>
+          <input
+            type="text"
+            id="login-username"
+            class="modal-input"
+            placeholder="Username"
+          />
+
+          <input
+            type="password"
+            id="login-pswd"
+            class="modal-input"
+            placeholder="Password"
+          />
+
+          <div class="remember-me">
+            <input type="checkbox" id="remember-me" />
+            <label for="remember-me">Remember me</label>
+          </div>
+
+          <button type="submit" class="modal-button">Login</button>
+        </form>
+      </dialog>
+      <dialog class="registration-modal modal">
+        <form id="registration-form">
+          <button class="close-button register-close-button">X</button>
+          <h1>Register</h1>
+          <input
+            type="text"
+            id="register-username"
+            class="modal-input"
+            placeholder="Username"
+          />
+
+          <input
+            type="password"
+            id="register-pswd"
+            class="modal-input"
+            placeholder="Password"
+          />
+
+          <button type="submit" class="modal-button">Register</button>
+        </form>
+      </dialog>
       <section class="first-section">
         <h1>Green Cart</h1>
         <p>
@@ -136,5 +187,9 @@
         </div>
       </div>
     </div>
+    <script >
+
+
+    </script>
   </body>
 </html>
