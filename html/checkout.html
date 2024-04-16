@@ -29,14 +29,38 @@
   <title>Shopping Cart</title>
 </head>
 <body>
-<div class="navbar">
-  <h2><a href="#">GreenCart</a></h2>
-</div>
+
 
   <main class="containerr">
-    <h1 class="heading">
-      <ion-icon name="cart-outline"></ion-icon> Shopping Cart
-    </h1>
+    <div class="navbar">
+    <h1 ><ion-icon name="cart-outline"></ion-icon> Shopping Cart</h1>
+    <nav>
+      <ul>
+        <li>
+          <a href="#"
+          ><span class="material-symbols-outlined"> home </span> Home</a
+          >
+        </li>
+        <li>
+          <a href="#" class="login-link"
+          ><span class="material-symbols-outlined"> login </span> Login</a
+          >
+        </li>
+        <li>
+          <a href="#" class="register-link"
+          ><span class="material-symbols-outlined"> person_add </span>
+            Register</a
+          >
+        </li>
+        <li>
+          <a href="#"
+          ><span class="material-symbols-outlined"> shopping_cart </span>
+          </a
+          >
+        </li>
+      </ul>
+    </nav>
+    </div>
     <div class="item-flex">
 
       <section class="checkout">
@@ -87,9 +111,6 @@
           </form>
 
         </div>
-        <button class="btn btn-primary">
-          <b>Pay</b> € <span id="payAmount">2.15</span>
-        </button>
       </section>
       <section class="cart">
         <div class="cart-item-box">
@@ -104,22 +125,22 @@
                 <h4 class="prduct-name">Banana 1 kilo</h4>
                 <div class="wrapper">
                   <div class="product-qty">
-                    <button id="decrement">
+                    <button class="decrement">
                       <ion-icon name="remove-outline"></ion-icon>
                     </button>
-                      <span id="quantity">1</span>
-                      <button id="increment">
+                      <span class="quantity">1</span>
+                      <button class="increment">
                         <ion-icon name="add-outline"></ion-icon>
                       </button>
 
                   </div>
                 <div class="price">
-                  <span id="price">1.25</span>
+                  <span class="price">1.25€</span>
                 </div>
                 </div>
               </div>
 
-              <button id="product-close-btn">
+              <button class="product-close-btnn">
                 <ion-icon name="close-outline"></ion-icon>
               </button>
 
@@ -136,22 +157,22 @@
                 <h4 class="prduct-name">Lemon 1 kilo</h4>
                 <div class="wrapper">
                   <div class="product-qty">
-                    <button id="decrement">
+                    <button class="decrement">
                       <ion-icon name="remove-outline"></ion-icon>
                     </button>
                     <span id="quantity">1</span>
-                    <button id="increment">
+                    <button class="increment">
                       <ion-icon name="add-outline"></ion-icon>
                     </button>
 
                   </div>
                   <div class="price">
-                    <span id="price">1.25</span>
+                    <span id="price">1.25€</span>
                   </div>
                 </div>
               </div>
 
-              <button id="product-close-btn">
+              <button class="product-close-btnn">
                 <ion-icon name="close-outline"></ion-icon>
               </button>
 
@@ -160,20 +181,9 @@
         </div>
 
         <div class="wrapper">
-          <div class="discount-token">
-            <label for="discount-token" class="label-defaul">Gift card/Discount Code</label>
-            <div class="wrapper-flex">
-              <input type="text" name="discount-token" id="discount-token" class="input-default">
-              <button class="btn btn-outline">Apply</button>
-            </div>
-          </div>
           <div class="amount">
             <div class="subtotal">
               <span>Subtotal</span><span id="subtotal "> 2.50</span><span>€</span>
-            </div>
-
-            <div class="tax">
-              <span>Tax</span><span id="tax"> 0.50</span><span>€</span>
             </div>
 
             <div class="shipping">
@@ -184,6 +194,9 @@
               <span>Total</span><span id="total "> 3.00</span><span>€</span>
             </div>
           </div>
+          <button class="btnn btnn-primary">
+            <b>Pay</b> € <span id="payAmount">2.15</span>
+          </button>
         </div>
       </section>
 
