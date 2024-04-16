@@ -85,6 +85,8 @@ const foods = [
   dairyProducts,
 ];
 
+let selectedFoods = foods.flat();
+
 const buttons = document.querySelectorAll('.button-option');
 
 const foodsDiv = document.querySelector('.foods');
@@ -99,9 +101,8 @@ buttons.forEach(function (button) {
     foodsDiv.innerHTML = '';
 
     const foodType = this.getAttribute('data-food');
-    console.log(foodType);
 
-    let selectedFoods;
+    selectedFoods;
     switch (foodType) {
       case 'meats':
         selectedFoods = meats;
@@ -123,6 +124,9 @@ buttons.forEach(function (button) {
         break;
       case 'dairyProducts':
         selectedFoods = dairyProducts;
+        break;
+      case 'all':
+        selectedFoods = foods.flat();
         break;
       default:
         selectedFoods = [];
@@ -230,6 +234,6 @@ const searchBar = document.querySelector('.search-input');
 
 searchBar.addEventListener('input', function () {
   const filter = this.value;
-  const filteredFoods = filterFoods(foods.flat(), filter);
+  const filteredFoods = filterFoods(selectedFoods.flat(), filter);
   displayFoods(filteredFoods);
 });
