@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/style.css" />
-    <script src="/js/main.js" defer></script>
+    <link rel="stylesheet" href="../css/style.css" />
+    <script src="../js/main.js" defer></script>
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
@@ -25,7 +25,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
     />
-    <title>GreenCart</title>
+    <title>Green Cart</title>
   </head>
   <body>
     <div class="navbar">
@@ -59,7 +59,7 @@
     <header>
       <img
         class="frontphoto"
-        src="/images/frontpage_photo.png"
+        src="../images/frontpage_photo.png"
         height="300"
         width="200"
         alt="Description of the image"
@@ -114,6 +114,8 @@
         </form>
       </dialog>
 
+      <dialog class="food-info"></dialog>
+
       <div class="main-section">
         <aside class="sidebar">
           <h1>Filter</h1>
@@ -126,15 +128,23 @@
             </div>
           </form>
           <div class="aside-options">
-            <p>Option1</p>
-            <p>Option2</p>
-            <p>Option3</p>
-            <p>Option4</p>
-            <p>Option5</p>
-            <p>Option6</p>
-            <p>Option7</p>
-            <p>Option8</p>
-            <p>Option9</p>
+            <button class="button-option" data-food="fruits">Hedelmät</button>
+            <button class="button-option" data-food="vegetables">
+              Vihannekset
+            </button>
+            <button class="button-option" data-food="cheeses">Juustot</button>
+            <button class="button-option" data-food="meats">Lihat</button>
+            <button class="button-option" data-food="frozenFoods">
+              Pakasteet
+            </button>
+            <button class="button-option" data-food="hotDrinks">
+              Kuumat juomat
+            </button>
+            <button class="button-option" data-food="dairyProducts">
+              Meijerituotteet
+            </button>
+            <button class="button-option">Option8</button>
+            <button class="button-option">Option9</button>
           </div>
         </aside>
         <div class="foods">
