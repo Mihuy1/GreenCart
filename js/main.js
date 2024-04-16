@@ -91,6 +91,8 @@ const buttons = document.querySelectorAll('.button-option');
 
 const foodsDiv = document.querySelector('.foods');
 
+buttons[0].classList.add('selected');
+
 buttons.forEach(function (button) {
   button.addEventListener('click', function () {
     buttons.forEach(function (button) {
