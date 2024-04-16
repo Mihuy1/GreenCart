@@ -205,7 +205,6 @@ function displayFoods(selectedFoods) {
     image.src = 'https://placehold.co/400x400';
     price.textContent = food.price + ' €';
     description.textContent = food.description;
-
     price.style.fontWeight = 'bold';
 
     article.appendChild(image);
@@ -218,3 +217,19 @@ function displayFoods(selectedFoods) {
 }
 
 displayFoods(foods.flat());
+
+function filterFoods(foods, filter) {
+  return foods.filter(
+    (food) =>
+      food.name.toLowerCase().includes(filter.toLowerCase()) ||
+      food.description.toLowerCase().includes(filter.toLowerCase())
+  );
+}
+
+const searchBar = document.querySelector('.search-input');
+
+searchBar.addEventListener('input', function () {
+  const filter = this.value;
+  const filteredFoods = filterFoods(foods.flat(), filter);
+  displayFoods(filteredFoods);
+});
