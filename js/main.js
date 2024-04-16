@@ -96,14 +96,11 @@ buttons.forEach(function (button) {
     });
     button.classList.add('selected');
 
-    // Clear div
     foodsDiv.innerHTML = '';
 
-    // Get text of selected button
     const foodType = this.getAttribute('data-food');
     console.log(foodType);
 
-    // Select the array based on the foodType
     let selectedFoods;
     switch (foodType) {
       case 'meats':
@@ -158,13 +155,9 @@ buttons.forEach(function (button) {
       article.addEventListener('click', function () {
         foodInfo.innerHTML = '';
 
-        const closeButton = document.createElement('button');
         const addToCartButton = document.createElement('button');
 
         addToCartButton.textContent = 'Add to cart';
-
-        closeButton.textContent = 'X';
-        closeButton.classList.add('close-button');
 
         const modalImage = document.createElement('img');
         const modalTitle = document.createElement('h2');
@@ -180,7 +173,6 @@ buttons.forEach(function (button) {
 
         addToCartButton.classList.add('buy-button');
 
-        foodInfo.appendChild(closeButton);
         foodInfo.appendChild(modalImage);
         foodInfo.appendChild(modalTitle);
         foodInfo.appendChild(modalDescription);
@@ -194,11 +186,35 @@ buttons.forEach(function (button) {
             foodInfo.close();
           }
         });
-
-        closeButton.addEventListener('click', function () {
-          foodInfo.close();
-        });
       });
     });
   });
 });
+
+function displayFoods(selectedFoods) {
+  foodsDiv.innerHTML = '';
+
+  selectedFoods.forEach(function (food) {
+    const article = document.createElement('article');
+    const image = document.createElement('img');
+    const title = document.createElement('h3');
+    const description = document.createElement('p');
+    const price = document.createElement('p');
+
+    title.textContent = food.name;
+    image.src = 'https://placehold.co/400x400';
+    price.textContent = food.price + ' €';
+    description.textContent = food.description;
+
+    price.style.fontWeight = 'bold';
+
+    article.appendChild(image);
+    article.appendChild(title);
+    article.appendChild(price);
+    article.appendChild(description);
+
+    foodsDiv.appendChild(article);
+  });
+}
+
+displayFoods(foods.flat());
