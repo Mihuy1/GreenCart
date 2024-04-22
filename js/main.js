@@ -1,5 +1,7 @@
 'use strict';
 
+const url = 'http://localhost:3000/api/v1'; // change url when uploading to server
+
 const loginLink = document.querySelector('.login-link');
 const registerLink = document.querySelector('.register-link');
 
@@ -26,6 +28,83 @@ const registerCloseButton = document.querySelector('.register-close-button');
 registerCloseButton.addEventListener('click', function (event) {
   event.preventDefault();
   registerDialog.close();
+});
+
+const registerForm = document.querySelector('#registration-form');
+
+registerForm.addEventListener('submit', async (evt) => {
+  evt.preventDefault();
+
+  const data = {
+    name: document.getElementById('register-username').value,
+    email: document.getElementById('register-email').value,
+    password: document.getElementById('register-pswd').value,
+  };
+
+  const fetchOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  };
+
+  const response = await fetch(url + '/auth/register', fetchOptions);
+  const json = await response.json();
+
+  if (json.error) {
+    alert(json.error.message);
+  } else {
+    alert(json.message);
+  }
+});
+
+const loginForm = document.querySelector('#login-form');
+const failText = document.querySelector('.fail-login-text');
+
+loginForm.addEventListener('submit', async (evt) => {
+  evt.preventDefault();
+
+  try {
+    const data = {
+      name: document.getElementById('login-username').value,
+      password: document.getElementById('login-pswd').value,
+    };
+
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+
+    const response = await fetch(url + '/auth/login', fetchOptions);
+    const json = await response.json();
+
+    console.log(response.status);
+
+    if (response.status === 200) {
+      if (json.token) {
+        localStorage.setItem('token', json.token);
+      }
+
+      if (json.name) {
+        localStorage.setItem('user', JSON.stringify(json.user));
+      }
+
+      alert('Login successful');
+      loginDialog.close();
+
+      loginLink.style.display = 'none';
+      registerLink.style.display = 'none';
+    } else {
+      failText.textContent = json.error.message;
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    failText.style.visibility = 'visible';
+  }
 });
 
 window.addEventListener('click', function (event) {

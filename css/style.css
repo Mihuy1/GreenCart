@@ -46,6 +46,7 @@ h6 {
 
 .navbar ul {
   display: flex;
+  justify-content: space-between;
 }
 
 .navbar ul li {
@@ -136,6 +137,12 @@ h6 {
 .registration-modal form {
   display: flex;
   flex-direction: column;
+}
+
+.fail-login-text {
+  visibility: hidden;
+  margin: 0;
+  color: red;
 }
 
 .modal h1 {
