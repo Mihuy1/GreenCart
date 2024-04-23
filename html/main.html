@@ -66,23 +66,30 @@
     </header>
     <div class="container">
       <dialog class="login-modal modal">
+        <button class="close-button login-close-button">X</button>
         <form id="login-form">
-          <button class="close-button login-close-button">X</button>
           <h2>Login</h2>
+
+          <label for="login-username">Username</label>
           <input
             type="text"
             id="login-username"
             class="modal-input"
             placeholder="Username"
+            name="username"
             required
+            autocomplete="given-name"
           />
 
+          <label for="login-pswd">Password</label>
           <input
             type="password"
             id="login-pswd"
             class="modal-input"
             placeholder="Password"
+            name="password"
             required
+            autocomplete="current-password"
           />
 
           <div class="remember-me">
@@ -96,8 +103,8 @@
         </form>
       </dialog>
       <dialog class="registration-modal modal">
+        <button class="close-button register-close-button">X</button>
         <form id="registration-form">
-          <button class="close-button register-close-button">X</button>
           <h2>Register</h2>
 
           <label for="register-username">Username</label>
@@ -117,6 +124,7 @@
             class="modal-input"
             placeholder="Email"
             required
+            autocomplete="email"
           />
 
           <label for="register-pswd">Password</label>
@@ -126,6 +134,7 @@
             class="modal-input"
             placeholder="Password"
             required
+            autocomplete="new-password"
           />
 
           <button type="submit" class="modal-button">Register</button>

@@ -16,6 +16,7 @@ loginLink.addEventListener('click', function (event) {
 
 const loginCloseButton = document.querySelector('.login-close-button');
 loginCloseButton.addEventListener('click', function () {
+  failText.style.visibility = 'hidden';
   loginDialog.close();
 });
 
@@ -108,7 +109,10 @@ loginForm.addEventListener('submit', async (evt) => {
 });
 
 window.addEventListener('click', function (event) {
-  if (event.target == loginDialog) loginDialog.close();
+  if (event.target == loginDialog) {
+    loginDialog.close();
+    failText.style.visibility = 'hidden';
+  }
 
   if (event.target == registerDialog) registerDialog.close();
 });

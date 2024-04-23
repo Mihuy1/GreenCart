@@ -6,6 +6,16 @@ body {
   background-color: white;
 }
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  border: 1px solid red;
+}
+
 .box {
   width: 50%;
   height: 100px;
@@ -294,16 +304,16 @@ form {
   display: flex;
   box-sizing: border-box;
   flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-grow: 1;
 }
 
 .foods article {
   box-sizing: border-box;
   border: 1px solid #516559;
-  flex: 0 0 calc(25% - 20px); /* Adjust margin space */
+  flex: 0 0 20%;
   cursor: pointer;
-  margin: 10px auto; /* Add this line */
-  flex-direction: column;
-  align-items: center; /* Add this line */
+  margin: 20px;
   max-width: 350px;
   max-height: 550px;
 }
@@ -429,7 +439,7 @@ form {
 
 @media screen and (max-width: 1130px) {
   .foods article {
-    flex: 0 0 calc(100% / 2);
+    flex: 0 0 calc(100% / 3);
   }
 
   .container {
@@ -458,10 +468,13 @@ form {
     display: none;
   }
 
+  .foods {
+    flex-direction: column;
+    align-items: center; /* Add this line */
+  }
+
   .foods article {
     flex: 0 0 40%;
     margin: 20px auto; /* Add this line */
-    flex-direction: column;
-    align-items: center; /* Add this line */
   }
 }
