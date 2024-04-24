@@ -317,9 +317,6 @@ input:focus {outline: 2px solid var(--azure)}
   padding-bottom: 1rem;
 }
 
-.quantity {
-  padding-left: 1rem;
-}
 
 .total {
   font-size: 1.7rem;
@@ -522,18 +519,14 @@ btnn btnn-primary {
   margin-bottom: 20px;
 }
 
-
-
 .cart{
   width: 40%;
-  display: flex;
   flex-direction: column;
   justify-content: flex-end;
 }
 
 .cart-item-box {
   padding: 40px var(--px);
-  margin-bottom: auto;
 }
 
 .product-card:not(:last-child) {margin-bottom: 20px}
@@ -541,8 +534,12 @@ btnn btnn-primary {
 .product-card .card{
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 20px;
+}
+
+#tax {
+  width: 0%;
 }
 
 .card .product-img {border-radius: var(--radius)}
@@ -589,7 +586,7 @@ btnn btnn-primary {
   color: #1B4D3E;
 }
 
-.amount {padding: 100px}
+.amount {padding: 25px 100px 25px 100px}
 
 .amount > div{
   display: flex;
@@ -601,15 +598,59 @@ btnn btnn-primary {
 
 .product-close-btnn {
   border: none;
-  background: none;
-  padding: 0;
+  padding: 5px;
+  background: #fafafa;
+  border-radius: 25px;
 }
 
 .product-close-btnn ion-icon {
   font-size: 1.5rem;
 }
 
-.product-close-btnn:hover {
-  background-color: #8F9779;
-  border-radius: 50%;
+.product-close-btnn ion-icon:hover {
+  color: red;
+}
+.section-heading{text-align: center}
+/*Responsive
+ */
+@media(max-width: 1200px) {
+  .item-flex {flex-direction: column-reverse}
+  .checkout {
+    width: 86%;
+    border-right: none;
+  }
+  .btnn-primary {width: 100%}
+  .cart {
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    width: 100%;
+    border-bottom: 1px solid var(--gainsboro);
+  }
+  .cart .wrapper {margin-top: auto}
+  .cart .cart-item-box {
+    border-right:1px solid var(--gainsboro);
+    margin-bottom: 0;
+  }
+  .btnn-primary {border-top: none;}
+}
+
+@media(max-width: 768px) {
+  :root{--px: 40px}
+  .cart {grid-template-columns: 1fr}
+  .btnn-primary {border-top: 1px solid var(--gainsboro); width: 50%}
+  .checkout {
+    width: 86%;
+  }
+}
+
+@media (max-width: 567px){
+  :root {--px: 20px}
+  .payment-method{
+    flex-direction: column;
+    gap: 20px;
+  }
+  .btnn-primary{width: 50%}
+  .payment-method .method{width: 100%}
+  .input-flex .expire-date, .input-flex .cvv {flex-direction:row}
+
 }
