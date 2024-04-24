@@ -1,216 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/style.css" />
-  <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/checkout.css" />
+    <script
+      src="https://kit.fontawesome.com/yourcode.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+    <title>Shopping Cart</title>
+  </head>
+  <body>
+    <main class="containerr">
+      <div class="navbar">
+        <h1><ion-icon name="cart-outline"></ion-icon> Shopping Cart</h1>
+        <nav>
+          <ul>
+            <li>
+              <a href="#"
+                ><span class="material-symbols-outlined"> home </span> Home</a
+              >
+            </li>
+            <li>
+              <a href="#" class="login-link"
+                ><span class="material-symbols-outlined"> login </span> Login</a
+              >
+            </li>
+            <li>
+              <a href="#" class="register-link"
+                ><span class="material-symbols-outlined"> person_add </span>
+                Register</a
+              >
+            </li>
+            <li>
+              <a href="#"
+                ><span class="material-symbols-outlined"> shopping_cart </span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="item-flex">
+        <section class="checkout">
+          <h2 class="section-heading">Payment Details</h2>
+          <div class="payment-form">
+            <div class="payment-method">
+              <button class="method selected">
+                <ion-icon name="card"></ion-icon>
+                <span>Credit Car</span>
+                <ion-icon
+                  class="checkmark fill"
+                  name="checkmark-circle"
+                ></ion-icon>
+              </button>
 
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-  />
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-  />
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-  />
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-  />
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-  />
-  <title>Shopping Cart</title>
-</head>
-<body>
-
-
-  <main class="containerr">
-    <div class="navbar">
-    <h1 ><ion-icon name="cart-outline"></ion-icon> Shopping Cart</h1>
-    <nav>
-      <ul>
-        <li>
-          <a href="main.html"
-          ><span class="material-symbols-outlined"> home </span> Home</a
-          >
-        </li>
-        <li>
-          <a href="#" class="login-link"
-          ><span class="material-symbols-outlined"> login </span> Login</a
-          >
-        </li>
-        <li>
-          <a href="#" class="register-link"
-          ><span class="material-symbols-outlined"> person_add </span>
-            Register</a
-          >
-        </li>
-        <li>
-          <a href="#"
-          ><span class="material-symbols-outlined"> shopping_cart </span>
-          </a
-          >
-        </li>
-      </ul>
-    </nav>
-    </div>
-    <div class="item-flex">
-
-      <section class="checkout">
-        <h2 class="section-heading"> Payment Details</h2>
-        <div class="payment-form">
-          <div class="payment-method">
-
-            <button class="method selected">
-              <ion-icon name="card"></ion-icon>
-              <span>Credit Car</span>
-              <ion-icon class="checkmark fill" name="checkmark-circle"></ion-icon>
-            </button>
-
-            <button class="method selected">
-              <ion-icon name="logo-paypal"></ion-icon>
-              <span>Paypal</span>
-              <ion-icon class="checkmark" name="checkmark-circle-outline"></ion-icon>
-            </button>
-          </div>
-          <form action="#">
-
-            <div class="cardholder-name">
-              <label for="cardholder-name" class="label-default">Carholder name</label>
-              <input type="text" name="cardholder-name" id="cardholder-name" class="input-default">
+              <button class="method selected">
+                <ion-icon name="logo-paypal"></ion-icon>
+                <span>Paypal</span>
+                <ion-icon
+                  class="checkmark"
+                  name="checkmark-circle-outline"
+                ></ion-icon>
+              </button>
             </div>
+            <form action="#">
+              <div class="cardholder-name">
+                <label for="cardholder-name" class="label-default"
+                  >Carholder name</label
+                >
+                <input
+                  type="text"
+                  name="cardholder-name"
+                  id="cardholder-name"
+                  class="input-default"
+                />
+              </div>
 
-            <div class="card-number">
-              <label for="card-number" class="label-default">Card Number</label>
-              <input type="number" name="card-number " id="card-number" class="input-default">
-            </div>
+              <div class="card-number">
+                <label for="card-number" class="label-default"
+                  >Card Number</label
+                >
+                <input
+                  type="number"
+                  name="card-number "
+                  id="card-number"
+                  class="input-default"
+                />
+              </div>
 
-            <div class="input-flex">
-              <div class="expire-date">
-                <label for="expire-date" class="label-default">Expiration date</label>
-                <div class="input-flex">
-                  <input type="number" name="day" id="expire-date" class="input-default" placeholder="31" min="1" max="31">
-                  /
-                  <input type="number" name="month" id="expire-date" class="input-default" placeholder="12" min="1" max="12">
+              <div class="input-flex">
+                <div class="expire-date">
+                  <label for="expire-date" class="label-default"
+                    >Expiration date</label
+                  >
+                  <div class="input-flex">
+                    <input
+                      type="number"
+                      name="day"
+                      id="expire-date"
+                      class="input-default"
+                      placeholder="31"
+                      min="1"
+                      max="31"
+                    />
+                    /
+                    <input
+                      type="number"
+                      name="month"
+                      id="expire-date"
+                      class="input-default"
+                      placeholder="12"
+                      min="1"
+                      max="12"
+                    />
+                  </div>
+                </div>
+
+                <div class="cvv">
+                  <label for="cvv" class="label-default">CVV</label>
+                  <input
+                    type="number"
+                    name="CVV"
+                    id="CVV"
+                    class="input-default"
+                  />
                 </div>
               </div>
-
-              <div class="cvv">
-                <label for="cvv" class="label-default">CVV</label>
-                <input type="number" name="CVV" id="CVV" class="input-default">
-              </div>
-
-            </div>
-          </form>
-
-        </div>
-      </section>
-      <section class="cart">
-        <div class="cart-item-box">
-          <h2 class="section-heading">Order Summery</h2>
-          <div class="product-card">
-            <div class="card">
-              <div class="img-box">
-                <img src="https://www.shutterstock.com/image-photo/bunch-bananas-isolated-on-white-600nw-1722111529.jpg" alt="Bananas"
-                width="80px" class="product-img">
-              </div>
-              <div class="detail">
-                <h4 class="prduct-name">Banana 1 kilo</h4>
-                <div class="wrapper">
-                  <div class="product-qty">
-                    <button class="decrement">
-                      <ion-icon name="remove-outline"></ion-icon>
-                    </button>
+            </form>
+          </div>
+        </section>
+        <section class="cart">
+          <div class="cart-item-box">
+            <h2 class="section-heading">Order Summery</h2>
+            <div class="product-card">
+              <div class="card">
+                <div class="img-box">
+                  <img
+                    src="https://www.shutterstock.com/image-photo/bunch-bananas-isolated-on-white-600nw-1722111529.jpg"
+                    alt="Bananas"
+                    width="80px"
+                    class="product-img"
+                  />
+                </div>
+                <div class="detail">
+                  <h4 class="prduct-name">Banana 1 kilo</h4>
+                  <div class="wrapper">
+                    <div class="product-qty">
+                      <button class="decrement">
+                        <ion-icon name="remove-outline"></ion-icon>
+                      </button>
                       <span class="quantity">1</span>
                       <button class="increment">
                         <ion-icon name="add-outline"></ion-icon>
                       </button>
-
+                    </div>
+                    <div class="price">
+                      <span class="price">1.25€</span>
+                    </div>
                   </div>
-                <div class="price">
-                  <span class="price">1.25€</span>
                 </div>
-                </div>
+
+                <button class="product-close-btnn">
+                  <ion-icon name="close-outline"></ion-icon>
+                </button>
               </div>
+            </div>
 
-              <button class="product-close-btnn">
-                <ion-icon name="close-outline"></ion-icon>
-              </button>
+            <div class="product-card">
+              <div class="card">
+                <div class="img-box">
+                  <img
+                    src="https://media.istockphoto.com/id/466175634/fi/valokuva/sitruuna-hedelm%C3%A4t-joissa-on-puolet-ja-lehdet-eristetty-valkoisille.jpg?s=612x612&w=0&k=20&c=Xo6TEGMN7xrpUFZFaNUudUMmUc8QNyP1siDNxvoRDPo="
+                    alt="Lemon"
+                    width="80px"
+                    class="product-img"
+                  />
+                </div>
+                <div class="detail">
+                  <h4 class="prduct-name">Lemon 1 kilo</h4>
+                  <div class="wrapper">
+                    <div class="product-qty">
+                      <button class="decrement">
+                        <ion-icon name="remove-outline"></ion-icon>
+                      </button>
+                      <span id="quantity">1</span>
+                      <button class="increment">
+                        <ion-icon name="add-outline"></ion-icon>
+                      </button>
+                    </div>
+                    <div class="price">
+                      <span id="price">1.25€</span>
+                    </div>
+                  </div>
+                </div>
 
+                <button class="product-close-btnn">
+                  <ion-icon name="close-outline"></ion-icon>
+                </button>
+              </div>
             </div>
           </div>
 
-          <div class="product-card">
-            <div class="card">
-              <div class="img-box">
-                <img src="https://media.istockphoto.com/id/466175634/fi/valokuva/sitruuna-hedelm%C3%A4t-joissa-on-puolet-ja-lehdet-eristetty-valkoisille.jpg?s=612x612&w=0&k=20&c=Xo6TEGMN7xrpUFZFaNUudUMmUc8QNyP1siDNxvoRDPo=" alt="Lemon"
-                     width="80px" class="product-img">
-              </div>
-              <div class="detail">
-                <h4 class="prduct-name">Lemon 1 kilo</h4>
-                <div class="wrapper">
-                  <div class="product-qty">
-                    <button class="decrement">
-                      <ion-icon name="remove-outline"></ion-icon>
-                    </button>
-                    <span class="quantity">1</span>
-                    <button class="increment">
-                      <ion-icon name="add-outline"></ion-icon>
-                    </button>
-
-                  </div>
-                  <div class="price">
-                    <span id="price">1.25€</span>
-                  </div>
-                </div>
+          <div class="wrapper">
+            <div class="amount">
+              <div class="subtotal">
+                <span>Subtotal</span><span id="subtotal "> 2.50</span
+                ><span>€</span>
               </div>
 
-              <button class="product-close-btnn">
-                <ion-icon name="close-outline"></ion-icon>
-              </button>
+              <div class="shipping">
+                <span>Shipping</span><span id="shipping"> 0.00</span
+                ><span>€</span>
+              </div>
 
+              <div class="total">
+                <span>Total</span><span id="total "> 3.00</span><span>€</span>
+              </div>
             </div>
+            <button class="btnn btnn-primary">
+              <b>Pay</b> € <span id="payAmount">2.15</span>
+            </button>
           </div>
-        </div>
-
-        <div class="wrapper">
-          <div class="amount">
-            <div class="subtotal">
-              <span>Subtotal</span><span id="subtotal"> 2.50</span><span>€</span>
-            </div>
-
-            <div class="tax">
-              <span>Tax</span><span id="tax"> 0.50</span><span>€</span>
-            </div>
-
-            <div class="shipping">
-              <span>Shipping</span><span id="shipping"> 0.00</span><span>€</span>
-            </div>
-
-            <div class="total">
-              <span>Total</span><span id="total"> 3.00</span><span>€</span>
-            </div>
-          </div>
-          <button class="btnn btnn-primary">
-            <b>Pay</b> € <span id="payAmount">3.00</span>
-          </button>
-        </div>
-      </section>
-
-    </div>
-    <script src="/js/main.js" defer></script>
-    <script src="/js/checkout.js"> </script>
-  </main>
-
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
-</body>
+        </section>
+      </div>
+    </main>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
 </html>
