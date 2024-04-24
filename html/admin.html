@@ -3,9 +3,193 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Control Panel</title>
+    <link rel="stylesheet" href="../css/admin.css" />
+    <script type="module" src="../js/admin.js" defer></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+    <title>Control Panel</title>
   </head>
   <body>
-    <h1>Control panel</h1>
+    <div class="navbar">
+      <h2><a href="#">Control Panel</a></h2>
+      <nav>
+        <ul>
+          <li>
+            <a href="#"
+              ><span class="material-symbols-outlined"> home </span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/html/cart.html"
+              ><span class="material-symbols-outlined"> shopping_cart </span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="container">
+      <dialog class="login-modal modal">
+        <button class="close-button login-close-button">X</button>
+        <form id="login-form">
+          <h2>Login</h2>
+
+          <label for="login-username">Username</label>
+          <input
+            type="text"
+            id="login-username"
+            class="modal-input"
+            placeholder="Username"
+            name="username"
+            required
+            autocomplete="given-name"
+          />
+
+          <label for="login-pswd">Password</label>
+          <input
+            type="password"
+            id="login-pswd"
+            class="modal-input"
+            placeholder="Password"
+            name="password"
+            required
+            autocomplete="current-password"
+          />
+
+          <div class="remember-me">
+            <input type="checkbox" id="remember-me" />
+            <label for="remember-me">Remember me</label>
+          </div>
+
+          <p class="fail-login-text">Incorrect username or password.</p>
+
+          <button type="submit" class="modal-button">Login</button>
+        </form>
+      </dialog>
+      <dialog class="registration-modal modal">
+        <button class="close-button register-close-button">X</button>
+        <form id="registration-form">
+          <h2>Register</h2>
+
+          <label for="register-username">Username</label>
+          <input
+            type="text"
+            id="register-username"
+            class="modal-input"
+            placeholder="Username"
+            requried
+          />
+
+          <label for="register-email">Email</label>
+
+          <input
+            type="email"
+            id="register-email"
+            class="modal-input"
+            placeholder="Email"
+            required
+            autocomplete="email"
+          />
+
+          <label for="register-pswd">Password</label>
+          <input
+            type="password"
+            id="register-pswd"
+            class="modal-input"
+            placeholder="Password"
+            required
+            autocomplete="new-password"
+          />
+
+          <button type="submit" class="modal-button">Register</button>
+        </form>
+      </dialog>
+
+      <dialog class="food-info"></dialog>
+
+      <div class="main-section">
+        <aside class="sidebar">
+          <h1>Categories</h1>
+          <form>
+            <div class="search">
+              <span class="search-icon material-symbols-outlined">
+                search
+              </span>
+              <input type="search" class="search-input" placeholder="Search" />
+            </div>
+          </form>
+          <div class="aside-options">
+            <button class="button-option" data-food="all">
+              <img
+                src="https://cdn.valio.fi/mediafiles/82015FCE-1171-454D-A07B-46643E332352/1440x1080-cms-content-article-hero"
+              />Kaikki
+            </button>
+            <button class="button-option" data-food="fruits">
+              <img
+                src="https://im.mtvuutiset.fi/image/4738754/landscape16_9/1600/900/d5ef0bce8dcc9cf445b73566ea77df30/lF/hedelmat.jpg"
+              />Hedelmät
+            </button>
+            <button class="button-option" data-food="vegetables">
+              <img
+                src="https://im.mtvuutiset.fi/image/2366228/landscape16_9/1024/576/a1063c42e614bf2851c9dcb549a168ff/Bg/1756046.jpg"
+              />
+              Vihannekset
+            </button>
+            <button class="button-option" data-food="cheeses">
+              <img
+                src="https://media.istockphoto.com/id/629210154/fi/valokuva/erilaisia-juustoja.jpg?s=612x612&w=0&k=20&c=knHVn3E4tWuTAlWowNicp3WYtunvfDUD39mHvFzEDz8="
+              />Juustot
+            </button>
+            <button class="button-option" data-food="meats">
+              <img
+                src="https://media.istockphoto.com/id/1200498591/fi/valokuva/erilaisia-tuoreita-lihalajeja-sianlihaa-naudanlihaa-kalkkunaa-ja-kanaa-ylänäkymä.jpg?s=612x612&w=0&k=20&c=Cmom-0tXwRZEgu0vGtIjv7G-45zHj4egE_I5VIdbSk0="
+              />Lihat
+            </button>
+            <button class="button-option" data-food="frozenFoods">
+              <img
+                src="https://media.istockphoto.com/id/591835176/fi/valokuva/jäädytetyt-vihannekset.jpg?s=612x612&w=0&k=20&c=EORXKg5aYNJybaoccGn6EThgEUHgJ9vdBs20j4sOTGc="
+              />
+              Pakasteet
+            </button>
+            <button class="button-option" data-food="hotDrinks">
+              <img
+                src="https://lh5.googleusercontent.com/proxy/KjSQfWIfHdaKdg8sJd_Ta7zkhZfIgsfUezE6blqQcou09VmCMWxgjHc_x6vlfD5INM9job7HlWbVMVXF7rmZGu8BfA"
+              />
+              Kuumat juomat
+            </button>
+            <button class="button-option" data-food="dairyProducts">
+              Meijerituotteet
+            </button>
+            <button class="button-option" data-food="sweetProducts">
+              Makeiset
+            </button>
+            <button class="button-option" data-food="saltyProducts">
+              Suolaiset
+            </button>
+          </div>
+        </aside>
+        <div class="foods"></div>
+      </div>
+    </div>
+    <script></script>
   </body>
 </html>

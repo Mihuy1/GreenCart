@@ -305,13 +305,13 @@ form {
 .foods article {
   box-sizing: border-box;
   border: 1px solid #516559;
-  flex: 0 0 calc(25% - 20px); /* Adjust margin space */
+  flex: 0 0 calc(25% - 20px);
   border-radius: 20px;
   flex: 0 0 20%;
   cursor: pointer;
-  margin: 10px 2rem; /* Add this line */
+  margin: 10px auto;
   flex-direction: column;
-  align-items: center; /* Add this line */
+  align-items: center;
   min-width: 280px;
   min-height: 530px;
   max-width: 350px;
