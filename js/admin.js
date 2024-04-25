@@ -1,6 +1,13 @@
 const url = 'http://localhost:3000/api/v1'; // change url when uploading to server
 const imageUrl = 'http://localhost:3000/uploads/'; // change url when uploading to server
 
+const newProductCloseButton = document.querySelector('.new-product-close');
+
+newProductCloseButton.addEventListener('click', function () {
+  const dialog = document.querySelector('.add-product-dialog');
+  dialog.close();
+});
+
 const meats = [
   {
     name: 'Jauheliha',
@@ -478,10 +485,14 @@ const listAllProducts = async () => {
 
     priceElement.style.fontWeight = 'bold';
 
+    imageElement.style.maxWidth = '250px';
+    imageElement.style.maxHeight = '250px';
+
+    articleElement.appendChild(imageElement);
     articleElement.appendChild(titleElement);
     articleElement.appendChild(descriptionElement);
     articleElement.appendChild(priceElement);
-    articleElement.appendChild(imageElement);
+
     productsDiv.appendChild(articleElement);
 
     articleElement.addEventListener('click', (evt) => {
@@ -543,6 +554,10 @@ const listAllProducts = async () => {
       editButton.textContent = 'Edit';
       editButton.classList.add('modal-button');
 
+      const deleteButton = document.createElement('button');
+      deleteButton.textContent = 'Delete';
+      deleteButton.classList.add('modal-button');
+
       editButton.addEventListener('click', async (evt) => {
         evt.preventDefault();
 
@@ -551,8 +566,6 @@ const listAllProducts = async () => {
           description: editDescription.value,
           price: editPrice.value,
         };
-
-        console.log('updatedProduct', updatedProduct);
 
         try {
           const response = await fetch(
@@ -570,9 +583,10 @@ const listAllProducts = async () => {
           );
 
           if (response.ok) {
-            console.log('Product updated');
+            alert('Product updated successfully');
             window.location.reload();
           } else {
+            alert('Error updating product');
             console.error('Error updating product');
           }
         } catch (error) {
@@ -580,9 +594,16 @@ const listAllProducts = async () => {
         }
       });
 
+      deleteButton.addEventListener('click', async (evt) => {
+        evt.preventDefault();
+
+        deleteProduct(products[i].productId);
+      });
+
       foodEditContent.appendChild(editForm);
       foodEditContent.appendChild(editButton);
       foodEditContent.appendChild(closeButton);
+      foodEditContent.appendChild(deleteButton);
 
       foodEdit.appendChild(foodEditContent);
       foodEdit.showModal();
@@ -590,15 +611,13 @@ const listAllProducts = async () => {
   }
 };
 
-const addProduct = async (name, description, price, file) => {
+const addProduct = async (name, description, price, file, categoryId) => {
   let formData = new FormData();
   formData.append('name', name);
   formData.append('description', description);
   formData.append('price', price);
   formData.append('file', file);
-  for (let pair of formData.entries()) {
-    console.log(pair[0] + ', ' + pair[1]);
-  }
+  formData.append('categoryId', categoryId);
 
   try {
     const options = {
@@ -613,7 +632,8 @@ const addProduct = async (name, description, price, file) => {
     const response = await fetch(`${url}/products`, options);
 
     if (response.ok) {
-      console.log('Product added');
+      alert('Product added successfully');
+      window.location.reload();
     } else {
       console.error('Error adding product');
     }
@@ -622,28 +642,103 @@ const addProduct = async (name, description, price, file) => {
   }
 };
 
+const getAllCategories = async () => {
+  try {
+    const response = await fetch(`${url}/categories`);
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } else {
+      console.error('Error fetching categories');
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const addProductButton = document.querySelector('.add-dialog-button');
 
-addProductButton.addEventListener('click', (evt) => {
+addProductButton.addEventListener('click', async (evt) => {
   evt.preventDefault();
 
+  const categories = await getAllCategories();
+
+  let select = document.querySelector('#new-product-category');
+  select.innerHTML = '';
+
+  console.log('categories', categories[0].name);
+
+  for (let i = 0; i < categories.length; i++) {
+    const option = document.createElement('option');
+    option.value = categories[i].categoryId;
+    option.textContent = categories[i].name;
+
+    select.add(option);
+  }
+
   const dialog = document.querySelector('.add-product-dialog');
+
+  const filePreview = document.querySelector('.file-preview');
 
   const name = document.querySelector('#product-name');
   const description = document.querySelector('#product-description');
   const price = document.querySelector('#product-price');
   const file = document.querySelector('#product-file');
 
+  file.addEventListener('change', (evt) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const image = document.createElement('img');
+      image.src = reader.result;
+      filePreview.innerHTML = '';
+      filePreview.appendChild(image);
+    };
+
+    reader.readAsDataURL(file.files[0]);
+  });
+
   const form = document.querySelector('.add-product-form');
 
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     console.log('name', file.files[0].name);
-    addProduct(name.value, description.value, price.value, file.files[0]);
+    addProduct(
+      name.value,
+      description.value,
+      price.value,
+      file.files[0],
+      select.value
+    );
   });
 
   dialog.showModal();
 });
+
+const deleteProduct = async (productId) => {
+  try {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcklkIjoxMCwibmFtZSI6IlBhdHJpa0giLCJhZGRyZXNzIjoibm9uZSIsImVtYWlsIjoicGF0cmlrLmh5eXRpYWluZW5AZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzE0MDI4ODcyfQ.tJiiYOYgRUO8YGJ4I6bwcG8XghOdxiUCF3p9iIhoRmM',
+      },
+    };
+
+    const response = await fetch(`${url}/products/${productId}`, options);
+
+    if (response.ok) {
+      alert('Product deleted successfully');
+      window.location.reload();
+    } else {
+      alert('Error deleting product');
+      console.error('Error deleting product');
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 window.onload = async () => {
   await fetchAllProducts();

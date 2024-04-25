@@ -38,6 +38,7 @@ h6 {
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;
+  z-index: 1000;
 }
 
 .navbar h2 {
@@ -279,30 +280,31 @@ form {
 }
 
 .foods {
-  margin-top: 40px;
   display: flex;
-  box-sizing: border-box;
   flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 .foods article {
-  box-sizing: border-box;
+  flex-basis: 20%;
+  margin: 10px;
   border: 1px solid #516559;
-  flex: 0 0 calc(25% - 20px);
   border-radius: 20px;
-  flex: 0 0 20%;
-  cursor: pointer;
-  margin: 10px auto;
-  flex-direction: column;
-  align-items: center;
-  min-width: 280px;
-  min-height: 530px;
-  max-width: 350px;
-  max-height: 550px;
-  overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
   transition: box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.foods article:hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  transform: scale(1.01);
+}
+
+.foods article img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .foods article:hover {
@@ -334,6 +336,34 @@ form {
 
 .current-image:hover {
   transform: scale(1.1);
+}
+
+.file-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+}
+
+.file-preview img {
+  max-width: 250px;
+  max-height: 250px;
+}
+
+.add-product-dialog form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-product-dialog form input {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.add-product-dialog form select {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 @media screen and (max-width: 1130px) {
