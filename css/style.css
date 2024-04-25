@@ -305,7 +305,7 @@ form {
 .foods article {
   box-sizing: border-box;
   border: 1px solid #516559;
-  flex: 0 0 calc(25% - 20px);
+  flex: 0 0 calc(25% - 20px); /* 25% for 4 items per row, minus 20px for margins */
   border-radius: 20px;
   flex: 0 0 20%;
   cursor: pointer;
