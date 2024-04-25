@@ -26,7 +26,7 @@ body {
   display: flex;
   justify-content: space-between;
   margin-bottom: 2rem;
-  background-color: whitesmoke;
+  background-color: #516559;
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;
@@ -48,7 +48,7 @@ body {
 }
 
 .navbar a {
-  color: black;
+  color: white;
   text-decoration: none;
 }
 
@@ -85,7 +85,9 @@ body {
   z-index: -1; /* Move the image behind other content */
 }
 
-
+.nav {
+  color: white;
+}
 
 .modal form {
   display: flex;
@@ -365,7 +367,7 @@ input {
 .navbar h1 {
   font-size: var(--fs-28);
   font-weight: var(--fw-6);
-  color: var(--onyx);
+  color: white;
   padding: 0px var(--px);
   display: flex;
   align-items: center;
