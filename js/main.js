@@ -1,10 +1,10 @@
 'use strict';
 
 const loginLink = document.querySelector('.login-link');
-const registerLink = document.querySelector('.register-link');
+//const registerLink = document.querySelector('.register-link');
 
 const loginDialog = document.querySelector('.login-modal');
-const registerDialog = document.querySelector('.registration-modal');
+//const registerDialog = document.querySelector('.registration-modal');
 
 loginLink.addEventListener('click', function (event) {
   event.preventDefault();
@@ -17,10 +17,12 @@ loginCloseButton.addEventListener('click', function () {
   loginDialog.close();
 });
 
+/*
 registerLink.addEventListener('click', function (event) {
   event.preventDefault();
   registerDialog.showModal();
 });
+
 
 const registerCloseButton = document.querySelector('.register-close-button');
 registerCloseButton.addEventListener('click', function (event) {
@@ -33,7 +35,7 @@ window.addEventListener('click', function (event) {
 
   if (event.target == registerDialog) registerDialog.close();
 });
-
+*/
 const meats = [
   {name: 'Jauheliha', description: 'Ground beef', price: 5.99, picture: "https://public.keskofiles.com/f/k-ruoka/product/6410405250902"},
   {name: 'Kana', description: 'Chicken', price: 7.99, picture: "https://cdn.s-cloud.fi/v1/w750_h750_q75/assets/dam-id/7jRAppMLqr9AlD9vED9nWO.jpg"},
