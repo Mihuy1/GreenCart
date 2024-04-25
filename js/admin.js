@@ -334,7 +334,7 @@ buttons.forEach(function (button) {
         break;
     }
 
-    const foodInfo = document.querySelector('.food-info');
+    const foodEdit = document.querySelector('.food-info');
 
     selectedFoods.forEach(function (food) {
       const article = document.createElement('article');
@@ -358,7 +358,8 @@ buttons.forEach(function (button) {
       foodsDiv.appendChild(article);
 
       article.addEventListener('click', function () {
-        foodInfo.innerHTML = '';
+        foodEdit.innerHTML = '';
+        foodEditContent.innerHTML = '';
 
         const addToCartButton = document.createElement('button');
 
@@ -376,19 +377,19 @@ buttons.forEach(function (button) {
 
         modalPrice.style.fontWeight = 'bold';
 
-        addToCartButton.classList.add('buy-button');
+        addToCartButton.classList.add('modal-button');
 
-        foodInfo.appendChild(modalImage);
-        foodInfo.appendChild(modalTitle);
-        foodInfo.appendChild(modalDescription);
-        foodInfo.appendChild(modalPrice);
-        foodInfo.appendChild(addToCartButton);
+        foodEditContent.appendChild(modalImage);
+        foodEditContent.appendChild(modalTitle);
+        foodEditContent.appendChild(modalDescription);
+        foodEditContent.appendChild(modalPrice);
+        foodEditContent.appendChild(addToCartButton);
 
-        foodInfo.showModal();
+        foodEdit.showModal();
 
         window.addEventListener('click', function (event) {
-          if (event.target == foodInfo) {
-            foodInfo.close();
+          if (event.target == foodEdit) {
+            foodEdit.close();
           }
         });
       });
@@ -447,7 +448,6 @@ const fetchAllProducts = async () => {
     const data = await response.json();
 
     if (response.status === 200) {
-      console.log('Success');
       products.push(...data); // Use spread operator to push individual items into the products array
     } else {
       console.error('Error');
@@ -457,19 +457,195 @@ const fetchAllProducts = async () => {
   }
 };
 
-window.onload = async () => {
-  await fetchAllProducts();
-  console.log(products[2].file);
+const foodEdit = document.querySelector('.food-edit');
+const foodEditContent = document.querySelector('.food-edit-content');
 
+const listAllProducts = async () => {
   const productsDiv = document.querySelector('.foods');
 
   for (let i = 0; i < products.length; i++) {
     const articleElement = document.createElement('article');
+    const titleElement = document.createElement('h3');
+    const descriptionElement = document.createElement('p');
+    const priceElement = document.createElement('p');
     const imageElement = document.createElement('img');
 
     imageElement.src = imageUrl + products[i].file;
 
+    titleElement.textContent = products[i].name;
+    descriptionElement.textContent = products[i].description;
+    priceElement.textContent = products[i].price + ' €';
+
+    priceElement.style.fontWeight = 'bold';
+
+    articleElement.appendChild(titleElement);
+    articleElement.appendChild(descriptionElement);
+    articleElement.appendChild(priceElement);
     articleElement.appendChild(imageElement);
     productsDiv.appendChild(articleElement);
+
+    articleElement.addEventListener('click', (evt) => {
+      evt.preventDefault();
+      foodEdit.innerHTML = '';
+      foodEditContent.innerHTML = '';
+
+      const closeButton = document.createElement('button');
+      closeButton.textContent = 'X';
+      closeButton.classList.add('close-button');
+
+      closeButton.addEventListener('click', (evt) => {
+        evt.preventDefault();
+        foodEdit.close();
+      });
+
+      const editForm = document.createElement('form');
+      const editTitle = document.createElement('input');
+      const editDescription = document.createElement('input');
+      const editPrice = document.createElement('input');
+      const editImage = document.createElement('input');
+
+      const editTitleLabel = document.createElement('label');
+      const editDescriptionLabel = document.createElement('label');
+      const editPriceLabel = document.createElement('label');
+      const editImageLabel = document.createElement('label');
+
+      editTitleLabel.textContent = 'Title';
+      editDescriptionLabel.textContent = 'Description';
+      editPriceLabel.textContent = 'Price';
+      editImageLabel.textContent = 'Image';
+
+      editTitle.value = products[i].name;
+      editDescription.value = products[i].description;
+      editPrice.value = products[i].price;
+      editImage.value = products[i].file;
+
+      editImage.type = 'file';
+      editImage.accept = 'image/*';
+
+      editTitle.classList.add('modal-input');
+      editDescription.classList.add('modal-input');
+      editPrice.classList.add('modal-input');
+      editImage.classList.add('modal-input');
+
+      editForm.appendChild(editTitleLabel);
+      editForm.appendChild(editTitle);
+
+      editForm.appendChild(editDescriptionLabel);
+      editForm.appendChild(editDescription);
+
+      editForm.appendChild(editPriceLabel);
+      editForm.appendChild(editPrice);
+
+      editForm.appendChild(editImageLabel);
+      editForm.appendChild(editImage);
+
+      const editButton = document.createElement('button');
+      editButton.textContent = 'Edit';
+      editButton.classList.add('modal-button');
+
+      editButton.addEventListener('click', async (evt) => {
+        evt.preventDefault();
+
+        const updatedProduct = {
+          name: editTitle.value,
+          description: editDescription.value,
+          price: editPrice.value,
+        };
+
+        console.log('updatedProduct', updatedProduct);
+
+        try {
+          const response = await fetch(
+            `${url}/products/${products[i].productId}`,
+            {
+              method: 'PUT',
+              headers: {
+                Authorization:
+                  'Bearer ' +
+                  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcklkIjoxMCwibmFtZSI6IlBhdHJpa0giLCJhZGRyZXNzIjoibm9uZSIsImVtYWlsIjoicGF0cmlrLmh5eXRpYWluZW5AZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzE0MDI4ODcyfQ.tJiiYOYgRUO8YGJ4I6bwcG8XghOdxiUCF3p9iIhoRmM',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(updatedProduct),
+            }
+          );
+
+          if (response.ok) {
+            console.log('Product updated');
+            window.location.reload();
+          } else {
+            console.error('Error updating product');
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      });
+
+      foodEditContent.appendChild(editForm);
+      foodEditContent.appendChild(editButton);
+      foodEditContent.appendChild(closeButton);
+
+      foodEdit.appendChild(foodEditContent);
+      foodEdit.showModal();
+    });
   }
+};
+
+const addProduct = async (name, description, price, file) => {
+  let formData = new FormData();
+  formData.append('name', name);
+  formData.append('description', description);
+  formData.append('price', price);
+  formData.append('file', file);
+  for (let pair of formData.entries()) {
+    console.log(pair[0] + ', ' + pair[1]);
+  }
+
+  try {
+    const options = {
+      method: 'POST',
+      headers: {
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcklkIjoxMCwibmFtZSI6IlBhdHJpa0giLCJhZGRyZXNzIjoibm9uZSIsImVtYWlsIjoicGF0cmlrLmh5eXRpYWluZW5AZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzE0MDI4ODcyfQ.tJiiYOYgRUO8YGJ4I6bwcG8XghOdxiUCF3p9iIhoRmM',
+      },
+      body: formData,
+    };
+
+    const response = await fetch(`${url}/products`, options);
+
+    if (response.ok) {
+      console.log('Product added');
+    } else {
+      console.error('Error adding product');
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const addProductButton = document.querySelector('.add-dialog-button');
+
+addProductButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+
+  const dialog = document.querySelector('.add-product-dialog');
+
+  const name = document.querySelector('#product-name');
+  const description = document.querySelector('#product-description');
+  const price = document.querySelector('#product-price');
+  const file = document.querySelector('#product-file');
+
+  const form = document.querySelector('.add-product-form');
+
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    console.log('name', file.files[0].name);
+    addProduct(name.value, description.value, price.value, file.files[0]);
+  });
+
+  dialog.showModal();
+});
+
+window.onload = async () => {
+  await fetchAllProducts();
+  await listAllProducts();
 };
