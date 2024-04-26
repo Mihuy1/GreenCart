@@ -128,8 +128,6 @@
         </form>
       </dialog>
 
-      <button class="add-dialog-button">Add new product</button>
-
       <dialog class="add-product-dialog">
         <button class="close-button new-product-close">X</button>
 
@@ -144,6 +142,7 @@
             class="modal-input"
             placeholder="Name"
             required
+            autocomplete="off"
           />
 
           <label for="product-description">Description</label>
@@ -152,6 +151,7 @@
             id="product-description"
             class="modal-input"
             placeholder="Description"
+            autocomplete="off"
           />
 
           <label for="product-price">Price</label>
@@ -162,10 +162,11 @@
             placeholder="Price"
             step="0.01"
             required
+            autocomplete="off"
           />
 
           <label for="product-file">Image</label>
-          <input type="file" id="product-file" required />
+          <input type="file" id="product-file" required autocomplete="off" />
 
           <label for="product-category">Category</label>
           <select id="new-product-category" required></select>
@@ -182,7 +183,12 @@
 
       <div class="main-section">
         <aside class="sidebar">
-          <h1>Categories</h1>
+          <h1>Settings</h1>
+
+          <button class="add-dialog-button aside-setting-button">
+            Add new product
+          </button>
+
           <form>
             <div class="search">
               <span class="search-icon material-symbols-outlined">

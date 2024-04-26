@@ -91,8 +91,6 @@ let allProducts = null;
     sweetProducts = allProducts.filter((product) => product.categoryId === 8);
     saltyProducts = allProducts.filter((product) => product.categoryId === 9);
 
-    console.log('meats', meats[0].name);
-
     // Use the filtered products here...
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -202,16 +200,19 @@ const listAllProducts = async () => {
       const editDescription = document.createElement('input');
       const editPrice = document.createElement('input');
       const editImage = document.createElement('input');
+      const selectElement = document.createElement('select');
 
       const editTitleLabel = document.createElement('label');
       const editDescriptionLabel = document.createElement('label');
       const editPriceLabel = document.createElement('label');
       const editImageLabel = document.createElement('label');
+      const selectLabel = document.createElement('label');
 
       editTitleLabel.textContent = 'Title';
       editDescriptionLabel.textContent = 'Description';
       editPriceLabel.textContent = 'Price';
       editImageLabel.textContent = 'Image';
+      selectLabel.textContent = 'Category';
 
       editTitle.value = products[i].name;
       editDescription.value = products[i].description;
@@ -226,6 +227,34 @@ const listAllProducts = async () => {
       editPrice.classList.add('modal-input');
       editImage.classList.add('modal-input');
 
+      let selectedFile = null;
+
+      const imagePreview = document.createElement('div');
+      imagePreview.classList.add('file-preview');
+      const img = document.createElement('img');
+      img.src = imageUrl + products[i].file;
+      imagePreview.appendChild(img);
+
+      editImage.addEventListener('change', (evt) => {
+        selectedFile = evt.target.files[0];
+        console.log('Selected file:', selectedFile);
+        img.src = URL.createObjectURL(selectedFile);
+      });
+
+      selectElement.innerHTML = '';
+
+      for (let i = 0; i < allCategories.length; i++) {
+        const option = document.createElement('option');
+        option.value = allCategories[i].categoryId;
+        option.textContent = allCategories[i].name;
+
+        selectElement.add(option);
+      }
+
+      selectElement.value = products[i].categoryId;
+
+      editForm.appendChild(imagePreview);
+
       editForm.appendChild(editTitleLabel);
       editForm.appendChild(editTitle);
 
@@ -237,6 +266,9 @@ const listAllProducts = async () => {
 
       editForm.appendChild(editImageLabel);
       editForm.appendChild(editImage);
+
+      editForm.appendChild(selectLabel);
+      editForm.appendChild(selectElement);
 
       const editButton = document.createElement('button');
       editButton.textContent = 'Edit';
@@ -253,7 +285,16 @@ const listAllProducts = async () => {
           name: editTitle.value,
           description: editDescription.value,
           price: editPrice.value,
+          file: selectedFile,
+          categoryId: selectElement.value,
         };
+
+        const formData = new FormData();
+        formData.append('name', updatedProduct.name);
+        formData.append('description', updatedProduct.description);
+        formData.append('price', updatedProduct.price);
+        if (updatedProduct.file) formData.append('file', updatedProduct.file);
+        formData.append('categoryId', updatedProduct.categoryId);
 
         try {
           const response = await fetch(
@@ -261,12 +302,9 @@ const listAllProducts = async () => {
             {
               method: 'PUT',
               headers: {
-                Authorization:
-                  'Bearer ' +
-                  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcklkIjoxMCwibmFtZSI6IlBhdHJpa0giLCJhZGRyZXNzIjoibm9uZSIsImVtYWlsIjoicGF0cmlrLmh5eXRpYWluZW5AZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzE0MDI4ODcyfQ.tJiiYOYgRUO8YGJ4I6bwcG8XghOdxiUCF3p9iIhoRmM',
-                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + localStorage.getItem('token'),
               },
-              body: JSON.stringify(updatedProduct),
+              body: formData,
             }
           );
 
@@ -337,6 +375,7 @@ addProductButton.addEventListener('click', async (evt) => {
   const categories = await getAllCategories();
 
   let select = document.querySelector('#new-product-category');
+
   select.innerHTML = '';
 
   console.log('categories', categories[0].name);

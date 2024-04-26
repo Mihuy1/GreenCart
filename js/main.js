@@ -4,9 +4,44 @@ const url = 'http://localhost:3000/api/v1'; // change url when uploading to serv
 
 const loginLink = document.querySelector('.login-link');
 const registerLink = document.querySelector('.register-link');
+const logoutLink = document.querySelector('.logout-link');
+const adminLink = document.querySelector('.admin-link');
 
 const loginDialog = document.querySelector('.login-modal');
 const registerDialog = document.querySelector('.registration-modal');
+
+const fetchData = async (url, options = {}) => {
+  console.log('fetching data from url: ', url);
+  const response = await fetch(url, options);
+  const json = await response.json();
+  if (!response.ok) {
+    console.log('json', json);
+    if (json.message) {
+      throw new Error(json.message);
+    }
+    throw new Error(`Error ${response.status} occured`);
+  }
+  return json;
+};
+
+const checkIfAdmin = async (token) => {
+  try {
+    const response = await fetch(url + '/auth/me', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const json = await response.json();
+
+    if (json.customer.role === 'admin') {
+      adminLink.style.display = 'block';
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+export {fetchData};
 
 loginLink.addEventListener('click', function (event) {
   event.preventDefault();
@@ -86,25 +121,47 @@ loginForm.addEventListener('submit', async (evt) => {
     console.log(response.status);
 
     if (response.status === 200) {
-      if (json.token) {
+      const rememberMe = document.getElementById('remember-me').checked;
+
+      if (rememberMe) {
+        console.log('localStorage');
         localStorage.setItem('token', json.token);
+      } else {
+        console.log('sessionStorage');
+        sessionStorage.setItem('token', json.token);
       }
 
-      if (json.name) {
-        localStorage.setItem('user', JSON.stringify(json.user));
-      }
+      const token =
+        localStorage.getItem('token') || sessionStorage.getItem('token');
 
       alert('Login successful');
       loginDialog.close();
 
-      loginLink.style.display = 'none';
-      registerLink.style.display = 'none';
+      updateLinkVisibility();
     } else {
       failText.textContent = json.error.message;
     }
   } catch (error) {
     console.error('Error:', error);
     failText.style.visibility = 'visible';
+  }
+});
+
+const logout = () => {
+  localStorage.removeItem('token');
+  sessionStorage.removeItem('token');
+  loginLink.style.display = 'block';
+  registerLink.style.display = 'block';
+  adminLink.style.display = 'none';
+  logoutLink.style.display = 'none';
+};
+
+logoutLink.addEventListener('click', function (event) {
+  event.preventDefault();
+
+  const confirmLogout = confirm('Are you sure you want to logout?');
+  if (confirmLogout) {
+    logout();
   }
 });
 
@@ -554,3 +611,22 @@ searchBar.addEventListener('input', function () {
   const filteredFoods = filterFoods(selectedFoods.flat(), filter);
   displayFoods(filteredFoods);
 });
+
+const updateLinkVisibility = () => {
+  const token =
+    localStorage.getItem('token') || sessionStorage.getItem('token');
+
+  if (token) {
+    loginLink.style.display = 'none';
+    registerLink.style.display = 'none';
+    logoutLink.style.display = 'block';
+    checkIfAdmin(token);
+  } else {
+    loginLink.style.display = 'block';
+    registerLink.style.display = 'block';
+    logoutLink.style.display = 'none';
+    adminLink.style.display = 'none';
+  }
+};
+
+updateLinkVisibility();
