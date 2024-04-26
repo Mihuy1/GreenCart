@@ -86,10 +86,10 @@ const sweetProducts = [
 
 const saltyProducts =[
   {name: 'Lays Salted sipsit 175g', description:'Lays', price: 3.00,picture:" https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvSyeu8LJSln_w0EqCaAPodDMJvT3VideUWf_Yhl4nSQ&s"},
-  {name: 'Pringles Cheese-Onion 185g', description: 'sipsit', price: '3.69', picture: "https://public.keskofiles.com/f/k-ruoka/product/0NNH0/5053990167494?w=700&h=390&fit=max&auto=format&fm=jpg&cs=srgb"},
-  {name: 'Paahdetut ja suolatut pistaasipähkinät 325g', description: 'Pähkinät', price: '10.59', picture: "https://www.earthcontrol.fi/globalassets/connect-media/image/84/16432_xl-ec-quatro-pistacio-325g.png?preset=product-large&{lazy}&bgcolor=white"},
-  {name: 'Taffel Sips suolattu sipsi 145g', description: 'sipsit', price: '2.09', picture: "https://www.taffel.fi/wp-content/uploads/sites/73/2023/06/emmi_475008003.png"},
-  {name: 'Estrella suolattu Micropopcorn 3kpl', description: 'Popcornit', price: '2.45', picture: ""},
+  {name: 'Taffel Grills 325 g', description: 'sipsit', price: '3.69', picture: "https://www.taffel.fi/wp-content/uploads/sites/73/2023/06/emmi_475008058.png"},
+  {name: 'Taffel Broadway 150g', description: 'Sipsit', price: '2.09', picture: "https://www.taffel.fi/wp-content/uploads/sites/73/2023/06/emmi_475008033.png"},
+  {name: 'Taffel Suolattu sipsi 145g', description: 'Sipsit', price: '2.09', picture: "https://www.taffel.fi/wp-content/uploads/sites/73/2023/06/emmi_475008003.png"},
+  {name: 'Taffel Furious 325g ', description: 'Sipsit', price: '3.69', picture: "https://public.keskofiles.com/f/k-ruoka/product/6410381080777"},
 
 ];
 
