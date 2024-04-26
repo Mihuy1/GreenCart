@@ -280,44 +280,14 @@ const listAllProducts = async () => {
 
       editButton.addEventListener('click', async (evt) => {
         evt.preventDefault();
-
-        const updatedProduct = {
-          name: editTitle.value,
-          description: editDescription.value,
-          price: editPrice.value,
-          file: selectedFile,
-          categoryId: selectElement.value,
-        };
-
-        const formData = new FormData();
-        formData.append('name', updatedProduct.name);
-        formData.append('description', updatedProduct.description);
-        formData.append('price', updatedProduct.price);
-        if (updatedProduct.file) formData.append('file', updatedProduct.file);
-        formData.append('categoryId', updatedProduct.categoryId);
-
-        try {
-          const response = await fetch(
-            `${url}/products/${products[i].productId}`,
-            {
-              method: 'PUT',
-              headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('token'),
-              },
-              body: formData,
-            }
-          );
-
-          if (response.ok) {
-            alert('Product updated successfully');
-            window.location.reload();
-          } else {
-            alert('Error updating product');
-            console.error('Error updating product');
-          }
-        } catch (error) {
-          console.error(error);
-        }
+        modifyProduct(
+          products[i].productId,
+          editTitle.value,
+          editDescription.value,
+          editPrice.value,
+          selectedFile,
+          selectElement.value
+        );
       });
 
       deleteButton.addEventListener('click', async (evt) => {
@@ -334,6 +304,50 @@ const listAllProducts = async () => {
       foodEdit.appendChild(foodEditContent);
       foodEdit.showModal();
     });
+  }
+};
+
+const modifyProduct = async (
+  productId,
+  name,
+  description,
+  price,
+  file,
+  categoryId
+) => {
+  const updatedProduct = {
+    name: name,
+    description: description,
+    price: price,
+    file: file,
+    categoryId: categoryId,
+  };
+
+  const formData = new FormData();
+  formData.append('name', updatedProduct.name);
+  formData.append('description', updatedProduct.description);
+  formData.append('price', updatedProduct.price);
+  if (updatedProduct.file) formData.append('file', updatedProduct.file);
+  formData.append('categoryId', updatedProduct.categoryId);
+
+  try {
+    const response = await fetch(`${url}/products/${productId}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      },
+      body: formData,
+    });
+
+    if (response.ok) {
+      alert('Product updated successfully');
+      window.location.reload();
+    } else {
+      alert('Error updating product');
+      console.error('Error updating product');
+    }
+  } catch (error) {
+    console.error(error);
   }
 };
 
