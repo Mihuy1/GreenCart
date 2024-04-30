@@ -1,5 +1,5 @@
-const url = 'http://localhost:3000/api/v1'; // change url when uploading to server
-const imageUrl = 'http://localhost:3000/uploads/'; // change url when uploading to server
+const url = 'https://10.120.32.54/app/api/v1'; // change url when uploading to server
+const imageUrl = 'https://10.120.32.54/app/uploads/'; // change url when uploading to server
 
 const newProductCloseButton = document.querySelector('.new-product-close');
 
@@ -40,10 +40,12 @@ const getAllProducts = async () => {
 
 const deleteProduct = async (productId) => {
   try {
+    const token =
+      localStorage.getItem('token') ?? sessionStorage.getItem('token');
     const options = {
       method: 'DELETE',
       headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        Authorization: 'Bearer ' + token,
       },
     };
 
@@ -74,112 +76,106 @@ let saltyProducts = [];
 let allCategories = null;
 let allProducts = null;
 
+let productsByCategory = {};
+
+let selectedFoods = [];
+let foods = [];
+
 (async function fetchAllData() {
   try {
     allCategories = await getAllCategories();
     allProducts = await getAllProducts();
 
-    meats = allProducts.filter((product) => product.categoryId === 1);
-    const frozenFoods = allProducts.filter(
-      (product) => product.categoryId === 2
-    );
-    hotDrinks = allProducts.filter((product) => product.categoryId === 3);
-    fruits = allProducts.filter((product) => product.categoryId === 4);
-    vegetables = allProducts.filter((product) => product.categoryId === 5);
-    cheeses = allProducts.filter((product) => product.categoryId === 6);
-    dairyProducts = allProducts.filter((product) => product.categoryId === 7);
-    sweetProducts = allProducts.filter((product) => product.categoryId === 8);
-    saltyProducts = allProducts.filter((product) => product.categoryId === 9);
+    allCategories.forEach((category) => {
+      productsByCategory[category.categoryId] = allProducts.filter(
+        (product) => product.categoryId === category.categoryId
+      );
+      foods.push(category.name.toLowerCase());
+    });
 
-    // Use the filtered products here...
+    selectedFoods = foods.flat();
+
+    const allButton = document.createElement('button');
+    allButton.textContent = 'All';
+    allButton.classList.add('button-option');
+    allButton.classList.add('selected');
+    document.querySelector('.aside-options').appendChild(allButton);
+
+    allCategories.forEach((category) => {
+      const buttonElement = document.createElement('button');
+      buttonElement.textContent = category.name;
+      buttonElement.classList.add('button-option');
+      document.querySelector('.aside-options').appendChild(buttonElement);
+    });
+
+    const buttons = Array.from(
+      document.querySelectorAll('.button-option')
+    ).slice(1);
+
+    allButton.addEventListener('click', (evt) => {
+      evt.preventDefault();
+
+      buttons.forEach((button) => {
+        button.classList.remove('selected');
+      });
+
+      allButton.classList.add('selected');
+
+      selectedFoods = allProducts;
+      displayFoods(selectedFoods);
+    });
+
+    buttons.forEach((button, index) => {
+      button.addEventListener('click', (evt) => {
+        evt.preventDefault();
+
+        buttons.forEach((button) => {
+          button.classList.remove('selected');
+          allButton.classList.remove('selected');
+        });
+
+        button.classList.add('selected');
+
+        selectedFoods = [];
+
+        const categoryId = index + 1;
+
+        selectedFoods = productsByCategory[categoryId];
+
+        if (selectedFoods.length === 0) {
+          foodsDiv.innerHTML =
+            '<p>No products available for this category.</p>';
+        } else {
+          displayFoods(selectedFoods);
+        }
+      });
+    });
   } catch (error) {
     console.error('Error fetching data:', error);
   }
 })();
 
-const foods = [
-  meats,
-  frozenFoods,
-  hotDrinks,
-  fruits,
-  vegetables,
-  cheeses,
-  dairyProducts,
-  sweetProducts,
-  saltyProducts,
-];
+const displayFoods = (foods) => {
+  foodsDiv.innerHTML = '';
 
-let selectedFoods = foods.flat();
-
-const buttons = document.querySelectorAll('.button-option');
-
-const foodsDiv = document.querySelector('.foods');
-
-buttons[0].classList.add('selected');
-
-function filterFoods(foods, filter) {
-  return foods.filter(
-    (food) =>
-      food.name.toLowerCase().includes(filter.toLowerCase()) ||
-      food.description.toLowerCase().includes(filter.toLowerCase())
-  );
-}
-
-const searchBar = document.querySelector('.search-input');
-
-searchBar.addEventListener('input', function () {
-  const filter = this.value;
-  const filteredFoods = filterFoods(selectedFoods.flat(), filter);
-  displayFoods(filteredFoods);
-});
-
-const products = [];
-
-const fetchAndAddProducts = async () => {
-  try {
-    const response = await fetch(`${url}/products`);
-    const data = await response.json();
-
-    if (response.status === 200) {
-      products.push(...data); // Use spread operator to push individual items into the products array
-    } else {
-      console.error('Error');
-    }
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-const foodEdit = document.querySelector('.food-edit');
-const foodEditContent = document.querySelector('.food-edit-content');
-
-const listAllProducts = async () => {
-  const productsDiv = document.querySelector('.foods');
-
-  for (let i = 0; i < products.length; i++) {
+  foods.forEach((food) => {
     const articleElement = document.createElement('article');
     const titleElement = document.createElement('h3');
     const descriptionElement = document.createElement('p');
     const priceElement = document.createElement('p');
     const imageElement = document.createElement('img');
 
-    imageElement.src = imageUrl + products[i].file;
+    imageElement.src = imageUrl + food.file;
+    imageElement.alt = food.name;
 
-    titleElement.textContent = products[i].name;
-    descriptionElement.textContent = products[i].description;
-    priceElement.textContent = products[i].price + ' €';
+    titleElement.textContent = food.name;
+    descriptionElement.textContent = food.description;
+    priceElement.textContent = food.price + ' €';
 
     priceElement.style.fontWeight = 'bold';
 
     imageElement.style.maxWidth = '250px';
     imageElement.style.maxHeight = '250px';
-
-    articleElement.appendChild(imageElement);
-    articleElement.appendChild(titleElement);
-    articleElement.appendChild(descriptionElement);
-    articleElement.appendChild(priceElement);
-
-    productsDiv.appendChild(articleElement);
 
     articleElement.addEventListener('click', (evt) => {
       evt.preventDefault();
@@ -214,10 +210,10 @@ const listAllProducts = async () => {
       editImageLabel.textContent = 'Image';
       selectLabel.textContent = 'Category';
 
-      editTitle.value = products[i].name;
-      editDescription.value = products[i].description;
-      editPrice.value = products[i].price;
-      editImage.value = products[i].file;
+      editTitle.value = food.name;
+      editDescription.value = food.description;
+      editPrice.value = food.price;
+      editImage.value = food.file;
 
       editImage.type = 'file';
       editImage.accept = 'image/*';
@@ -232,7 +228,7 @@ const listAllProducts = async () => {
       const imagePreview = document.createElement('div');
       imagePreview.classList.add('file-preview');
       const img = document.createElement('img');
-      img.src = imageUrl + products[i].file;
+      img.src = imageUrl + food.file;
       imagePreview.appendChild(img);
 
       editImage.addEventListener('change', (evt) => {
@@ -251,7 +247,7 @@ const listAllProducts = async () => {
         selectElement.add(option);
       }
 
-      selectElement.value = products[i].categoryId;
+      selectElement.value = food.categoryId;
 
       editForm.appendChild(imagePreview);
 
@@ -277,11 +273,12 @@ const listAllProducts = async () => {
       const deleteButton = document.createElement('button');
       deleteButton.textContent = 'Delete';
       deleteButton.classList.add('modal-button');
+      deleteButton.style.backgroundColor = 'red';
 
       editButton.addEventListener('click', async (evt) => {
         evt.preventDefault();
         modifyProduct(
-          products[i].productId,
+          food.productId,
           editTitle.value,
           editDescription.value,
           editPrice.value,
@@ -293,7 +290,7 @@ const listAllProducts = async () => {
       deleteButton.addEventListener('click', async (evt) => {
         evt.preventDefault();
 
-        deleteProduct(products[i].productId);
+        deleteProduct(food.productId);
       });
 
       foodEditContent.appendChild(editForm);
@@ -304,8 +301,45 @@ const listAllProducts = async () => {
       foodEdit.appendChild(foodEditContent);
       foodEdit.showModal();
     });
+
+    articleElement.appendChild(imageElement);
+    articleElement.appendChild(titleElement);
+    articleElement.appendChild(descriptionElement);
+    articleElement.appendChild(priceElement);
+
+    foodsDiv.appendChild(articleElement);
+  });
+};
+
+const foodsDiv = document.querySelector('.foods');
+
+const searchBar = document.querySelector('.search-input');
+
+searchBar.addEventListener('input', function () {
+  const filter = this.value;
+  const filteredFoods = filterFoods(selectedFoods.flat(), filter);
+  displayFoods(filteredFoods);
+});
+
+let products = [];
+
+const fetchAndAddProducts = async () => {
+  try {
+    const response = await fetch(`${url}/products`);
+    const data = await response.json();
+
+    if (response.status === 200) {
+      products.push(...data);
+    } else {
+      console.error('Error');
+    }
+  } catch (error) {
+    console.error(error);
   }
 };
+
+const foodEdit = document.querySelector('.food-edit');
+const foodEditContent = document.querySelector('.food-edit-content');
 
 const modifyProduct = async (
   productId,
@@ -331,10 +365,12 @@ const modifyProduct = async (
   formData.append('categoryId', updatedProduct.categoryId);
 
   try {
+    const token =
+      localStorage.getItem('token') ?? sessionStorage.getItem('token');
     const response = await fetch(`${url}/products/${productId}`, {
       method: 'PUT',
       headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        Authorization: 'Bearer ' + token,
       },
       body: formData,
     });
@@ -360,10 +396,12 @@ const addProduct = async (name, description, price, file, categoryId) => {
   formData.append('categoryId', categoryId);
 
   try {
+    const token =
+      localStorage.getItem('token') ?? sessionStorage.getItem('token');
     const options = {
       method: 'POST',
       headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        Authorization: 'Bearer ' + token,
       },
       body: formData,
     };
@@ -382,6 +420,7 @@ const addProduct = async (name, description, price, file, categoryId) => {
 };
 
 const addProductButton = document.querySelector('.add-dialog-button');
+const addCategoryButton = document.querySelector('.add-category-button');
 
 addProductButton.addEventListener('click', async (evt) => {
   evt.preventDefault();
@@ -440,7 +479,83 @@ addProductButton.addEventListener('click', async (evt) => {
   dialog.showModal();
 });
 
+const createCategory = async (name) => {
+  try {
+    const token =
+      localStorage.getItem('token') ?? sessionStorage.getItem('token');
+    const options = {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({name: name}),
+    };
+
+    const response = await fetch(`${url}/categories`, options);
+
+    if (response.ok) {
+      alert('Category added successfully');
+      window.location.reload();
+    } else {
+      console.error('Error adding category');
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+addCategoryButton.addEventListener('click', async (evt) => {
+  console.log('add category');
+  evt.preventDefault();
+
+  const dialogElement = document.createElement('dialog');
+  dialogElement.classList.add('add-dialog');
+
+  const closeButton = document.createElement('button');
+  closeButton.textContent = 'X';
+  closeButton.classList.add('close-button');
+
+  closeButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    dialogElement.close();
+  });
+
+  const headerElement = document.createElement('h2');
+  headerElement.textContent = 'Add new category';
+
+  const formElement = document.createElement('form');
+  formElement.classList.add('add-category-form');
+
+  const inputElement = document.createElement('input');
+  inputElement.type = 'text';
+  inputElement.placeholder = 'Category name';
+  inputElement.required = true;
+  inputElement.classList.add('modal-input');
+  inputElement.classList.add('category-input');
+
+  const submitElement = document.createElement('button');
+  submitElement.textContent = 'Add';
+  submitElement.classList.add('modal-button');
+  submitElement.classList.add('category-submit');
+
+  submitElement.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    createCategory(inputElement.value);
+  });
+
+  formElement.appendChild(headerElement);
+  formElement.appendChild(inputElement);
+  formElement.appendChild(submitElement);
+
+  dialogElement.appendChild(closeButton);
+  dialogElement.appendChild(formElement);
+  document.body.appendChild(dialogElement);
+
+  dialogElement.showModal();
+});
+
 window.onload = async () => {
   await fetchAndAddProducts();
-  await listAllProducts();
+  await displayFoods(products);
 };

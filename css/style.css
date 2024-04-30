@@ -38,6 +38,7 @@ h6 {
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;
+  z-index: 1000;
 }
 
 .navbar h2 {
@@ -296,44 +297,59 @@ form {
 }
 
 .foods {
-  margin-top: 40px;
+  margin-top: 50px;
   display: flex;
-  box-sizing: border-box;
   flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 .foods article {
-  box-sizing: border-box;
+  flex-basis: 20%;
+  margin: 10px;
   border: 1px solid #516559;
-  flex: 0 0 calc(25% - 20px); /* 25% for 4 items per row, minus 20px for margins */
   border-radius: 20px;
-  flex: 0 0 20%;
-  cursor: pointer;
-  margin: 10px auto;
-  flex-direction: column;
-  align-items: center;
-  min-width: 280px;
-  min-height: 530px;
-  max-width: 350px;
-  max-height: 550px;
-  overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
   transition: box-shadow 0.3s ease;
+  cursor: pointer;
+  max-height: 500px;
+  max-width: 400px;
 }
 
 .foods article:hover {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  transform: scale(1.01);
 }
 
 .foods article img {
-  max-width: 100%;
-  object-fit: cover;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  min-width: 250px;
+  min-height: 250px;
+  max-height: 250px;
+  max-width: 250px;
 }
 
 .foods article h3,
 .foods article p {
   padding: 6px;
+}
+
+.food-info-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem;
+  padding: 1rem;
+}
+
+.food-info-content img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 20px;
 }
 
 @media screen and (max-width: 1130px) {
