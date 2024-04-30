@@ -93,7 +93,7 @@ let foods = [];
       foods.push(category.name.toLowerCase());
     });
 
-    selectedFoods = foods.flat();
+    selectedFoods = allProducts;
 
     const allButton = document.createElement('button');
     allButton.textContent = 'All';
@@ -123,6 +123,7 @@ let foods = [];
 
       selectedFoods = allProducts;
       displayFoods(selectedFoods);
+      console.log('selectedFoods', selectedFoods);
     });
 
     buttons.forEach((button, index) => {
@@ -147,8 +148,21 @@ let foods = [];
             '<p>No products available for this category.</p>';
         } else {
           displayFoods(selectedFoods);
+          console.log('selectedFoods', selectedFoods);
         }
       });
+    });
+
+    const searchBar = document.querySelector('.search-input');
+
+    searchBar.addEventListener('input', (evt) => {
+      const searchValue = evt.target.value.toLowerCase();
+
+      const filteredProducts = selectedFoods.filter((product) => {
+        return product.name.toLowerCase().includes(searchValue);
+      });
+      displayFoods(filteredProducts);
+      console.log('filteredProducts', filteredProducts);
     });
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -312,14 +326,6 @@ const displayFoods = (foods) => {
 };
 
 const foodsDiv = document.querySelector('.foods');
-
-const searchBar = document.querySelector('.search-input');
-
-searchBar.addEventListener('input', function () {
-  const filter = this.value;
-  const filteredFoods = filterFoods(selectedFoods.flat(), filter);
-  displayFoods(filteredFoods);
-});
 
 let products = [];
 

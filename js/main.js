@@ -1,12 +1,13 @@
 'use strict';
 
-const url = 'https://10.120.32.54/app/api/v1'; // change url when uploading to server
-const imageUrl = 'https://10.120.32.54/app/uploads/'; // change url when uploading to server
+const url = 'https://10.120.32.54/app/api/v1';
+const imageUrl = 'https://10.120.32.54/app/uploads/';
 
 const loginLink = document.querySelector('.login-link');
 const registerLink = document.querySelector('.register-link');
 const logoutLink = document.querySelector('.logout-link');
 const adminLink = document.querySelector('.admin-link');
+const accountLink = document.querySelector('.account-link');
 
 const loginDialog = document.querySelector('.login-modal');
 const registerDialog = document.querySelector('.registration-modal');
@@ -85,12 +86,12 @@ let foods = [];
       foods.push(category.name.toLowerCase());
     });
 
-    selectedFoods = foods.flat();
+    selectedFoods = allProducts;
 
     console.log('selectedFoods:', selectedFoods);
 
     const allButton = document.createElement('button');
-    allButton.textContent = 'Kaikki';
+    allButton.textContent = 'All';
     allButton.classList.add('button-option');
     allButton.classList.add('selected');
     document.querySelector('.aside-options').appendChild(allButton);
@@ -143,6 +144,17 @@ let foods = [];
         } else {
           displayFoods(selectedFoods);
         }
+      });
+
+      const searchBar = document.querySelector('.search-input');
+
+      searchBar.addEventListener('input', (evt) => {
+        const searchValue = evt.target.value.toLowerCase();
+
+        const filteredProducts = selectedFoods.filter((product) => {
+          return product.name.toLowerCase().includes(searchValue);
+        });
+        displayFoods(filteredProducts);
       });
     });
   } catch (error) {
@@ -222,14 +234,6 @@ const foodInfo = document.querySelector('.food-info');
 const foodInfoContent = document.querySelector('.food-info-content');
 
 const foodsDiv = document.querySelector('.foods');
-
-const searchBar = document.querySelector('.search-input');
-
-searchBar.addEventListener('input', function () {
-  const filter = this.value;
-  const filteredFoods = filterFoods(selectedFoods.flat(), filter);
-  displayFoods(filteredFoods);
-});
 
 let products = [];
 
@@ -378,6 +382,7 @@ const logout = () => {
   registerLink.style.display = 'block';
   adminLink.style.display = 'none';
   logoutLink.style.display = 'none';
+  accountLink.style.display = 'none';
 };
 
 logoutLink.addEventListener('click', function (event) {
@@ -406,12 +411,14 @@ const updateLinkVisibility = () => {
     loginLink.style.display = 'none';
     registerLink.style.display = 'none';
     logoutLink.style.display = 'block';
+    accountLink.style.display = 'block';
     checkIfAdmin(token);
   } else {
     loginLink.style.display = 'block';
     registerLink.style.display = 'block';
     logoutLink.style.display = 'none';
     adminLink.style.display = 'none';
+    accountLink.style.display = 'none';
   }
 };
 
