@@ -268,7 +268,6 @@ form {
 }
 
 .aside-setting-button {
-  /*Theme button that is a setting which triggers a dialog */
   --padding: 1rem;
 
   display: flex;
@@ -408,6 +407,29 @@ form {
   }
 }
 
+@media screen and (max-width: 1150px) {
+  .foods article {
+    flex-basis: 20%;
+    margin: 10px;
+  }
+
+  .container {
+    width: 100%;
+    padding: 0;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 1034px) {
+  .foods article {
+    flex-basis: 50%;
+    margin: 10px;
+
+    max-height: 500px;
+    max-width: 300px;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .box {
     width: 100%;
@@ -429,9 +451,9 @@ form {
 
   .foods article {
     flex: 0 0 40%;
-    margin: 20px auto; /* Add this line */
+    margin: 20px auto;
     flex-direction: column;
-    align-items: center; /* Add this line */
+    align-items: center;
   }
 }
 .button-option img {

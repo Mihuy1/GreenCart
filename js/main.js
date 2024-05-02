@@ -88,8 +88,6 @@ let foods = [];
 
     selectedFoods = allProducts;
 
-    console.log('selectedFoods:', selectedFoods);
-
     const allButton = document.createElement('button');
     allButton.textContent = 'All';
     allButton.classList.add('button-option');
@@ -207,6 +205,55 @@ const displayFoods = (foods) => {
       foodInfoImage.src = imageUrl + food.file;
       foodInfoImage.alt = food.name;
 
+      const buyButton = document.createElement('button');
+      buyButton.classList.add('modal-buy-button');
+      buyButton.textContent = 'Add to order';
+
+      const quantityElement = document.createElement('div');
+      quantityElement.classList.add('quantity-element');
+
+      const minusButton = document.createElement('button');
+      minusButton.textContent = '-';
+      minusButton.classList.add('quantity-button');
+
+      const quantityNumber = document.createElement('p');
+      quantityNumber.textContent = '1';
+      quantityNumber.classList.add('quantity-number');
+
+      const plusButton = document.createElement('button');
+      plusButton.textContent = '+';
+      plusButton.classList.add('quantity-button');
+
+      quantityElement.appendChild(minusButton);
+      quantityElement.appendChild(quantityNumber);
+      quantityElement.appendChild(plusButton);
+
+      let quantity = parseInt(quantityNumber.textContent);
+
+      minusButton.addEventListener('click', (evt) => {
+        evt.preventDefault();
+
+        if (quantity > 1) {
+          quantity--;
+          quantityNumber.textContent = quantity;
+        } else {
+          quantity = 1;
+        }
+      });
+
+      plusButton.addEventListener('click', (evt) => {
+        evt.preventDefault();
+
+        quantity++;
+        quantityNumber.textContent = quantity;
+      });
+
+      buyButton.addEventListener('click', async (evt) => {
+        evt.preventDefault();
+
+        addProductToCart(food.productId, quantity);
+      });
+
       closeButton.addEventListener('click', (evt) => {
         evt.preventDefault();
         foodInfo.close();
@@ -217,6 +264,8 @@ const displayFoods = (foods) => {
       foodInfoContent.appendChild(foodInfoTitle);
       foodInfoContent.appendChild(foodInfoDescription);
       foodInfoContent.appendChild(foodInfoPrice);
+      foodInfoContent.appendChild(quantityElement);
+      foodInfoContent.appendChild(buyButton);
 
       foodInfo.showModal();
     });
@@ -225,7 +274,6 @@ const displayFoods = (foods) => {
     articleElement.appendChild(titleElement);
     articleElement.appendChild(descriptionElement);
     articleElement.appendChild(priceElement);
-
     foodsDiv.appendChild(articleElement);
   });
 };
@@ -269,7 +317,39 @@ const checkIfAdmin = async (token) => {
   }
 };
 
-export {fetchData};
+const addProductToCart = (productId, quantity) => {
+  // Get the user token from localStorage or sessionStorage
+  const userToken =
+    localStorage.getItem('token') || sessionStorage.getItem('token');
+
+  if (!userToken) {
+    alert('You need to login to buy products');
+    return;
+  }
+
+  let existingShoppingCartData =
+    JSON.parse(sessionStorage.getItem(`shoppingCart_${userToken}`)) || [];
+
+  // Check if the product already exists in the shopping cart data
+  const existingProductIndex = existingShoppingCartData.findIndex(
+    (item) => item.productId === productId
+  );
+  if (existingProductIndex !== -1) {
+    // If the product already exists, update its quantity
+    existingShoppingCartData[existingProductIndex].quantity += quantity;
+  } else {
+    // If the product does not exist, add it to the shopping cart data
+    existingShoppingCartData.push({productId, quantity});
+  }
+
+  // Store the updated shopping cart data back into sessionStorage
+  sessionStorage.setItem(
+    `shoppingCart_${userToken}`,
+    JSON.stringify(existingShoppingCartData)
+  );
+
+  console.log('Shopping cart data:', existingShoppingCartData);
+};
 
 loginLink.addEventListener('click', function (event) {
   event.preventDefault();
