@@ -105,6 +105,115 @@ let foods = [];
       const buttonElement = document.createElement('button');
       buttonElement.textContent = category.name;
       buttonElement.classList.add('button-option');
+
+      const imageElement = document.createElement('img');
+      imageElement.src = imageUrl + category.file;
+      imageElement.alt = category.name;
+      imageElement.classList.add('category-image');
+
+      imageElement.onerror = () => {
+        imageElement.src = 'https://via.placeholder.com/150';
+      };
+
+      buttonElement.prepend(imageElement);
+
+      const editButton = document.createElement('button');
+      editButton.textContent = 'Edit';
+      editButton.classList.add('edit-button');
+
+      const deleteButton = document.createElement('button');
+      deleteButton.textContent = 'Delete';
+      deleteButton.classList.add('delete-button');
+
+      deleteButton.addEventListener('click', (evt) => {
+        evt.stopPropagation();
+        evt.preventDefault();
+
+        deleteCategory(category.categoryId);
+      });
+
+      editButton.addEventListener('click', (evt) => {
+        evt.stopPropagation();
+        evt.preventDefault();
+
+        const dialogElement = document.createElement('dialog');
+        dialogElement.classList.add('add-dialog');
+
+        const closeButton = document.createElement('button');
+        closeButton.textContent = 'X';
+        closeButton.classList.add('close-button');
+
+        closeButton.addEventListener('click', (evt) => {
+          evt.preventDefault();
+          dialogElement.close();
+        });
+
+        const headerElement = document.createElement('h2');
+        headerElement.textContent = 'Edit category';
+
+        const imagePreview = document.createElement('div');
+        imagePreview.classList.add('file-preview');
+
+        const formElement = document.createElement('form');
+        formElement.classList.add('add-category-form');
+
+        const inputElement = document.createElement('input');
+        inputElement.type = 'text';
+        inputElement.required = true;
+        inputElement.classList.add('modal-input');
+        inputElement.classList.add('category-input');
+
+        const submitElement = document.createElement('button');
+        submitElement.textContent = 'Edit';
+        submitElement.classList.add('modal-button');
+        submitElement.classList.add('category-submit');
+
+        const imageElement = document.createElement('input');
+        imageElement.type = 'file';
+        imageElement.accept = 'image/*';
+
+        const image = document.createElement('img');
+
+        imageElement.addEventListener('change', (evt) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            image.src = reader.result;
+            imagePreview.innerHTML = '';
+            imagePreview.appendChild(image);
+          };
+
+          reader.readAsDataURL(imageElement.files[0]);
+        });
+
+        submitElement.addEventListener('click', (evt) => {
+          evt.preventDefault();
+          editCategory(
+            inputElement.value,
+            imageElement.files[0],
+            category.categoryId
+          );
+        });
+
+        formElement.appendChild(headerElement);
+        formElement.appendChild(imagePreview);
+        formElement.appendChild(inputElement);
+        formElement.appendChild(imageElement);
+        formElement.appendChild(submitElement);
+
+        dialogElement.appendChild(closeButton);
+        dialogElement.appendChild(formElement);
+
+        document.body.appendChild(dialogElement);
+
+        inputElement.value = category.name;
+        imagePreview.innerHTML = '';
+
+        dialogElement.showModal();
+      });
+
+      buttonElement.appendChild(editButton);
+      buttonElement.appendChild(deleteButton);
+
       document.querySelector('.aside-options').appendChild(buttonElement);
     });
 
@@ -485,17 +594,23 @@ addProductButton.addEventListener('click', async (evt) => {
   dialog.showModal();
 });
 
-const createCategory = async (name) => {
+const createCategory = async (name, file) => {
   try {
+    console.log('file', file);
     const token =
       localStorage.getItem('token') ?? sessionStorage.getItem('token');
+
+    const formData = new FormData();
+
+    formData.append('name', name);
+    formData.append('file', file);
+
     const options = {
       method: 'POST',
       headers: {
         Authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({name: name}),
+      body: formData,
     };
 
     const response = await fetch(`${url}/categories`, options);
@@ -508,6 +623,83 @@ const createCategory = async (name) => {
     }
   } catch (error) {
     console.error(error);
+  }
+};
+
+const editCategory = async (name, file, id) => {
+  try {
+    const token =
+      localStorage.getItem('token') ?? sessionStorage.getItem('token');
+
+    const formData = new FormData();
+
+    formData.append('name', name);
+    formData.append('file', file);
+
+    const options = {
+      method: 'PUT',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+      body: formData,
+    };
+
+    const response = await fetch(`${url}/categories/${id}`, options);
+
+    if (response.ok) {
+      alert('Category updated successfully');
+      window.location.reload();
+    } else {
+      console.error('Error updating category');
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const deleteCategory = async (id) => {
+  try {
+    const token =
+      localStorage.getItem('token') ?? sessionStorage.getItem('token');
+
+    if (!token) {
+      alert('You need to be logged in to delete a category');
+      return;
+    }
+
+    // Check if category has products
+    const products = await getAllProducts();
+
+    const categoryProducts = products.filter(
+      (product) => product.categoryId === id
+    );
+
+    if (categoryProducts.length > 0) {
+      alert('Category has products. Please delete products first');
+      return;
+    }
+
+    if (
+      window.confirm('Are you sure you want to delete this category?') === false
+    ) {
+      return;
+    }
+
+    const options = {
+      method: 'DELETE',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    };
+
+    const response = await fetch(`${url}/categories/${id}`, options);
+
+    if (response.status === 200) {
+      alert('Category deleted successfully');
+      window.location.reload();
+    }
+  } catch (error) {
+    alert('Error deleting category');
   }
 };
 
@@ -530,6 +722,9 @@ addCategoryButton.addEventListener('click', async (evt) => {
   const headerElement = document.createElement('h2');
   headerElement.textContent = 'Add new category';
 
+  const imagePreview = document.createElement('div');
+  imagePreview.classList.add('file-preview');
+
   const formElement = document.createElement('form');
   formElement.classList.add('add-category-form');
 
@@ -545,17 +740,36 @@ addCategoryButton.addEventListener('click', async (evt) => {
   submitElement.classList.add('modal-button');
   submitElement.classList.add('category-submit');
 
+  const imageElement = document.createElement('input');
+  imageElement.type = 'file';
+  imageElement.accept = 'image/*';
+
+  imageElement.addEventListener('change', (evt) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const image = document.createElement('img');
+      image.src = reader.result;
+      imagePreview.innerHTML = '';
+      imagePreview.appendChild(image);
+    };
+
+    reader.readAsDataURL(imageElement.files[0]);
+  });
+
   submitElement.addEventListener('click', (evt) => {
     evt.preventDefault();
-    createCategory(inputElement.value);
+    createCategory(inputElement.value, imageElement.files[0]);
   });
 
   formElement.appendChild(headerElement);
+  formElement.appendChild(imagePreview);
   formElement.appendChild(inputElement);
+  formElement.appendChild(imageElement);
   formElement.appendChild(submitElement);
 
   dialogElement.appendChild(closeButton);
   dialogElement.appendChild(formElement);
+
   document.body.appendChild(dialogElement);
 
   dialogElement.showModal();

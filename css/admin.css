@@ -395,6 +395,16 @@ form {
   margin-top: 1rem;
 }
 
+.category-image {
+  max-width: 35px;
+  max-height: 35px;
+  border-radius: 50%;
+}
+
+.edit-button {
+  margin-left: auto;
+}
+
 @media screen and (max-width: 1130px) {
   .foods article {
     flex: 0 0 calc(100% / 2);
