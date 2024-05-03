@@ -447,4 +447,30 @@ form {
 
 
 
+.like-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.like-button .material-icons {
+  font-size: 24px;
+  color: red; /* Default color */
+  cursor: pointer;
+}
+
+.like-button .material-icons:hover {
+  color: darkred; /* Hover color */
+}
+
+
+.like-button .material-icons.liked {
+  color: darkred;
+}
+
+
+
+
+
+
 

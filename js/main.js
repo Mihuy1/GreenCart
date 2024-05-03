@@ -74,7 +74,7 @@ const dairyProducts = [
   {name: 'Maito', description: 'Milk', price: 1.99, picture:"https://cdn.valio.fi/mediafiles/4ab7d7d7-6812-42b6-86d1-38cdf23b8252/800x800-product/800x800/valio-kevytmaito-5-dl.png"},
   {name: 'Kerma', description: 'Cream', price: 2.99, picture:"https://www.juustoportti.fi/wp-content/uploads/2023/12/juustoportti-vispikerma-5-dl-laktoositon-uht.png"},
   {name: 'Jogurtti', description: 'Yogurt', price: 3.99, picture:"https://evermade-benecol-multisite-website.s3.eu-north-1.amazonaws.com/wp-content/uploads/2020/08/25123711/Benecol_FI_greek_style_maustamaton_800x800-768x768.png"},
-  {name: 'Piimä', description: 'Buttermilk', price: 4.99, picture:"https://ams3.digitaloceanspaces.com/avmedia/e/20/e204939a-efd0-4e15-9221-6b47d72d78d3.webp"},
+  {name: 'Piimä', description: 'Buttermilk', price: 4.99, picture:"https://ams3.digitaloceanspaces.com/avmedia/e/20/e204939a-efd0-4e15-9221-6b47d72d78d3.webp",},
 ];
 const sweetProducts = [
   {name: 'Fazer suklaa', description: 'Chocolate', price: 2.99, picture:'https://fi.fazer.com/cdn/shop/files/Raspberry-case_640x640.png?v=1704973682'},
@@ -231,17 +231,20 @@ function displayFoods(selectedFoods) {
     const title = document.createElement('h3');
     const description = document.createElement('p');
     const price = document.createElement('p');
+    const test = document.createElement('h1');
 
     title.textContent = food.name;
     image.src = food.picture;
     price.textContent = food.price + ' €';
     description.textContent = food.description;
     price.style.fontWeight = 'bold';
+    test.textContent = '❤️';
 
     article.appendChild(image);
     article.appendChild(title);
     article.appendChild(price);
     article.appendChild(description);
+    article.appendChild(test)
 
     foodsDiv.appendChild(article);
   });
@@ -264,3 +267,12 @@ searchBar.addEventListener('input', function () {
   const filteredFoods = filterFoods(selectedFoods.flat(), filter);
   displayFoods(filteredFoods);
 });
+
+document.querySelectorAll('.like-button').forEach(button => {
+  button.addEventListener('click', function() {
+    this.querySelector('.material-icons').classList.toggle('liked');
+  });
+});
+
+
+
