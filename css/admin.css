@@ -1,0 +1,537 @@
+:root {
+  font-family: Inter, sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+}
+@supports (font-variation-settings: normal) {
+  :root {
+    font-family: InterVariable, sans-serif;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  color: #424242;
+  background-color: white;
+}
+
+.box {
+  width: 50%;
+  height: 100px;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  margin: 10px;
+  display: inline-block;
+  border-radius: 10px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #333;
+}
+
+.container {
+  margin: 0 auto;
+  width: 90%;
+  background-color: white;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  background-color: #516559;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar h2 {
+  margin-left: 1rem;
+}
+
+.navbar ul {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar ul li {
+  list-style: none;
+  padding: 10px;
+  margin: 0 10px;
+}
+
+.navbar a {
+  color: #eeeeee;
+  text-decoration: none;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: large;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: red;
+}
+
+.login-modal form,
+.registration-modal form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal h1 {
+  text-align: center;
+  font-size: x-large;
+}
+
+.frontphoto {
+  width: 100%;
+  height: 70vh;
+  object-fit: cover;
+  position: relative;
+  z-index: -1;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal form input {
+  margin-bottom: 1rem;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: large;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: red;
+}
+
+.login-modal form,
+.registration-modal form {
+  display: flex;
+  flex-direction: column;
+}
+
+.fail-login-text {
+  visibility: hidden;
+  margin: 0;
+  color: red;
+}
+
+.modal h1 {
+  text-align: center;
+  font-size: x-large;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal form input {
+  margin-bottom: 1rem;
+}
+
+.modal-input {
+  --padding: 8px;
+
+  display: flex;
+  align-items: center;
+  padding: var(--padding);
+  margin: 0.5rem 0;
+  border-radius: 28px;
+  background-color: #e5e5e5;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #333333;
+  outline: none;
+  border: none;
+}
+
+.first-section {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  padding: 20px;
+}
+
+.main-section {
+  display: flex;
+}
+
+form {
+  padding: 1rem;
+}
+
+.material-symbols-outlined {
+  vertical-align: middle;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  margin-top: 55px;
+  flex: 0 0 18%;
+  background-color: white;
+  box-shadow: 0 10px 30px rgba(68, 74, 107, 0.3);
+  border-radius: 20px;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.aside-options {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.sidebar:hover {
+  box-shadow: 0 10px 40px rgba(68, 74, 107, 0.4);
+}
+
+.search {
+  --padding: 8px;
+
+  flex: 1 1 auto;
+  width: max-content;
+  display: flex;
+  align-items: center;
+  padding: var(--padding);
+  margin: 0.5rem 0;
+  border-radius: 28px;
+  background-color: #f6f6f6;
+  width: 100%;
+}
+
+.search-input {
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 16px;
+  color: #333333;
+  margin-left: var(--padding);
+  outline: none;
+  border: none;
+  background: transparent;
+  flex: 1;
+}
+
+.modal-button {
+  --padding: 8px;
+
+  display: inline-block;
+  padding: var(--padding);
+  margin: 0.5rem 0;
+  border-radius: 28px;
+  background-color: #333333;
+  color: #f6f6f6;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  width: 100%;
+}
+
+.modal-button:hover {
+  background-color: #555555;
+}
+
+.button-option {
+  --padding: 1rem;
+
+  display: flex;
+  align-items: center;
+  padding: var(--padding);
+  margin: 0.5rem 0;
+  border-radius: 28px;
+  background-color: #f6f6f6;
+  width: 80%;
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #333333;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.aside-setting-button {
+  --padding: 1rem;
+
+  display: flex;
+  align-items: center;
+  padding: var(--padding);
+  margin: 0.5rem 0;
+  border-radius: 28px;
+  background-color: #f6f6f6;
+  width: 80%;
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #333333;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.aside-setting-button:hover {
+  background-color: #e6e6e6;
+}
+
+.button-option:hover {
+  background-color: #e6e6e6;
+}
+
+.button-option:active {
+  background-color: #d9d9d9;
+}
+
+.button-option.selected {
+  background-color: #dfeccf;
+}
+
+.foods {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.foods article {
+  flex-basis: 20%;
+  margin: 10px;
+  border: 1px solid #516559;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+  max-height: 500px;
+  max-width: 400px;
+}
+
+.foods article:hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  transform: scale(1.01);
+}
+
+.foods article img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  min-width: 250px;
+  min-height: 250px;
+}
+
+.foods article:hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.foods article img {
+  max-width: 100%;
+  object-fit: cover;
+}
+
+.foods article h3,
+.foods article p {
+  padding: 6px;
+}
+
+.food-edit-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem;
+  padding: 1rem;
+}
+
+.current-image {
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.current-image:hover {
+  transform: scale(1.1);
+}
+
+.file-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+}
+
+.file-preview img {
+  max-width: 250px;
+  max-height: 250px;
+}
+
+.add-dialog form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-dialog form input {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.add-dialog form select {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.category-image {
+  max-width: 35px;
+  max-height: 35px;
+  border-radius: 50%;
+}
+
+.edit-button {
+  margin-left: auto;
+}
+
+.edit-button:hover {
+  background-color: #d9d9d9;
+}
+
+.delete-button {
+  margin-left: 5px;
+}
+
+.delete-button:hover {
+  background-color: #d9d9d9;
+  color: red;
+}
+
+.hamburger {
+  display: none;
+}
+
+@media screen and (max-width: 1130px) {
+  .foods article {
+    flex: 0 0 calc(100% / 2);
+  }
+
+  .container {
+    width: 100%;
+    padding: 0;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  .foods article {
+    flex-basis: 20%;
+    margin: 10px;
+  }
+
+  .container {
+    width: 100%;
+    padding: 0;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 1034px) {
+  .foods article {
+    flex-basis: 50%;
+    margin: 10px;
+
+    max-height: 500px;
+    max-width: 300px;
+  }
+
+  .sidebar {
+    display: block;
+    position: fixed;
+    top: 0;
+    transform: translateX(-100%);
+    width: 50%;
+    height: 100%;
+    z-index: 1000;
+    background-color: white;
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .aside-options {
+    width: 80%;
+  }
+
+  .aside-options button {
+    width: 50%;
+  }
+
+  .hamburger {
+    display: block;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .box {
+    width: 100%;
+  }
+
+  .container {
+    width: 100%;
+    padding: 0;
+    margin: 0 auto;
+  }
+
+  .frontphoto {
+    height: 50vh;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .foods article {
+    flex: 0 0 40%;
+    margin: 20px auto;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+.button-option img {
+  margin-right: 12px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
