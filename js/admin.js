@@ -118,17 +118,17 @@ let foods = [];
       const buttonElement = document.createElement('button');
       buttonElement.textContent = category.name;
       buttonElement.classList.add('button-option');
+      // Add data attribute to button which contains the category id
+      buttonElement.dataset.categoryId = category.categoryId;
 
-      const imageElement = document.createElement('img');
-      imageElement.src = imageUrl + category.file;
-      imageElement.alt = category.name;
-      imageElement.classList.add('category-image');
+      if (category.file !== null) {
+        const imageElement = document.createElement('img');
 
-      imageElement.onerror = () => {
-        imageElement.src = 'https://via.placeholder.com/150';
-      };
-
-      buttonElement.prepend(imageElement);
+        imageElement.src = imageUrl + category.file;
+        imageElement.alt = category.name;
+        imageElement.classList.add('category-image');
+        buttonElement.prepend(imageElement);
+      }
 
       const editButton = document.createElement('span');
       editButton.classList.add('material-symbols-outlined');
@@ -266,7 +266,7 @@ let foods = [];
       console.log('selectedFoods', selectedFoods);
     });
 
-    buttons.forEach((button, index) => {
+    buttons.forEach((button) => {
       button.addEventListener('click', (evt) => {
         evt.preventDefault();
 
@@ -279,16 +279,17 @@ let foods = [];
 
         selectedFoods = [];
 
-        const categoryId = index + 1;
+        selectedFoods = productsByCategory[button.dataset.categoryId];
+        console.log('button.dataset.categoryId', button.dataset.categoryId);
 
-        selectedFoods = productsByCategory[categoryId];
+        console.log('selectedFoods', selectedFoods);
 
         if (selectedFoods.length === 0) {
           foodsDiv.innerHTML =
             '<p>No products available for this category.</p>';
         } else {
           displayFoods(selectedFoods);
-          console.log('selectedFoods', selectedFoods);
+          console.log('Display foods');
         }
       });
     });
