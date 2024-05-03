@@ -98,6 +98,18 @@ let foods = [];
       const buttonElement = document.createElement('button');
       buttonElement.textContent = category.name;
       buttonElement.classList.add('button-option');
+
+      const imageElement = document.createElement('img');
+      imageElement.src = imageUrl + category.file;
+      imageElement.alt = category.name;
+      imageElement.classList.add('category-image');
+
+      imageElement.onerror = () => {
+        imageElement.src = 'https://via.placeholder.com/150';
+      };
+
+      buttonElement.prepend(imageElement);
+
       document.querySelector('.aside-options').appendChild(buttonElement);
     });
 

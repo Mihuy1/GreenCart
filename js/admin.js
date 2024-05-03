@@ -146,6 +146,7 @@ let foods = [];
         closeButton.addEventListener('click', (evt) => {
           evt.preventDefault();
           dialogElement.close();
+          dialogElement.remove();
         });
 
         const headerElement = document.createElement('h2');
@@ -153,6 +154,14 @@ let foods = [];
 
         const imagePreview = document.createElement('div');
         imagePreview.classList.add('file-preview');
+
+        const image = document.createElement('img');
+
+        // Ensure image is loaded before appending it
+        image.onload = () => {
+          console.log('Image loaded');
+          imagePreview.appendChild(image);
+        };
 
         const formElement = document.createElement('form');
         formElement.classList.add('add-category-form');
@@ -172,8 +181,6 @@ let foods = [];
         imageElement.type = 'file';
         imageElement.accept = 'image/*';
 
-        const image = document.createElement('img');
-
         imageElement.addEventListener('change', (evt) => {
           const reader = new FileReader();
           reader.onload = () => {
@@ -187,7 +194,16 @@ let foods = [];
 
         submitElement.addEventListener('click', (evt) => {
           evt.preventDefault();
-          editCategory(
+
+          if (!inputElement.value) {
+            alert('Please enter a category name');
+            return;
+          } else if (!imageElement.files[0]) {
+            alert('Please select an image');
+            return;
+          }
+
+          modifyCategory(
             inputElement.value,
             imageElement.files[0],
             category.categoryId
@@ -356,7 +372,6 @@ const displayFoods = (foods) => {
 
       editImage.addEventListener('change', (evt) => {
         selectedFile = evt.target.files[0];
-        console.log('Selected file:', selectedFile);
         img.src = URL.createObjectURL(selectedFile);
       });
 
@@ -626,7 +641,7 @@ const createCategory = async (name, file) => {
   }
 };
 
-const editCategory = async (name, file, id) => {
+const modifyCategory = async (name, file, id) => {
   try {
     const token =
       localStorage.getItem('token') ?? sessionStorage.getItem('token');
@@ -634,7 +649,7 @@ const editCategory = async (name, file, id) => {
     const formData = new FormData();
 
     formData.append('name', name);
-    formData.append('file', file);
+    if (file) formData.append('file', file);
 
     const options = {
       method: 'PUT',
@@ -667,7 +682,6 @@ const deleteCategory = async (id) => {
       return;
     }
 
-    // Check if category has products
     const products = await getAllProducts();
 
     const categoryProducts = products.filter(
