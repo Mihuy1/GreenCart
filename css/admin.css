@@ -414,6 +414,19 @@ form {
   margin-left: auto;
 }
 
+.edit-button:hover {
+  background-color: #d9d9d9;
+}
+
+.delete-button {
+  margin-left: 5px;
+}
+
+.delete-button:hover {
+  background-color: #d9d9d9;
+  color: red;
+}
+
 @media screen and (max-width: 1130px) {
   .foods article {
     flex: 0 0 calc(100% / 2);

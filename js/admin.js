@@ -3,6 +3,19 @@ const imageUrl = 'https://10.120.32.54/app/uploads/'; // change url when uploadi
 
 const newProductCloseButton = document.querySelector('.new-product-close');
 
+const logoutLink = document.querySelector('.logout-link');
+
+logoutLink.addEventListener('click', (evt) => {
+  evt.preventDefault();
+
+  localStorage.removeItem('token');
+  sessionStorage.removeItem('token');
+
+  window.location.href = 'main.html';
+
+  alert('Logged out successfully');
+});
+
 newProductCloseButton.addEventListener('click', function () {
   const dialog = document.querySelector('.add-product-dialog');
   dialog.close();
@@ -117,12 +130,14 @@ let foods = [];
 
       buttonElement.prepend(imageElement);
 
-      const editButton = document.createElement('button');
-      editButton.textContent = 'Edit';
+      const editButton = document.createElement('span');
+      editButton.classList.add('material-symbols-outlined');
+      editButton.innerHTML = 'edit';
       editButton.classList.add('edit-button');
 
-      const deleteButton = document.createElement('button');
-      deleteButton.textContent = 'Delete';
+      const deleteButton = document.createElement('span');
+      deleteButton.classList.add('material-symbols-outlined');
+      deleteButton.innerHTML = 'delete';
       deleteButton.classList.add('delete-button');
 
       deleteButton.addEventListener('click', (evt) => {
