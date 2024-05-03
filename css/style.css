@@ -305,6 +305,7 @@ form {
 
 .foods article {
   flex-basis: 20%;
+
   margin: 10px;
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -392,15 +393,120 @@ form {
   color: #333;
 }
 
+.button-option img {
+  margin-right: 12px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
 @media screen and (max-width: 1130px) {
-  .foods article {
-    flex: 0 0 calc(100% / 2);
+  .container {
+    width: 100%;
   }
 
+  .sidebar {
+    display: block;
+    position: fixed;
+    top: 0;
+    transform: translateX(-100%);
+    width: 50%;
+    height: 100%;
+    z-index: 1000;
+    background-color: white;
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .aside-options {
+    width: 80%;
+  }
+
+  .hamburger {
+    display: block;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    cursor: pointer;
+  }
+
+  .foods {
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: 1150px) {
   .container {
     width: 100%;
     padding: 0;
     margin: 0 auto;
+  }
+
+  .foods {
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: 1079px) {
+  .foods article {
+    flex-basis: 30%;
+  }
+}
+
+@media screen and (max-width: 1034px) {
+  .container {
+    width: 100%;
+  }
+
+  .sidebar {
+    display: block;
+    position: fixed;
+    top: 0;
+    transform: translateX(-100%);
+    width: 50%;
+    height: 100%;
+    z-index: 1000;
+    background-color: white;
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .aside-options {
+    width: 80%;
+  }
+
+  .hamburger {
+    display: block;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    cursor: pointer;
+  }
+
+  .foods {
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: 809px) {
+  .foods article {
+    flex-basis: 40%;
   }
 }
 
@@ -423,20 +529,10 @@ form {
     display: none;
   }
 
-  .foods article {
-    flex: 0 0 40%;
-    margin: 20px auto; /* Add this line */
-    flex-direction: column;
-    align-items: center; /* Add this line */
+  .foods {
+    margin: auto;
   }
 }
-.button-option img {
-  margin-right: 12px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-}
-
 
 /* CART SECTION */
 
