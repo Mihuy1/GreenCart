@@ -16,6 +16,10 @@ logoutLink.addEventListener('click', (evt) => {
   alert('Logged out successfully');
 });
 
+document.getElementById('nav-toggle').addEventListener('click', function () {
+  document.querySelector('.sidebar').classList.toggle('active');
+});
+
 newProductCloseButton.addEventListener('click', function () {
   const dialog = document.querySelector('.add-product-dialog');
   dialog.close();
