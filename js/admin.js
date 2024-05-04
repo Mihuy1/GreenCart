@@ -1,5 +1,5 @@
-const url = 'https://10.120.32.54/app/api/v1'; // change url when uploading to server
-const imageUrl = 'https://10.120.32.54/app/uploads/'; // change url when uploading to server
+const url = 'https://10.120.32.54/app/api/v1';
+const imageUrl = 'https://10.120.32.54/app/uploads/';
 
 const newProductCloseButton = document.querySelector('.new-product-close');
 
@@ -122,7 +122,6 @@ let foods = [];
       const buttonElement = document.createElement('button');
       buttonElement.textContent = category.name;
       buttonElement.classList.add('button-option');
-      // Add data attribute to button which contains the category id
       buttonElement.dataset.categoryId = category.categoryId;
 
       if (category.file !== null) {
@@ -175,12 +174,16 @@ let foods = [];
         imagePreview.classList.add('file-preview');
 
         const image = document.createElement('img');
+        image.src = imageUrl + category.file;
 
-        // Ensure image is loaded before appending it
         image.onload = () => {
           console.log('Image loaded');
           imagePreview.appendChild(image);
         };
+
+        imagePreview.appendChild(image);
+
+        console.log(category.file);
 
         const formElement = document.createElement('form');
         formElement.classList.add('add-category-form');
@@ -216,9 +219,6 @@ let foods = [];
 
           if (!inputElement.value) {
             alert('Please enter a category name');
-            return;
-          } else if (!imageElement.files[0]) {
-            alert('Please select an image');
             return;
           }
 
@@ -680,6 +680,8 @@ const modifyCategory = async (name, file, id) => {
 
     formData.append('name', name);
     if (file) formData.append('file', file);
+
+    console.log('formData', formData);
 
     const options = {
       method: 'PUT',
