@@ -193,7 +193,7 @@ form {
   display: flex;
   flex-direction: column;
   margin-top: 55px;
-  flex: 0 0 18%;
+  flex: 0 0 300px;
   background-color: white;
   box-shadow: 0 10px 30px rgba(68, 74, 107, 0.3);
   border-radius: 20px;
@@ -267,7 +267,7 @@ form {
   margin: 0.5rem 0;
   border-radius: 28px;
   background-color: #f6f6f6;
-  width: 80%;
+  width: 85%;
   box-sizing: border-box;
   font-size: 16px;
   color: #333333;
@@ -341,8 +341,10 @@ form {
   margin-left: auto;
   margin-right: auto;
   margin-top: 20px;
-  min-width: 250px;
-  min-height: 250px;
+  /*min-width: 250px;
+  min-height: 250px;*/
+  width: 250px;
+  height: 250px;
 }
 
 .foods article:hover {
