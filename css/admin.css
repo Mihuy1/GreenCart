@@ -50,6 +50,10 @@ h6 {
   z-index: 1000;
 }
 
+.navbar div {
+  align-items: center;
+}
+
 .navbar h2 {
   margin-left: 1rem;
 }
@@ -341,8 +345,6 @@ form {
   margin-left: auto;
   margin-right: auto;
   margin-top: 20px;
-  /*min-width: 250px;
-  min-height: 250px;*/
   width: 250px;
   height: 250px;
 }
@@ -429,8 +431,16 @@ form {
   color: red;
 }
 
-.hamburger {
+.hamburger-logo {
   display: none;
+  margin-left: 1rem;
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.hamburger-logo .hamburger:hover {
+  transform: scale(1.2);
 }
 
 @media screen and (max-width: 1130px) {
@@ -454,25 +464,20 @@ form {
     transform: translateX(0);
   }
 
-  .sidebar.active {
-    transform: translateX(0);
-  }
-
   .aside-options {
     width: 80%;
   }
 
-  .hamburger {
-    display: block;
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 1001;
-    cursor: pointer;
+  .navbar div {
+    display: flex;
   }
 
-  .foods {
-    margin: auto;
+  .hamburger-logo {
+    display: block;
+  }
+
+  .hamburger {
+    z-index: 1001;
   }
 }
 
@@ -481,10 +486,6 @@ form {
     width: 100%;
     padding: 0;
     margin: 0 auto;
-  }
-
-  .foods {
-    margin: auto;
   }
 }
 
@@ -499,18 +500,6 @@ form {
     width: 100%;
   }
 
-  .sidebar {
-    display: block;
-    position: fixed;
-    top: 0;
-    transform: translateX(-100%);
-    width: 50%;
-    height: 100%;
-    z-index: 1000;
-    background-color: white;
-    transition: transform 0.3s ease;
-  }
-
   .sidebar.active {
     transform: translateX(0);
   }
@@ -521,19 +510,6 @@ form {
 
   .aside-options {
     width: 80%;
-  }
-
-  .hamburger {
-    display: block;
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 1001;
-    cursor: pointer;
-  }
-
-  .foods {
-    margin: auto;
   }
 }
 
@@ -560,10 +536,6 @@ form {
 
   .sidebar {
     display: none;
-  }
-
-  .foods {
-    margin: auto;
   }
 }
 .button-option img {

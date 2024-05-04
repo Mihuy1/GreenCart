@@ -258,6 +258,11 @@ let foods = [];
 
     allButton.addEventListener('click', (evt) => {
       evt.preventDefault();
+      const sidebar = document.querySelector('.sidebar');
+
+      if (sidebar.classList.contains('active')) {
+        sidebar.classList.remove('active');
+      }
 
       buttons.forEach((button) => {
         button.classList.remove('selected');
@@ -271,8 +276,13 @@ let foods = [];
     });
 
     buttons.forEach((button) => {
+      const sidebar = document.querySelector('.sidebar');
       button.addEventListener('click', (evt) => {
         evt.preventDefault();
+
+        if (sidebar.classList.contains('active')) {
+          sidebar.classList.remove('active');
+        }
 
         buttons.forEach((button) => {
           button.classList.remove('selected');
