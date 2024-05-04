@@ -12,6 +12,10 @@ const accountLink = document.querySelector('.account-link');
 const loginDialog = document.querySelector('.login-modal');
 const registerDialog = document.querySelector('.registration-modal');
 
+document.getElementById('nav-toggle').addEventListener('click', function () {
+  document.querySelector('.sidebar').classList.toggle('active');
+});
+
 const fetchData = async (url, options = {}) => {
   console.log('fetching data from url: ', url);
   const response = await fetch(url, options);
@@ -117,7 +121,13 @@ let foods = [];
     ).slice(1);
 
     allButton.addEventListener('click', (evt) => {
+      const sidebar = document.querySelector('.sidebar');
+
       evt.preventDefault();
+
+      if (sidebar.classList.contains('active')) {
+        sidebar.classList.remove('active');
+      }
 
       buttons.forEach((button) => {
         button.classList.remove('selected');
@@ -132,7 +142,13 @@ let foods = [];
 
     buttons.forEach((button) => {
       button.addEventListener('click', (evt) => {
+        const sidebar = document.querySelector('.sidebar');
+
         evt.preventDefault();
+
+        if (sidebar.classList.contains('active')) {
+          sidebar.classList.remove('active');
+        }
 
         buttons.forEach((button) => {
           button.classList.remove('selected');

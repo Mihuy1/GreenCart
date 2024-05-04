@@ -1,3 +1,13 @@
+:root {
+  font-family: Inter, sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+}
+@supports (font-variation-settings: normal) {
+  :root {
+    font-family: InterVariable, sans-serif;
+  }
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -39,6 +49,10 @@ h6 {
   position: sticky;
   top: 0;
   z-index: 1000;
+}
+
+.navbar div {
+  align-items: center;
 }
 
 .navbar h2 {
@@ -201,7 +215,7 @@ form {
   display: flex;
   flex-direction: column;
   margin-top: 55px;
-  flex: 0 0 18%;
+  flex: 0 0 300px;
   background-color: white;
   box-shadow: 0 10px 30px rgba(68, 74, 107, 0.3);
   border-radius: 20px;
@@ -326,10 +340,8 @@ form {
   margin-left: auto;
   margin-right: auto;
   margin-top: 20px;
-  min-width: 250px;
-  min-height: 250px;
-  max-height: 250px;
-  max-width: 250px;
+  width: 250px;
+  height: 250px;
 }
 
 .foods article h3,
@@ -400,6 +412,18 @@ form {
   border-radius: 50%;
 }
 
+.hamburger-logo {
+  display: none;
+  margin-left: 1rem;
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.hamburger-logo .hamburger:hover {
+  transform: scale(1.2);
+}
+
 @media screen and (max-width: 1130px) {
   .container {
     width: 100%;
@@ -421,25 +445,20 @@ form {
     transform: translateX(0);
   }
 
-  .sidebar.active {
-    transform: translateX(0);
-  }
-
   .aside-options {
     width: 80%;
   }
 
-  .hamburger {
-    display: block;
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 1001;
-    cursor: pointer;
+  .navbar div {
+    display: flex;
   }
 
-  .foods {
-    margin: auto;
+  .hamburger-logo {
+    display: block;
+  }
+
+  .hamburger {
+    z-index: 1001;
   }
 }
 
@@ -448,10 +467,6 @@ form {
     width: 100%;
     padding: 0;
     margin: 0 auto;
-  }
-
-  .foods {
-    margin: auto;
   }
 }
 
@@ -466,18 +481,6 @@ form {
     width: 100%;
   }
 
-  .sidebar {
-    display: block;
-    position: fixed;
-    top: 0;
-    transform: translateX(-100%);
-    width: 50%;
-    height: 100%;
-    z-index: 1000;
-    background-color: white;
-    transition: transform 0.3s ease;
-  }
-
   .sidebar.active {
     transform: translateX(0);
   }
@@ -488,19 +491,6 @@ form {
 
   .aside-options {
     width: 80%;
-  }
-
-  .hamburger {
-    display: block;
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 1001;
-    cursor: pointer;
-  }
-
-  .foods {
-    margin: auto;
   }
 }
 
@@ -528,12 +518,7 @@ form {
   .sidebar {
     display: none;
   }
-
-  .foods {
-    margin: auto;
-  }
 }
-
 /* CART SECTION */
 
 .shopping-cart {
