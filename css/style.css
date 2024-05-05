@@ -225,7 +225,7 @@ form {
 }
 
 .aside-options {
-  max-height: 300px;
+  max-height: 600px;
   overflow-y: auto;
 }
 
@@ -289,6 +289,24 @@ form {
   margin: 0.5rem 0;
   border-radius: 28px;
   background-color: #f6f6f6;
+  width: 85%;
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #333333;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.aside-setting-button {
+  --padding: 1rem;
+
+  display: flex;
+  align-items: center;
+  padding: var(--padding);
+  margin: 0.5rem 0;
+  border-radius: 28px;
+  background-color: #f6f6f6;
   width: 80%;
   box-sizing: border-box;
   font-size: 16px;
@@ -296,6 +314,11 @@ form {
   outline: none;
   border: none;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.aside-setting-button:hover {
+  background-color: #e6e6e6;
 }
 
 .button-option:hover {
@@ -422,6 +445,12 @@ form {
 
 .hamburger-logo .hamburger:hover {
   transform: scale(1.2);
+}
+
+.category-image {
+  max-width: 35px;
+  max-height: 35px;
+  border-radius: 50%;
 }
 
 @media screen and (max-width: 1130px) {

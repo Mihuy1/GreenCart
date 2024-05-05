@@ -371,6 +371,14 @@ form {
   padding: 1rem;
 }
 
+.food-edit-content label {
+  margin-bottom: 1rem;
+}
+
+.food-edit-content select {
+  margin-top: 1rem;
+}
+
 .current-image {
   cursor: pointer;
   transition: transform 0.3s ease-in-out;

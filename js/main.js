@@ -171,13 +171,32 @@ let foods = [];
 
       const searchBar = document.querySelector('.search-input');
 
+      const searchForm = document.querySelector('.search-form');
+
+      const sidebar = document.querySelector('.sidebar');
+
+      searchForm.addEventListener('submit', (evt) => {
+        evt.preventDefault();
+      });
+
       searchBar.addEventListener('input', (evt) => {
+        evt.preventDefault();
         const searchValue = evt.target.value.toLowerCase();
 
         const filteredProducts = selectedFoods.filter((product) => {
           return product.name.toLowerCase().includes(searchValue);
         });
         displayFoods(filteredProducts);
+      });
+
+      searchBar.addEventListener('keydown', (evt) => {
+        if (evt.key === 'Enter') {
+          evt.preventDefault();
+
+          if (sidebar.classList.contains('active')) {
+            sidebar.classList.remove('active');
+          }
+        }
       });
     });
   } catch (error) {
@@ -467,7 +486,6 @@ loginForm.addEventListener('submit', async (evt) => {
       const token =
         localStorage.getItem('token') || sessionStorage.getItem('token');
 
-      alert('Login successful');
       loginDialog.close();
 
       updateLinkVisibility();
