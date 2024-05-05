@@ -395,107 +395,16 @@ const addProductToCart = (productId, quantity) => {
   console.log('Shopping cart data:', existingShoppingCartData);
 };
 
-loginLink.addEventListener('click', function (event) {
-  event.preventDefault();
-
-  loginDialog.showModal();
-});
-
 const loginCloseButton = document.querySelector('.login-close-button');
 loginCloseButton.addEventListener('click', function () {
   failText.style.visibility = 'hidden';
   loginDialog.close();
 });
 
-registerLink.addEventListener('click', function (event) {
-  event.preventDefault();
-  registerDialog.showModal();
-});
-
 const registerCloseButton = document.querySelector('.register-close-button');
 registerCloseButton.addEventListener('click', function (event) {
   event.preventDefault();
   registerDialog.close();
-});
-
-const registerForm = document.querySelector('#registration-form');
-
-registerForm.addEventListener('submit', async (evt) => {
-  evt.preventDefault();
-
-  const data = {
-    name: document.getElementById('register-username').value,
-    email: document.getElementById('register-email').value,
-    password: document.getElementById('register-pswd').value,
-  };
-
-  const fetchOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  };
-
-  const response = await fetch(url + '/auth/register', fetchOptions);
-  const json = await response.json();
-
-  if (json.error) {
-    alert(json.error.message);
-  } else {
-    alert(json.message);
-  }
-});
-
-const loginForm = document.querySelector('#login-form');
-const failText = document.querySelector('.fail-login-text');
-
-loginForm.addEventListener('submit', async (evt) => {
-  evt.preventDefault();
-
-  try {
-    const data = {
-      name: document.getElementById('login-username').value,
-      password: document.getElementById('login-pswd').value,
-    };
-
-    const fetchOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    };
-
-    const response = await fetch(url + '/auth/login', fetchOptions);
-    const json = await response.json();
-
-    console.log(response.status);
-
-    if (response.status === 200) {
-      const rememberMe = document.getElementById('remember-me').checked;
-
-      if (rememberMe) {
-        console.log('localStorage');
-        localStorage.setItem('token', json.token);
-      } else {
-        console.log('sessionStorage');
-        sessionStorage.setItem('token', json.token);
-      }
-
-      const token =
-        localStorage.getItem('token') || sessionStorage.getItem('token');
-
-      loginDialog.close();
-
-      updateLinkVisibility();
-    } else {
-      failText.textContent = json.error.message;
-    }
-  } catch (error) {
-    console.error('Error:', error);
-    failText.style.visibility = 'visible';
-  }
 });
 
 const logout = () => {
