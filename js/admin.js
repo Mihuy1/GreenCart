@@ -408,7 +408,6 @@ const displayFoods = (foods) => {
       editTitle.classList.add('modal-input');
       editDescription.classList.add('modal-input');
       editPrice.classList.add('modal-input');
-      editImage.classList.add('modal-input');
 
       let selectedFile = null;
 
