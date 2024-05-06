@@ -54,8 +54,8 @@ h6 {
   position: sticky;
   top: 0;
   z-index: 1002;
-  padding: 10px 20px; /* Adjust padding as needed */
-  height: 60px; /* Adjust height as needed */
+  padding: 10px 20px;
+  height: 60px; /
 }
 
 .navbar div {
@@ -180,7 +180,7 @@ h6 {
   border-color: #2e8b57;
 }
 
-/* Add different green for valid color */'
+
 
 .modal-input:valid {
   border-color: #2e8b57;
@@ -483,7 +483,7 @@ dialog {
   .sidebar {
     left: -450px;
     height: 100vh;
-    transition: left 0.5s ease; /* Add transition */
+    transition: left 0.5s ease;
   }
   .main-section {
     margin-left: 0;

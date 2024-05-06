@@ -44,7 +44,7 @@ h6 {
 .navbar {
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Add this line */
+  align-items: center;
   background-color: #516559;
   position: -webkit-sticky; /* Safari */
   position: sticky;
