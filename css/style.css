@@ -350,6 +350,7 @@ form {
   max-height: 500px;
   max-width: 400px;
 }
+
 .foods article:hover {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   transform: scale(1.01);
@@ -362,6 +363,11 @@ form {
   margin-top: 20px;
   width: 250px;
   height: 250px;
+}
+
+.foods article img {
+  max-width: 100%;
+  object-fit: cover;
 }
 
 .foods article h3,

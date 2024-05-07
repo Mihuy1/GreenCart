@@ -368,9 +368,6 @@ form {
   height: 250px;
 }
 
-.foods article:hover {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-}
 
 .foods article img {
   max-width: 100%;
