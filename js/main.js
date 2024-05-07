@@ -260,7 +260,7 @@ const displayFoods = (foods) => {
       buyButton.addEventListener('click', async (evt) => {
         evt.preventDefault();
 
-        addProductToCart(food.productId, quantity, food.price, imageUrl + food.file);
+        addProductToCart(food.productId, quantity, food.price, imageUrl + food.file, food.name);
       });
 
       closeButton.addEventListener('click', (evt) => {
@@ -374,14 +374,34 @@ function ready () {
     var button = addCart[i]
     button.addEventListener("click", addCartClicked)
   }
+  //Buy button work
+  document
+    .getElementsByClassName('btn-buy')[0]
+    .addEventListener('click', buyButtonClicked)
+}
+// Buy Button
+
+function buyButtonClicked() {
+  // Redirect to the checkout page
+  window.location.href = 'checkout.html';
 }
 
-//Remove items from cart pt.2
-function removeCartItem(event){
-  var buttonClicked = event.target
-  buttonClicked.parentElement.remove()
+//Remove product from session storage when remove button is pressed
+function removeCartItem(event) {
+  var buttonClicked = event.target;
+  buttonClicked.parentElement.remove();
+  const userToken = localStorage.getItem('token') || sessionStorage.getItem('token');
+  localStorage.removeItem(`shoppingCart_${userToken}`);
   updateTotal();
+  if (!userToken) {
+    console.error('User token not found');
+    return;
 }
+
+
+
+//Remove items from cart pt.2
+
 
 // Change quantity pt.2
 function quantityChanged(event) {
@@ -408,8 +428,9 @@ function addCartClicked(event){
 
 
 
-const addProductToCart = (productId, quantity, price, imageUrl, title) => {
+const addProductToCart = (productId, quantity, price, imageUrl, name) => {
   var cartShopBox = document.createElement("div")
+  console.log(name)
   cartShopBox.classList.add('cart-box')
   var cartItems = document.getElementsByClassName('cart-content')[0]
   var cartItemNames = cartItems.getElementsByClassName('cart-product-title')
@@ -423,7 +444,7 @@ const addProductToCart = (productId, quantity, price, imageUrl, title) => {
     `<div class="cart-box">\n` +
     `    <img src="${imageUrl}" class="cart-img" alt="Coffee">\n` +
     `         <div class="detail-box">\n` +
-    `            <div class="cart-product-title">${productId}</div>\n` +
+    `            <div class="cart-product-title">${name}</div>\n` +
     `            <div class="cart-price">${price}€</div>\n` +
     `            <input type="number" value="${quantity}" class="cart-quantity">\n` +
     `         </div>\n` +
@@ -458,7 +479,7 @@ const addProductToCart = (productId, quantity, price, imageUrl, title) => {
     existingShoppingCartData[existingProductIndex].imageUrl = imageUrl; // Update image URL
   } else {
     // If the product does not exist, add it to the shopping cart data
-    existingShoppingCartData.push({productId, quantity, price: price * quantity, imageUrl});
+    existingShoppingCartData.push({productId, quantity, price: price * quantity, imageUrl, name});
   }
 
   // Store the updated shopping cart data back into sessionStorage
@@ -487,6 +508,7 @@ function updateTotal(){
     total=Math.round(total * 100) / 100;
     document.getElementsByClassName('total-price') [0].innerText = "€" + total;
   }
+
 }
 
 loginLink.addEventListener('click', function (event) {
@@ -646,3 +668,9 @@ window.onload = async () => {
   await fetchAndAddProducts();
   await displayFoods(products);
 };
+
+
+// Update css
+// Update total
+// Delete from sessions storage
+// Update checkout
