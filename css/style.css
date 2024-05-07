@@ -454,7 +454,7 @@ form {
   .sidebar {
     left: -450px;
     height: 100vh;
-    transition: left 0.5s ease; /* Add transition */
+    transition: left 0.5s ease;
   }
   .main-section {
     margin-left: 0;
