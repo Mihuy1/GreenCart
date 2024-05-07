@@ -11,7 +11,7 @@ completeButton.addEventListener('click', function (evt) {
   evt.preventDefault();
   smileyModal.close();
 });*/
-
+/*
 let cartIcon = document.querySelector("#cart-icon")
 let cart = document.querySelector(".shopping-cart")
 let closeCart = document.querySelector("#close-cart")
@@ -40,7 +40,7 @@ if (document.readyState == "loading") {
 function ready () {
   //Remove item from cart
   var removeCartButton = document.getElementsByClassName("cart-removing")
-  console.log(removeCartButton)
+  //console.log(removeCartButton)
   for (var i = 0; i < removeCartButton.length; i++){
     var button = removeCartButton [i]
     button.addEventListener('click', removeCartItem)
@@ -81,11 +81,27 @@ function addCartClicked(event){
   var button = event.target;
   var shopProducts = button.parentElement;
   var title = shopProducts.getElementsByClassName('cart-product-title')[0].innerText
-  var price = shopProducts.getElementsByClassName('price')[0].innerText
-  console.log(title)
+  var price = shopProducts.getElementsByClassName('cart-price')[0].innerText
+  var productImg = shopProducts.getElementsByClassName('cart-img')[0].innerText
+  addProductToCart(title, price, productImg)
+  updateTotal()
 }
 
+
+/*function addProductToCart (title, price, productImg){
+  var cartShopBox = document.createElement("div")
+  //cartShopBox.classlist.add('cart-box')
+  var cartItems = document.getElementsByClassName('cart-content')
+  var cartItemNames = cartItems.getElementsByClassName('cart-product-title')
+  for (var i = 0; i < cartItemNames.length; i++){
+    alert("You have already add this item to cart")
+  }
+
+}
+*/
 //Update Total
+//
+/*
 function updateTotal(){
   var cartContent = document.getElementsByClassName('cart-content')[0]
   var cartBoxes = cartContent.getElementsByClassName('cart-box')
@@ -103,3 +119,4 @@ function updateTotal(){
     document.getElementsByClassName('total-price') [0].innerText = "€" + total;
   }
 }
+*/
