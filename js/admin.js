@@ -8,12 +8,12 @@ const logoutLink = document.querySelector('.logout-link');
 logoutLink.addEventListener('click', (evt) => {
   evt.preventDefault();
 
-  localStorage.removeItem('token');
-  sessionStorage.removeItem('token');
+  if (window.confirm('Are you sure you want to log out?') === true) {
+    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
 
-  window.location.href = 'main.html';
-
-  alert('Logged out successfully');
+    window.location.href = 'main.html';
+  }
 });
 
 document.getElementById('nav-toggle').addEventListener('click', function () {
@@ -310,14 +310,32 @@ let foods = [];
 
     const searchBar = document.querySelector('.search-input');
 
+    const searchForm = document.querySelector('.search-form');
+
+    searchForm.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+    });
+
+    const sidebar = document.querySelector('.sidebar');
+
     searchBar.addEventListener('input', (evt) => {
+      evt.preventDefault();
       const searchValue = evt.target.value.toLowerCase();
 
       const filteredProducts = selectedFoods.filter((product) => {
         return product.name.toLowerCase().includes(searchValue);
       });
       displayFoods(filteredProducts);
-      console.log('filteredProducts', filteredProducts);
+    });
+
+    searchBar.addEventListener('keydown', (evt) => {
+      if (evt.key === 'Enter') {
+        evt.preventDefault();
+
+        if (sidebar.classList.contains('active')) {
+          sidebar.classList.remove('active');
+        }
+      }
     });
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -390,7 +408,6 @@ const displayFoods = (foods) => {
       editTitle.classList.add('modal-input');
       editDescription.classList.add('modal-input');
       editPrice.classList.add('modal-input');
-      editImage.classList.add('modal-input');
 
       let selectedFile = null;
 

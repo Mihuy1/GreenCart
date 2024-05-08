@@ -1,123 +1,351 @@
-'use strict';
-/*
-const payAmountBtn = document.querySelector('#payAmount');
-const decrementBtns = document.querySelectorAll('.decrement');
-const incrementBtns = document.querySelectorAll('.increment');
-const priceElems = document.querySelectorAll('.price');
-const totalElem = document.querySelector('#total');
-const quantityElems = document.querySelectorAll('.quantity');
-const subtotalElem = document.querySelector('#subtotal');
-const taxElem = document.querySelector('#tax');
+const url = 'https://10.120.32.54/app/api/v1';
+const imageUrl = 'https://10.120.32.54/app/uploads/';
 
-// Add event listeners to each increment and decrement button
-incrementBtns.forEach((incrementBtn, index) => {
-  incrementBtn.addEventListener('click', function () {
-    let increment = parseInt(quantityElems[index].textContent);
-    increment++;
-    quantityElems[index].textContent = increment;
-    totalCalc(); // Call totalCalc after updating quantity
-  });
-});
+let products = [];
 
-decrementBtns.forEach((decrementBtn, index) => {
-  decrementBtn.addEventListener('click', function () {
-    let decrement = parseInt(quantityElems[index].textContent);
-    decrement = decrement <= 1 ? 1 : decrement - 1;
-    quantityElems[index].textContent = decrement;
-    totalCalc(); // Call totalCalc after updating quantity
-  });
-});
+const addProducts = async () => {
+  try {
+    const response = await fetch(`${url}/products`);
+    const data = await response.json();
 
-// Calculate total and update elements
-const totalCalc = function () {
-  const taxRate = 0.05;
-  let subtotal = 0;
-  let totalTax = 0;
-  let total = 0;
-
-  // Loop through each product to calculate subtotal
-  quantityElems.forEach((quantityElem, index) => {
-    const quantity = parseInt(quantityElem.textContent);
-    const price = parseFloat(priceElems[index].textContent.replace('€', ''));
-    const productTotal = quantity * price;
-    subtotal += productTotal;
-  });
-
-  // Update subtotal element
-  subtotalElem.textContent = subtotal.toFixed(2);
-
-  // Calculate total tax
-  totalTax = subtotal * taxRate;
-  taxElem.textContent = totalTax.toFixed(2);
-
-  // Calculate total
-  total = subtotal + totalTax;
-  totalElem.textContent = total.toFixed(2);
-  payAmountBtn.textContent = total.toFixed(2);
+    if (response.status === 200) {
+      console.log('Data:', data);
+      products.push(...data);
+    } else {
+      console.error('Error');
+    }
+  } catch (error) {
+    console.error(error);
+  }
 };
 
-// Initial calculation when the page loads
-totalCalc();
-*/
+const updateProductList = async (productId, quantity) => {
+  const product = await getById(productId);
+  console.log('product homma', product[0]);
 
-let checkout = document.querySelector(".container")
+  const cartItemBoxDiv = document.querySelector('.cart-item-box');
 
+  const productCardDiv = document.createElement('div');
+  productCardDiv.classList.add('product-card');
 
-//Cart Working
-if (document.readyState == "loading") {
-  document.addEventListener("DOMContentLoaded", ready);
-} else {
-  ready();
-}
+  const cardDiv = document.createElement('div');
+  cardDiv.classList.add('card');
 
-function ready () {
-  //Remvoe item from cart
-  var removeCartButton = document.getElementsByClassName("product-close-btnn")
-  console.log(removeCartButton)
-  for (var i = 0; i < removeCartButton.length; i++) {
-    var button = removeCartButton [i]
-    button.addEventListener('click', removeCartItem)
+  const imgBoxDiv = document.createElement('div');
+  imgBoxDiv.classList.add('img-box');
+
+  const img = document.createElement('img');
+  img.classList.add('product-img');
+  img.src = imageUrl + product[0].file;
+
+  const detailDiv = document.createElement('div');
+  detailDiv.classList.add('detail');
+
+  const productName = document.createElement('h4');
+  productName.classList.add('product-name');
+  productName.textContent = product[0].name;
+
+  const wrapperDiv = document.createElement('div');
+  wrapperDiv.classList.add('wrapper');
+
+  const productQtyDiv = document.createElement('div');
+  productQtyDiv.classList.add('product-qty');
+
+  const decreaseBtn = document.createElement('button');
+  decreaseBtn.classList.add('decrement');
+
+  const decreaseIcon = document.createElement('ion-icon');
+  decreaseIcon.name = 'remove-outline';
+
+  decreaseBtn.appendChild(decreaseIcon);
+
+  const quantitySpan = document.createElement('span');
+  quantitySpan.classList.add('quantity');
+  quantitySpan.textContent = quantity;
+
+  const increaseBtn = document.createElement('button');
+  increaseBtn.classList.add('increment');
+
+  const increaseIcon = document.createElement('ion-icon');
+  increaseIcon.name = 'add-outline';
+
+  increaseBtn.appendChild(increaseIcon);
+
+  const priceDiv = document.createElement('div');
+
+  const priceSpan = document.createElement('span');
+  priceSpan.classList.add('price');
+  priceSpan.textContent = product[0].price * quantity;
+
+  const removeBtn = document.createElement('button');
+  removeBtn.classList.add('product-close-btnn');
+  removeBtn.style.cursor = 'pointer';
+
+  const removeIcon = document.createElement('ion-icon');
+  removeIcon.name = 'close-outline';
+
+  removeBtn.appendChild(removeIcon);
+
+  const token =
+    localStorage.getItem('token') || sessionStorage.getItem('token');
+
+  increaseBtn.addEventListener('click', () => {
+    quantitySpan.textContent = parseInt(quantitySpan.textContent) + 1;
+    const shoppingCartData =
+      JSON.parse(sessionStorage.getItem(`shoppingCart_${token}`)) || [];
+
+    const index = shoppingCartData.findIndex(
+      (item) => item.productId === product[0].productId
+    );
+
+    shoppingCartData[index].quantity = parseInt(quantitySpan.textContent);
+
+    priceSpan.textContent =
+      product[0].price * parseInt(quantitySpan.textContent);
+
+    sessionStorage.setItem(
+      `shoppingCart_${token}`,
+      JSON.stringify(shoppingCartData)
+    );
+
+    updateTotal();
+  });
+
+  decreaseBtn.addEventListener('click', () => {
+    if (parseInt(quantitySpan.textContent) > 1) {
+      quantitySpan.textContent = parseInt(quantitySpan.textContent) - 1;
+      const shoppingCartData =
+        JSON.parse(sessionStorage.getItem(`shoppingCart_${token}`)) || [];
+
+      const index = shoppingCartData.findIndex(
+        (item) => item.productId === product[0].productId
+      );
+
+      shoppingCartData[index].quantity = parseInt(quantitySpan.textContent);
+
+      priceSpan.textContent =
+        product[0].price * parseInt(quantitySpan.textContent);
+
+      sessionStorage.setItem(
+        `shoppingCart_${token}`,
+        JSON.stringify(shoppingCartData)
+      );
+    }
+
+    updateTotal();
+  });
+
+  removeBtn.addEventListener('click', () => {
+    const shoppingCartData =
+      JSON.parse(sessionStorage.getItem(`shoppingCart_${token}`)) || [];
+
+    const index = shoppingCartData.findIndex(
+      (item) => item.productId === product[0].productId
+    );
+
+    shoppingCartData.splice(index, 1);
+
+    sessionStorage.setItem(
+      `shoppingCart_${token}`,
+      JSON.stringify(shoppingCartData)
+    );
+
+    productCardDiv.remove();
+
+    updateTotal();
+  });
+
+  productQtyDiv.appendChild(decreaseBtn);
+  productQtyDiv.appendChild(quantitySpan);
+  productQtyDiv.appendChild(increaseBtn);
+
+  priceDiv.appendChild(priceSpan);
+
+  wrapperDiv.appendChild(productQtyDiv);
+  wrapperDiv.appendChild(priceDiv);
+
+  detailDiv.appendChild(productName);
+  detailDiv.appendChild(wrapperDiv);
+
+  imgBoxDiv.appendChild(img);
+
+  cardDiv.appendChild(imgBoxDiv);
+  cardDiv.appendChild(detailDiv);
+  cardDiv.appendChild(removeBtn);
+
+  productCardDiv.appendChild(cardDiv);
+
+  cartItemBoxDiv.appendChild(productCardDiv);
+};
+
+const getById = async (productId) => {
+  try {
+    const response = await fetch(`${url}/products/${productId}`);
+
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      console.error('Error fetching product');
+    }
+  } catch (error) {
+    console.error(error);
   }
+};
 
-  //Change Quantity
-  var quantityInputs = document.getElementsByClassName('#quantity')
-  for (var i = 0; i < quantityInputs.length; i++){
-    var input = quantityInputs [i];
-    input.addEventListener("change", quantityChanged)
+const updateTotal = () => {
+  const totalSpan = document.getElementById('total-text-span');
+
+  console.log('totalSpan', totalSpan);
+
+  const token =
+    localStorage.getItem('token') || sessionStorage.getItem('token');
+
+  const shoppingCartData =
+    JSON.parse(sessionStorage.getItem(`shoppingCart_${token}`)) || [];
+
+  let total = 0;
+
+  shoppingCartData.forEach(async (item) => {
+    const product = await getById(item.productId);
+    total += product[0].price * item.quantity;
+
+    totalSpan.innerHTML = total;
+  });
+
+  if (shoppingCartData.length === 0) {
+    totalSpan.innerHTML = 0;
   }
-}
+};
 
-//Remove items from cart pt.2
-function removeCartItem(event){
-  var buttonClicked = event.target
-  buttonClicked.parentElement.remove()
-  updateTotal();
-}
+const getMe = async () => {
+  try {
+    const token =
+      localStorage.getItem('token') || sessionStorage.getItem('token');
 
-// Change quantity pt.2
-function quantityChanged(event) {
-  var input = event.target
-  if (isNaN(input.value) || input.value <= 0){
-    input.value = 1;
+    const response = await fetch(`${url}/auth/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Data:', data);
+      return data;
+    } else {
+      console.error('Error fetching user');
+    }
+  } catch (error) {
+    console.error(error);
   }
-  updateTotal()
-}
+};
 
-//Update Total
-function updateTotal(){
-  var cartContent = document.getElementsByClassName('cart')[0]
-  var cartBoxes = cartContent.getElementsByClassName('cart-item-box')
-  var total = 0;
-  for (var i = 0; i < cartBoxes.length; i++){
-    var cartBox = cartBoxes[i]
-    var priceElement = cartBox.getElementsByClassName('price') [0]
-    var quantityElement = cartBox.getElementsByClassName('#quantity') [0]
-    var price = parseFloat(priceElement.innerText.replace("€", ""))
-    var quantity = quantityElement.value;
-    total = total + (price * quantity);
+const createOrder = async (customerId, price, orderDate) => {
+  try {
+    const data = {
+      customerId: customerId,
+      orderDate: orderDate,
+      price: price,
+      status_code: 1,
+    };
 
-    //If price has cents
-    total=Math.round(total * 100) / 100;
-    document.getElementsByClassName('total-price') [0].innerText = "€" + total;
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+
+    const response = await fetch(`${url}/orders`, fetchOptions);
+    const json = await response.json();
+
+    if (response.status === 201) {
+      return json;
+    } else {
+      console.error('Error creating order');
+    }
+  } catch (error) {
+    console.error(error);
   }
-}
+};
+
+const orderButton = document.querySelector('.order-button');
+
+orderButton.addEventListener('click', async () => {
+  const token =
+    localStorage.getItem('token') || sessionStorage.getItem('token');
+
+  const shoppingCartData =
+    JSON.parse(sessionStorage.getItem(`shoppingCart_${token}`)) || [];
+
+  const customer = await getMe();
+
+  const orderDate = new Date().toISOString().slice(0, 10);
+
+  const price = parseInt(
+    document.getElementById('total-text-span').textContent
+  );
+
+  const order = await createOrder(
+    customer.customer.customerId,
+    price,
+    orderDate
+  );
+
+  const orderDetailPromises = shoppingCartData.map(async (item) => {
+    const product = await getById(item.productId);
+
+    const data = {
+      orderId: order.result.orderId,
+      productId: product[0].productId,
+      quantity: item.quantity,
+      price: product[0].price,
+    };
+
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+
+    const response = await fetch(`${url}/orderItems`, fetchOptions);
+
+    if (response.status === 201) {
+      console.log('Order detail created');
+    } else {
+      console.error('Error creating order detail');
+    }
+  });
+
+  // Wait for all order detail creations to finish
+  await Promise.all(orderDetailPromises);
+
+  sessionStorage.removeItem(`shoppingCart_${token}`);
+
+  window.location.href = 'order.html';
+});
+window.onload = async () => {
+  await addProducts();
+
+  const token =
+    localStorage.getItem('token') || sessionStorage.getItem('token');
+
+  if (token) {
+    const shoppingCartData =
+      JSON.parse(sessionStorage.getItem(`shoppingCart_${token}`)) || [];
+
+    console.log(shoppingCartData);
+
+    shoppingCartData.forEach(async (item) => {
+      console.log(item);
+      const product = await getById(item.productId);
+      updateProductList(product[0].productId, item.quantity);
+    });
+
+    updateTotal();
+  }
+};

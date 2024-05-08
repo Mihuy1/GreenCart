@@ -44,6 +44,7 @@ h6 {
 .navbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: #516559;
   position: -webkit-sticky; /* Safari */
   position: sticky;
@@ -200,7 +201,7 @@ h6 {
 }
 
 .main-section {
-  display: flex;
+  margin-left: 320px;
 }
 
 form {
@@ -212,20 +213,20 @@ form {
 }
 
 .sidebar {
-  display: flex;
-  flex-direction: column;
-  margin-top: 55px;
-  flex: 0 0 300px;
+  position: fixed;
+  left: 0;
+  top: 70px;
+  width: 300px;
+  min-height: 100vh;
   background-color: white;
   box-shadow: 0 10px 30px rgba(68, 74, 107, 0.3);
   border-radius: 20px;
-  height: 100vh;
   overflow-y: auto;
   padding: 1rem;
 }
 
 .aside-options {
-  max-height: 300px;
+  max-height: 600px;
   overflow-y: auto;
 }
 
@@ -289,6 +290,24 @@ form {
   margin: 0.5rem 0;
   border-radius: 28px;
   background-color: #f6f6f6;
+  width: 85%;
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #333333;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.aside-setting-button {
+  --padding: 1rem;
+
+  display: flex;
+  align-items: center;
+  padding: var(--padding);
+  margin: 0.5rem 0;
+  border-radius: 28px;
+  background-color: #f6f6f6;
   width: 80%;
   box-sizing: border-box;
   font-size: 16px;
@@ -296,6 +315,11 @@ form {
   outline: none;
   border: none;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.aside-setting-button:hover {
+  background-color: #e6e6e6;
 }
 
 .button-option:hover {
@@ -311,15 +335,12 @@ form {
 }
 
 .foods {
-  margin-top: 50px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
 }
 
 .foods article {
-  flex-basis: 20%;
-
   margin: 10px;
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -342,6 +363,11 @@ form {
   margin-top: 20px;
   width: 250px;
   height: 250px;
+}
+
+.foods article img {
+  max-width: 100%;
+  object-fit: cover;
 }
 
 .foods article h3,
@@ -424,25 +450,27 @@ form {
   transform: scale(1.2);
 }
 
-@media screen and (max-width: 1130px) {
-  .container {
-    width: 100%;
-  }
+.category-image {
+  max-width: 35px;
+  max-height: 35px;
+  border-radius: 50%;
+}
 
+@media screen and (max-width: 1130px) {
   .sidebar {
-    display: block;
-    position: fixed;
-    top: 0;
-    transform: translateX(-100%);
-    width: 50%;
-    height: 100%;
-    z-index: 1000;
-    background-color: white;
-    transition: transform 0.3s ease;
+    left: -450px;
+    height: 100vh;
+    transition: left 0.5s ease;
+  }
+  .main-section {
+    margin-left: 0;
   }
 
   .sidebar.active {
-    transform: translateX(0);
+    left: 0;
+    width: 450px;
+    height: 100vh;
+    z-index: 1000;
   }
 
   .aside-options {
@@ -462,53 +490,9 @@ form {
   }
 }
 
-@media screen and (max-width: 1150px) {
-  .container {
-    width: 100%;
-    padding: 0;
-    margin: 0 auto;
-  }
-}
-
-@media screen and (max-width: 1079px) {
-  .foods article {
-    flex-basis: 30%;
-  }
-}
-
-@media screen and (max-width: 1034px) {
-  .container {
-    width: 100%;
-  }
-
-  .sidebar.active {
-    transform: translateX(0);
-  }
-
-  .sidebar.active {
-    transform: translateX(0);
-  }
-
-  .aside-options {
-    width: 80%;
-  }
-}
-
-@media screen and (max-width: 809px) {
-  .foods article {
-    flex-basis: 40%;
-  }
-}
-
 @media screen and (max-width: 768px) {
   .box {
     width: 100%;
-  }
-
-  .container {
-    width: 100%;
-    padding: 0;
-    margin: 0 auto;
   }
 
   .frontphoto {

@@ -71,6 +71,7 @@ function ready() {
 
 //Remove items from cart pt.2
 function removeCartItem(event) {
+  // TODO: Get product from sessionStorage and remove it via product id
   var buttonClicked = event.target;
   buttonClicked.parentElement.remove();
   updateTotal();
@@ -78,7 +79,10 @@ function removeCartItem(event) {
 
 // Change quantity pt.2
 function quantityChanged(event) {
+  console.log('quantityChanged');
   var input = event.target;
+  // TODO: Update quantity of product in cart
+  // Get product id
   if (isNaN(input.value) || input.value <= 0) {
     input.value = 1;
   }

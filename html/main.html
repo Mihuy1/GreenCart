@@ -37,12 +37,12 @@
             </a>
           </li>
           <li class="login-link">
-            <a href="#"
+            <a href="login.html"
               ><span class="material-symbols-outlined"> person </span>
             </a>
           </li>
           <li class="register-link">
-            <a href="#"
+            <a href="registration.html"
               ><span class="material-symbols-outlined"> person_add </span>
             </a>
           </li>
@@ -74,25 +74,11 @@
 
         <div class="shopping-cart">
           <h2 class="cart-title">Your cart</h2>
-          <div class="cart-content">
-            <div class="cart-box">
-              <img
-                src="https://www.halpahalli.fi/media/catalog/product/cache/8e6fb67570b3a23a22b01cd56fafeeef/4/8/484bed0b_b_252Fb_252Fc_252Fa_252Fbbcad00543724fa7bb30132f886bf737juhla_mokka_pannu_500g_1.jpg"
-                class="cart-img"
-                alt="Coffee"
-              />
-              <div class="detail-box">
-                <div class="cart-product-title">Kahvi</div>
-                <div class="cart-price">10.05€</div>
-                <input type="number" value="1" class="cart-quantity" />
-              </div>
-              <ion-icon name="trash-outline" class="cart-removing"></ion-icon>
-            </div>
-          </div>
+          <div class="cart-content"></div>
 
           <div class="total">
             <div class="total-title">Total</div>
-            <div class="total-price">10.05€</div>
+            <div class="total-price">0 €</div>
           </div>
 
           <button type="button" class="btn-buy">Buy Now</button>
@@ -194,19 +180,18 @@
         <div class="food-info-content"></div>
       </dialog>
 
+      <aside class="sidebar">
+        <h1>Filter</h1>
+        <form class="search-form">
+          <div class="search">
+            <span class="search-icon material-symbols-outlined"> search </span>
+            <input type="search" class="search-input" placeholder="Search" />
+          </div>
+        </form>
+        <div class="aside-options"></div>
+      </aside>
+
       <div class="main-section">
-        <aside class="sidebar">
-          <h1>Filter</h1>
-          <form>
-            <div class="search">
-              <span class="search-icon material-symbols-outlined">
-                search
-              </span>
-              <input type="search" class="search-input" placeholder="Search" />
-            </div>
-          </form>
-          <div class="aside-options"></div>
-        </aside>
         <div class="foods">
           <article>
             <img src="https://placehold.co/400x400" alt="Food 1" />

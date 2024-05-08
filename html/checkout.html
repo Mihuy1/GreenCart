@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/checkout.css" />
+    <script src="/js/checkout.js" defer></script>
     <script
       src="https://kit.fontawesome.com/yourcode.js"
       crossorigin="anonymous"
@@ -38,22 +39,22 @@
           <ul>
             <li>
               <a href="main.html"
-              ><span class="material-symbols-outlined"> home </span>
+                ><span class="material-symbols-outlined"> home </span>
               </a>
             </li>
             <li class="login-link">
               <a href="#"
-              ><span class="material-symbols-outlined"> login </span>
+                ><span class="material-symbols-outlined"> login </span>
               </a>
             </li>
             <li class="register-link">
               <a href="#"
-              ><span class="material-symbols-outlined"> person_add </span>
+                ><span class="material-symbols-outlined"> person_add </span>
               </a>
             </li>
             <li>
               <a href="cart.html"
-              ><span class="material-symbols-outlined"> shopping_cart </span>
+                ><span class="material-symbols-outlined"> shopping_cart </span>
               </a>
             </li>
           </ul>
@@ -151,93 +152,22 @@
         <section class="cart">
           <div class="cart-item-box">
             <h2 class="section-heading">Order Summery</h2>
-            <div class="product-card">
-              <div class="card">
-                <div class="img-box">
-                  <img
-                    src="https://www.shutterstock.com/image-photo/bunch-bananas-isolated-on-white-600nw-1722111529.jpg"
-                    alt="Bananas"
-                    width="80px"
-                    class="product-img"
-                  />
-                </div>
-                <div class="detail">
-                  <h4 class="prduct-name">Banana 1 kilo</h4>
-                  <div class="wrapper">
-                    <div class="product-qty">
-                      <button class="decrement">
-                        <ion-icon name="remove-outline"></ion-icon>
-                      </button>
-                      <span class="quantity">1</span>
-                      <button class="increment">
-                        <ion-icon name="add-outline"></ion-icon>
-                      </button>
-                    </div>
-                    <div class="price">
-                      <span class="price">1.25€</span>
-                    </div>
-                  </div>
-                </div>
-
-                <button class="product-close-btnn">
-                  <ion-icon name="close-outline"></ion-icon>
-                </button>
-              </div>
-            </div>
-
-            <div class="product-card">
-              <div class="card">
-                <div class="img-box">
-                  <img
-                    src="https://media.istockphoto.com/id/466175634/fi/valokuva/sitruuna-hedelm%C3%A4t-joissa-on-puolet-ja-lehdet-eristetty-valkoisille.jpg?s=612x612&w=0&k=20&c=Xo6TEGMN7xrpUFZFaNUudUMmUc8QNyP1siDNxvoRDPo="
-                    alt="Lemon"
-                    width="80px"
-                    class="product-img"
-                  />
-                </div>
-                <div class="detail">
-                  <h4 class="prduct-name">Lemon 1 kilo</h4>
-                  <div class="wrapper">
-                    <div class="product-qty">
-                      <button class="decrement">
-                        <ion-icon name="remove-outline"></ion-icon>
-                      </button>
-                      <span id="quantity">1</span>
-                      <button class="increment">
-                        <ion-icon name="add-outline"></ion-icon>
-                      </button>
-                    </div>
-                    <div class="price">
-                      <span id="price">1.25€</span>
-                    </div>
-                  </div>
-                </div>
-
-                <button class="product-close-btnn">
-                  <ion-icon name="close-outline"></ion-icon>
-                </button>
-              </div>
-            </div>
           </div>
 
           <div class="wrapper">
             <div class="amount">
-              <div class="subtotal">
-                <span>Subtotal</span><span id="subtotal "> 2.50</span
-                ><span>€</span>
-              </div>
-
               <div class="shipping">
                 <span>Shipping</span><span id="shipping"> 0.00</span
                 ><span>€</span>
               </div>
 
               <div class="total">
-                <span>Total</span><span id="total "> 3.00</span><span>€</span>
+                <span>Total</span><span id="total-text-span"> 3.00</span
+                ><span>€</span>
               </div>
             </div>
-            <button class="btnn btnn-primary">
-              <b>Pay</b> € <span id="payAmount">2.15</span>
+            <button class="btnn btnn-primary order-button">
+              <span>Pay</span>
             </button>
           </div>
         </section>

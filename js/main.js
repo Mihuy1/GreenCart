@@ -171,13 +171,32 @@ let foods = [];
 
       const searchBar = document.querySelector('.search-input');
 
+      const searchForm = document.querySelector('.search-form');
+
+      const sidebar = document.querySelector('.sidebar');
+
+      searchForm.addEventListener('submit', (evt) => {
+        evt.preventDefault();
+      });
+
       searchBar.addEventListener('input', (evt) => {
+        evt.preventDefault();
         const searchValue = evt.target.value.toLowerCase();
 
         const filteredProducts = selectedFoods.filter((product) => {
           return product.name.toLowerCase().includes(searchValue);
         });
         displayFoods(filteredProducts);
+      });
+
+      searchBar.addEventListener('keydown', (evt) => {
+        if (evt.key === 'Enter') {
+          evt.preventDefault();
+
+          if (sidebar.classList.contains('active')) {
+            sidebar.classList.remove('active');
+          }
+        }
       });
     });
   } catch (error) {
@@ -244,6 +263,22 @@ const displayFoods = (foods) => {
       const quantityNumber = document.createElement('p');
       quantityNumber.textContent = '1';
       quantityNumber.classList.add('quantity-number');
+
+      const token =
+        localStorage.getItem('token') || sessionStorage.getItem('token');
+
+      if (token) {
+        const shoppingCartData =
+          JSON.parse(sessionStorage.getItem(`shoppingCart_${token}`)) || [];
+        const existingProductIndex = shoppingCartData.findIndex(
+          (item) => item.productId === food.productId
+        );
+
+        if (existingProductIndex !== -1) {
+          quantityNumber.textContent =
+            shoppingCartData[existingProductIndex].quantity;
+        }
+      }
 
       const plusButton = document.createElement('button');
       plusButton.textContent = '+';
@@ -342,8 +377,7 @@ const checkIfAdmin = async (token) => {
   }
 };
 
-const addProductToCart = (productId, quantity) => {
-  // Get the user token from localStorage or sessionStorage
+const addProductToCart = async (productId, quantity) => {
   const userToken =
     localStorage.getItem('token') || sessionStorage.getItem('token');
 
@@ -355,31 +389,193 @@ const addProductToCart = (productId, quantity) => {
   let existingShoppingCartData =
     JSON.parse(sessionStorage.getItem(`shoppingCart_${userToken}`)) || [];
 
-  // Check if the product already exists in the shopping cart data
   const existingProductIndex = existingShoppingCartData.findIndex(
     (item) => item.productId === productId
   );
   if (existingProductIndex !== -1) {
-    // If the product already exists, update its quantity
-    existingShoppingCartData[existingProductIndex].quantity += quantity;
+    if (existingShoppingCartData[existingProductIndex].quantity <= quantity) {
+      existingShoppingCartData[existingProductIndex].quantity += quantity;
+    } else if (
+      existingShoppingCartData[existingProductIndex].quantity > quantity
+    ) {
+      existingShoppingCartData[existingProductIndex].quantity = quantity;
+    }
   } else {
-    // If the product does not exist, add it to the shopping cart data
     existingShoppingCartData.push({productId, quantity});
+
+    updateCart(productId, quantity);
   }
 
-  // Store the updated shopping cart data back into sessionStorage
   sessionStorage.setItem(
     `shoppingCart_${userToken}`,
     JSON.stringify(existingShoppingCartData)
   );
-
-  console.log('Shopping cart data:', existingShoppingCartData);
 };
 
-loginLink.addEventListener('click', function (event) {
-  event.preventDefault();
+const updateCart = async (productId, quantity) => {
+  const cartContent = document.querySelector('.cart-content');
 
-  loginDialog.showModal();
+  const cartBoxDiv = document.createElement('div');
+  cartBoxDiv.classList.add('cart-box');
+
+  const imgElement = document.createElement('img'); // Goes inside cart-box
+  imgElement.classList.add('cart-img');
+
+  const detailBox = document.createElement('div'); // goes inside cart-box
+  detailBox.classList.add('detail-box');
+
+  const productTitle = document.createElement('div'); // Goes inside detail-box
+  productTitle.classList.add('cart-product-title');
+
+  const productPrice = document.createElement('div'); // Goes inside detail-box
+  productPrice.classList.add('cart-price');
+
+  const quantityElement = document.createElement('input'); // Goes inside detail-box
+  quantityElement.classList.add('cart-quantity');
+  quantityElement.type = 'number';
+  quantityElement.value = quantity;
+
+  const trashIcon = document.createElement('ion-icon'); // Goes inside cart-box
+  trashIcon.setAttribute('name', 'trash-outline');
+  trashIcon.classList.add('cart-removing');
+
+  const product = await getProductById(productId);
+
+  imgElement.src = imageUrl + product[0].file;
+  imgElement.alt = product[0].name;
+
+  productTitle.textContent = product[0].name;
+  productPrice.textContent = product[0].price * quantity + ' €';
+
+  let total = 0;
+
+  trashIcon.addEventListener('click', (evt) => {
+    evt.preventDefault();
+
+    const token =
+      localStorage.getItem('token') || sessionStorage.getItem('token');
+
+    const shoppingCartData =
+      JSON.parse(sessionStorage.getItem(`shoppingCart_${token}`)) || [];
+
+    const existingProductIndex = shoppingCartData.findIndex(
+      (item) => item.productId === productId
+    );
+
+    // Update the total price
+    total = 0;
+
+    shoppingCartData.splice(existingProductIndex, 1);
+
+    sessionStorage.setItem(
+      `shoppingCart_${token}`,
+      JSON.stringify(shoppingCartData)
+    );
+
+    shoppingCartData.forEach((item) => {
+      const productPrice = products.find(
+        (product) => product.productId === item.productId
+      ).price;
+
+      total += productPrice * item.quantity;
+      console.log('Total:', total);
+      totalEleemnt.textContent = total + ' €';
+    });
+
+    if (shoppingCartData.length === 0) {
+      totalEleemnt.textContent = '0 €';
+      total = 0;
+    }
+
+    cartBoxDiv.remove();
+  });
+
+  const token =
+    localStorage.getItem('token') || sessionStorage.getItem('token');
+
+  const totalEleemnt = document.querySelector('.total-price');
+
+  const shoppingCartData =
+    JSON.parse(sessionStorage.getItem(`shoppingCart_${token}`)) || [];
+
+  shoppingCartData.forEach((item) => {
+    const productPrice = products.find(
+      (product) => product.productId === item.productId
+    ).price;
+
+    total += productPrice * item.quantity;
+  });
+
+  totalEleemnt.textContent = total + ' €';
+
+  quantityElement.addEventListener('change', (evt) => {
+    evt.preventDefault();
+
+    const shoppingCartData =
+      JSON.parse(sessionStorage.getItem(`shoppingCart_${token}`)) || [];
+
+    shoppingCartData.forEach((item) => {
+      if (item.productId === productId) {
+        item.quantity = parseInt(quantityElement.value);
+        total = 0;
+
+        shoppingCartData.forEach((item) => {
+          const productPrice = products.find(
+            (product) => product.productId === item.productId
+          ).price;
+
+          total += productPrice * item.quantity;
+        });
+
+        totalEleemnt.textContent = total + ' €';
+        productPrice.textContent =
+          product[0].price * quantityElement.value + ' €';
+
+        sessionStorage.setItem(
+          `shoppingCart_${token}`,
+          JSON.stringify(shoppingCartData)
+        );
+      }
+    });
+  });
+
+  totalEleemnt.textContent = total.toFixed(2);
+
+  cartBoxDiv.appendChild(imgElement);
+  detailBox.appendChild(productTitle);
+  detailBox.appendChild(productPrice);
+  detailBox.appendChild(quantityElement);
+
+  cartContent.appendChild(cartBoxDiv);
+
+  cartBoxDiv.appendChild(detailBox);
+  cartBoxDiv.appendChild(trashIcon);
+};
+
+const buyButton = document.querySelector('.btn-buy');
+
+buyButton.addEventListener('click', async (evt) => {
+  evt.preventDefault();
+
+  const token =
+    localStorage.getItem('token') || sessionStorage.getItem('token');
+
+  if (!token) {
+    alert('You need to login to buy products');
+    return;
+  }
+
+  const shoppingCartData = JSON.parse(
+    sessionStorage.getItem(`shoppingCart_${token}`)
+  );
+
+  if (shoppingCartData.length === 0) {
+    alert('You have no products in your cart');
+    return;
+  }
+
+  // Move to checkout page
+  window.location.href = 'checkout.html';
 });
 
 const loginCloseButton = document.querySelector('.login-close-button');
@@ -388,96 +584,10 @@ loginCloseButton.addEventListener('click', function () {
   loginDialog.close();
 });
 
-registerLink.addEventListener('click', function (event) {
-  event.preventDefault();
-  registerDialog.showModal();
-});
-
 const registerCloseButton = document.querySelector('.register-close-button');
 registerCloseButton.addEventListener('click', function (event) {
   event.preventDefault();
   registerDialog.close();
-});
-
-const registerForm = document.querySelector('#registration-form');
-
-registerForm.addEventListener('submit', async (evt) => {
-  evt.preventDefault();
-
-  const data = {
-    name: document.getElementById('register-username').value,
-    email: document.getElementById('register-email').value,
-    password: document.getElementById('register-pswd').value,
-  };
-
-  const fetchOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  };
-
-  const response = await fetch(url + '/auth/register', fetchOptions);
-  const json = await response.json();
-
-  if (json.error) {
-    alert(json.error.message);
-  } else {
-    alert(json.message);
-  }
-});
-
-const loginForm = document.querySelector('#login-form');
-const failText = document.querySelector('.fail-login-text');
-
-loginForm.addEventListener('submit', async (evt) => {
-  evt.preventDefault();
-
-  try {
-    const data = {
-      name: document.getElementById('login-username').value,
-      password: document.getElementById('login-pswd').value,
-    };
-
-    const fetchOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    };
-
-    const response = await fetch(url + '/auth/login', fetchOptions);
-    const json = await response.json();
-
-    console.log(response.status);
-
-    if (response.status === 200) {
-      const rememberMe = document.getElementById('remember-me').checked;
-
-      if (rememberMe) {
-        console.log('localStorage');
-        localStorage.setItem('token', json.token);
-      } else {
-        console.log('sessionStorage');
-        sessionStorage.setItem('token', json.token);
-      }
-
-      const token =
-        localStorage.getItem('token') || sessionStorage.getItem('token');
-
-      alert('Login successful');
-      loginDialog.close();
-
-      updateLinkVisibility();
-    } else {
-      failText.textContent = json.error.message;
-    }
-  } catch (error) {
-    console.error('Error:', error);
-    failText.style.visibility = 'visible';
-  }
 });
 
 const logout = () => {
@@ -527,9 +637,38 @@ const updateLinkVisibility = () => {
   }
 };
 
+const getProductById = async (productId) => {
+  try {
+    const response = await fetch(`${url}/products/${productId}`);
+
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      console.error('Error fetching product');
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 updateLinkVisibility();
 
 window.onload = async () => {
   await fetchAndAddProducts();
   await displayFoods(products);
+
+  // get shoppingCart_ token from sessionStorage and if it exists, display the products in the cart
+  const token =
+    localStorage.getItem('token') || sessionStorage.getItem('token');
+
+  if (token) {
+    const shoppingCartData =
+      JSON.parse(sessionStorage.getItem(`shoppingCart_${token}`)) || [];
+
+    shoppingCartData.forEach(async (item) => {
+      const product = await getProductById(item.productId);
+      updateCart(product[0].productId, item.quantity);
+    });
+  }
 };
