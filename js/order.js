@@ -322,15 +322,21 @@ window.addEventListener('load', async () => {
           });
 
           if (orderedItems) {
+            let totalPrice = 0;
+
             const productList = document.querySelector('.product-list');
 
             const th1 = document.createElement('th');
             const th2 = document.createElement('th');
             const th3 = document.createElement('th');
 
+            // Total price column
+            const th4 = document.createElement('th');
+
             productList.appendChild(th1);
             productList.appendChild(th2);
             productList.appendChild(th3);
+            productList.appendChild(th4);
 
             orderedItems.forEach((orderedItem) => {
               products.forEach((product) => {
@@ -348,6 +354,8 @@ window.addEventListener('load', async () => {
                   td2.textContent = product.price + ' €';
                   td3.textContent = orderedItem.quantity;
 
+                  totalPrice += product.price * orderedItem.quantity;
+
                   tr.appendChild(td1);
                   tr.appendChild(td2);
                   tr.appendChild(td3);
@@ -356,6 +364,9 @@ window.addEventListener('load', async () => {
                 }
               });
             });
+
+            // set total price
+            th4.textContent = 'Total: ' + totalPrice + ' €';
           }
 
           // start order timers
