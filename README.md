@@ -1,6 +1,13 @@
 # Green Cart
 
-## Green Cart
+## Jäsenet
+* Patrik Hyytiäinen
+* Nahal Asif
+* Nimo-Hanna Farah
 
-### Green Cart
+## Intro
+
+## Idea ja kohderyhmä
+
+## Testaus ja käyttö
 
