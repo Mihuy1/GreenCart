@@ -349,3 +349,56 @@ window.onload = async () => {
     updateTotal();
   }
 };
+
+const isCreditCardInfoComplete = () => {
+  const cardholderNameInput = document.getElementById('cardholder-name');
+  const cardNumberInput = document.getElementById('card-number');
+  const cvvInput = document.getElementById('CVV');
+  const expireDateInput = document.getElementById('expire-date');
+
+  // Check if any of the fields are empty
+  if (
+    cardholderNameInput.value.trim() === '' ||
+    cardNumberInput.value.trim() === '' ||
+    cvvInput.value.trim() === '' ||
+    expireDateInput.value.trim() === ''
+  ) {
+    return false; // Credit card info is not complete
+  }
+
+  return true; // Credit card info is complete
+};
+orderButton.addEventListener('click', async () => {
+  // Validate credit card information
+  const cardNumberInput = document.getElementById('card-number');
+  const cardHolderInput = document.getElementById('cardholder-name');
+  const cvvInput = document.getElementById('CVV');
+
+  if (!isValidCardNumber(cardNumberInput.value) || !isValidCardHolderName(cardHolderInput.value) || !isValidCVV(cvvInput.value)) {
+    alert('Please make sure all credit card information is valid.');
+    window.location.reload(); // Refresh the page
+    return;
+  }
+
+  // Proceed with the order if all validations pass
+  const token =
+    localStorage.getItem('token') || sessionStorage.getItem('token');
+
+  // Rest of the code for order processing...
+});
+
+// Function to validate the card number (16 digits)
+function isValidCardNumber(cardNumber) {
+  return /^\d{16}$/.test(cardNumber);
+}
+
+// Function to validate the card holder name (letters only)
+function isValidCardHolderName(cardHolderName) {
+  return /^[A-Za-z ]+$/.test(cardHolderName);
+}
+
+// Function to validate the CVV (3 digits)
+function isValidCVV(cvv) {
+  return /^\d{3}$/.test(cvv);
+}
+
