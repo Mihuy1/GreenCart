@@ -1,404 +1,162 @@
-const url = 'https://10.120.32.54/app/api/v1';
-const imageUrl = 'https://10.120.32.54/app/uploads/';
-
-let products = [];
-
-const addProducts = async () => {
-  try {
-    const response = await fetch(`${url}/products`);
-    const data = await response.json();
-
-    if (response.status === 200) {
-      console.log('Data:', data);
-      products.push(...data);
-    } else {
-      console.error('Error');
-    }
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-const updateProductList = async (productId, quantity) => {
-  const product = await getById(productId);
-  console.log('product homma', product[0]);
-
-  const cartItemBoxDiv = document.querySelector('.cart-item-box');
-
-  const productCardDiv = document.createElement('div');
-  productCardDiv.classList.add('product-card');
-
-  const cardDiv = document.createElement('div');
-  cardDiv.classList.add('card');
-
-  const imgBoxDiv = document.createElement('div');
-  imgBoxDiv.classList.add('img-box');
-
-  const img = document.createElement('img');
-  img.classList.add('product-img');
-  img.src = imageUrl + product[0].file;
-
-  const detailDiv = document.createElement('div');
-  detailDiv.classList.add('detail');
-
-  const productName = document.createElement('h4');
-  productName.classList.add('product-name');
-  productName.textContent = product[0].name;
-
-  const wrapperDiv = document.createElement('div');
-  wrapperDiv.classList.add('wrapper');
-
-  const productQtyDiv = document.createElement('div');
-  productQtyDiv.classList.add('product-qty');
-
-  const decreaseBtn = document.createElement('button');
-  decreaseBtn.classList.add('decrement');
-
-  const decreaseIcon = document.createElement('ion-icon');
-  decreaseIcon.name = 'remove-outline';
-
-  decreaseBtn.appendChild(decreaseIcon);
-
-  const quantitySpan = document.createElement('span');
-  quantitySpan.classList.add('quantity');
-  quantitySpan.textContent = quantity;
-
-  const increaseBtn = document.createElement('button');
-  increaseBtn.classList.add('increment');
-
-  const increaseIcon = document.createElement('ion-icon');
-  increaseIcon.name = 'add-outline';
-
-  increaseBtn.appendChild(increaseIcon);
-
-  const priceDiv = document.createElement('div');
-
-  const priceSpan = document.createElement('span');
-  priceSpan.classList.add('price');
-  priceSpan.textContent = product[0].price * quantity;
-
-  const removeBtn = document.createElement('button');
-  removeBtn.classList.add('product-close-btnn');
-  removeBtn.style.cursor = 'pointer';
-
-  const removeIcon = document.createElement('ion-icon');
-  removeIcon.name = 'close-outline';
-
-  removeBtn.appendChild(removeIcon);
-
-  const token =
-    localStorage.getItem('token') || sessionStorage.getItem('token');
-
-  increaseBtn.addEventListener('click', () => {
-    quantitySpan.textContent = parseInt(quantitySpan.textContent) + 1;
-    const shoppingCartData =
-      JSON.parse(sessionStorage.getItem(`shoppingCart_${token}`)) || [];
-
-    const index = shoppingCartData.findIndex(
-      (item) => item.productId === product[0].productId
-    );
-
-    shoppingCartData[index].quantity = parseInt(quantitySpan.textContent);
-
-    priceSpan.textContent =
-      product[0].price * parseInt(quantitySpan.textContent);
-
-    sessionStorage.setItem(
-      `shoppingCart_${token}`,
-      JSON.stringify(shoppingCartData)
-    );
-
-    updateTotal();
-  });
-
-  decreaseBtn.addEventListener('click', () => {
-    if (parseInt(quantitySpan.textContent) > 1) {
-      quantitySpan.textContent = parseInt(quantitySpan.textContent) - 1;
-      const shoppingCartData =
-        JSON.parse(sessionStorage.getItem(`shoppingCart_${token}`)) || [];
-
-      const index = shoppingCartData.findIndex(
-        (item) => item.productId === product[0].productId
-      );
-
-      shoppingCartData[index].quantity = parseInt(quantitySpan.textContent);
-
-      priceSpan.textContent =
-        product[0].price * parseInt(quantitySpan.textContent);
-
-      sessionStorage.setItem(
-        `shoppingCart_${token}`,
-        JSON.stringify(shoppingCartData)
-      );
-    }
-
-    updateTotal();
-  });
-
-  removeBtn.addEventListener('click', () => {
-    const shoppingCartData =
-      JSON.parse(sessionStorage.getItem(`shoppingCart_${token}`)) || [];
-
-    const index = shoppingCartData.findIndex(
-      (item) => item.productId === product[0].productId
-    );
-
-    shoppingCartData.splice(index, 1);
-
-    sessionStorage.setItem(
-      `shoppingCart_${token}`,
-      JSON.stringify(shoppingCartData)
-    );
-
-    productCardDiv.remove();
-
-    updateTotal();
-  });
-
-  productQtyDiv.appendChild(decreaseBtn);
-  productQtyDiv.appendChild(quantitySpan);
-  productQtyDiv.appendChild(increaseBtn);
-
-  priceDiv.appendChild(priceSpan);
-
-  wrapperDiv.appendChild(productQtyDiv);
-  wrapperDiv.appendChild(priceDiv);
-
-  detailDiv.appendChild(productName);
-  detailDiv.appendChild(wrapperDiv);
-
-  imgBoxDiv.appendChild(img);
-
-  cardDiv.appendChild(imgBoxDiv);
-  cardDiv.appendChild(detailDiv);
-  cardDiv.appendChild(removeBtn);
-
-  productCardDiv.appendChild(cardDiv);
-
-  cartItemBoxDiv.appendChild(productCardDiv);
-};
-
-const getById = async (productId) => {
-  try {
-    const response = await fetch(`${url}/products/${productId}`);
-
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    } else {
-      console.error('Error fetching product');
-    }
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-const updateTotal = () => {
-  const totalSpan = document.getElementById('total-text-span');
-
-  console.log('totalSpan', totalSpan);
-
-  const token =
-    localStorage.getItem('token') || sessionStorage.getItem('token');
-
-  const shoppingCartData =
-    JSON.parse(sessionStorage.getItem(`shoppingCart_${token}`)) || [];
-
-  let total = 0;
-
-  shoppingCartData.forEach(async (item) => {
-    const product = await getById(item.productId);
-    total += product[0].price * item.quantity;
-
-    totalSpan.innerHTML = total;
-  });
-
-  if (shoppingCartData.length === 0) {
-    totalSpan.innerHTML = 0;
-  }
-};
-
-const getMe = async () => {
-  try {
-    const token =
-      localStorage.getItem('token') || sessionStorage.getItem('token');
-
-    const response = await fetch(`${url}/auth/me`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log('Data:', data);
-      return data;
-    } else {
-      console.error('Error fetching user');
-    }
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-const createOrder = async (customerId, price, orderDate) => {
-  try {
-    const data = {
-      customerId: customerId,
-      orderDate: orderDate,
-      price: price,
-      status_code: 1,
-    };
-
-    const fetchOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    };
-
-    const response = await fetch(`${url}/orders`, fetchOptions);
-    const json = await response.json();
-
-    if (response.status === 201) {
-      return json;
-    } else {
-      console.error('Error creating order');
-    }
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-const orderButton = document.querySelector('.order-button');
-
-orderButton.addEventListener('click', async () => {
-  const token =
-    localStorage.getItem('token') || sessionStorage.getItem('token');
-
-  const shoppingCartData =
-    JSON.parse(sessionStorage.getItem(`shoppingCart_${token}`)) || [];
-
-  const customer = await getMe();
-
-  const orderDate = new Date().toISOString().slice(0, 10);
-
-  const price = parseInt(
-    document.getElementById('total-text-span').textContent
-  );
-
-  const order = await createOrder(
-    customer.customer.customerId,
-    price,
-    orderDate
-  );
-
-  const orderDetailPromises = shoppingCartData.map(async (item) => {
-    const product = await getById(item.productId);
-
-    const data = {
-      orderId: order.result.orderId,
-      productId: product[0].productId,
-      quantity: item.quantity,
-      price: product[0].price,
-    };
-
-    const fetchOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    };
-
-    const response = await fetch(`${url}/orderItems`, fetchOptions);
-
-    if (response.status === 201) {
-      console.log('Order detail created');
-    } else {
-      console.error('Error creating order detail');
-    }
-  });
-
-  // Wait for all order detail creations to finish
-  await Promise.all(orderDetailPromises);
-
-  sessionStorage.removeItem(`shoppingCart_${token}`);
-
-  window.location.href = 'order.html';
-});
-window.onload = async () => {
-  await addProducts();
-
-  const token =
-    localStorage.getItem('token') || sessionStorage.getItem('token');
-
-  if (token) {
-    const shoppingCartData =
-      JSON.parse(sessionStorage.getItem(`shoppingCart_${token}`)) || [];
-
-    console.log(shoppingCartData);
-
-    shoppingCartData.forEach(async (item) => {
-      console.log(item);
-      const product = await getById(item.productId);
-      updateProductList(product[0].productId, item.quantity);
-    });
-
-    updateTotal();
-  }
-};
-
-const isCreditCardInfoComplete = () => {
-  const cardholderNameInput = document.getElementById('cardholder-name');
-  const cardNumberInput = document.getElementById('card-number');
-  const cvvInput = document.getElementById('CVV');
-  const expireDateInput = document.getElementById('expire-date');
-
-  // Check if any of the fields are empty
-  if (
-    cardholderNameInput.value.trim() === '' ||
-    cardNumberInput.value.trim() === '' ||
-    cvvInput.value.trim() === '' ||
-    expireDateInput.value.trim() === ''
-  ) {
-    return false; // Credit card info is not complete
-  }
-
-  return true; // Credit card info is complete
-};
-orderButton.addEventListener('click', async () => {
-  // Validate credit card information
-  const cardNumberInput = document.getElementById('card-number');
-  const cardHolderInput = document.getElementById('cardholder-name');
-  const cvvInput = document.getElementById('CVV');
-
-  if (!isValidCardNumber(cardNumberInput.value) || !isValidCardHolderName(cardHolderInput.value) || !isValidCVV(cvvInput.value)) {
-    alert('Please make sure all credit card information is valid.');
-    window.location.reload(); // Refresh the page
-    return;
-  }
-
-  // Proceed with the order if all validations pass
-  const token =
-    localStorage.getItem('token') || sessionStorage.getItem('token');
-
-  // Rest of the code for order processing...
-});
-
-// Function to validate the card number (16 digits)
-function isValidCardNumber(cardNumber) {
-  return /^\d{16}$/.test(cardNumber);
-}
-
-// Function to validate the card holder name (letters only)
-function isValidCardHolderName(cardHolderName) {
-  return /^[A-Za-z ]+$/.test(cardHolderName);
-}
-
-// Function to validate the CVV (3 digits)
-function isValidCVV(cvv) {
-  return /^\d{3}$/.test(cvv);
-}
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/checkout.css" />
+    <script src="/js/checkout.js" defer></script>
+    <script
+      src="https://kit.fontawesome.com/yourcode.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+
+    <title>Shopping Cart</title>
+  </head>
+  <body>
+    <div class="navbar">
+      <h1><ion-icon name="cart-outline"></ion-icon> Checkout</h1>
+      <nav>
+        <ul>
+          <li>
+            <div class="tooltip">
+              <span class="tooltiptext">Home</span>
+
+              <a href="main.html"
+                ><span class="material-symbols-outlined"> home </span>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <main class="containerr">
+      <div class="item-flex">
+        <section class="checkout">
+          <h2 class="section-heading">Payment Details</h2>
+          <div class="payment-form">
+            <div class="payment-method">
+              <button class="method selected">
+                <ion-icon name="card"></ion-icon>
+                <span>Credit Car</span>
+                <ion-icon
+                  class="checkmark fill"
+                  name="checkmark-circle"
+                ></ion-icon>
+              </button>
+
+              <button class="method selected">
+                <ion-icon name="logo-paypal"></ion-icon>
+                <span>Paypal</span>
+                <ion-icon
+                  class="checkmark"
+                  name="checkmark-circle-outline"
+                ></ion-icon>
+              </button>
+            </div>
+            <form action="#">
+              <div class="cardholder-name">
+                <label for="cardholder-name" class="label-default"
+                  >Carholder name</label
+                >
+                <input
+                  type="text"
+                  name="cardholder-name"
+                  id="cardholder-name"
+                  class="input-default"
+                />
+              </div>
+
+              <div class="card-number">
+                <label for="card-number" class="label-default"
+                  >Card Number</label
+                >
+                <input
+                  type="number"
+                  name="card-number "
+                  id="card-number"
+                  class="input-default"
+                />
+              </div>
+
+              <div class="input-flex">
+                <div class="expire-date">
+                  <label for="expire-date" class="label-default"
+                    >Expiration date</label
+                  >
+                  <div class="input-flex">
+                    <input
+                      type="number"
+                      name="day"
+                      id="expire-date"
+                      class="input-default"
+                      placeholder="31"
+                      min="1"
+                      max="31"
+                    />
+                    /
+                    <input
+                      type="number"
+                      name="month"
+                      id="expire-date"
+                      class="input-default"
+                      placeholder="12"
+                      min="1"
+                      max="12"
+                    />
+                  </div>
+                </div>
+
+                <div class="cvv">
+                  <label for="cvv" class="label-default">CVV</label>
+                  <input
+                    type="number"
+                    name="CVV"
+                    id="CVV"
+                    class="input-default"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+        <section class="cart">
+          <div class="cart-item-box">
+            <h2 class="section-heading">Order Summery</h2>
+          </div>
+
+          <div class="wrapper">
+            <div class="amount">
+              <div class="shipping">
+                <span>Shipping</span><span id="shipping"> 0.00</span
+                ><span>€</span>
+              </div>
+
+              <div class="total">
+                <span>Total</span><span id="total-text-span"> 3.00</span
+                ><span>€</span>
+              </div>
+            </div>
+            <button class="btnn btnn-primary order-button">
+              <span>Pay</span>
+            </button>
+          </div>
+        </section>
+      </div>
+    </main>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>

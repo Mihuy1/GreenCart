@@ -13,11 +13,14 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
     />
 
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+
     <title>Green Cart</title>
   </head>
   <body>
     <div class="navbar">
-      <div>
+      <div class="hamburger-logo-div">
         <div class="hamburger-logo">
           <span
             class="material-symbols-outlined hamburger"
@@ -27,48 +30,79 @@
             menu
           </span>
         </div>
-        <h2><a href="#">Control Panel</a></h2>
+        <h3><a href="#">Green Cart</a></h3>
       </div>
       <nav>
         <ul>
           <li>
-            <a href=""
-              ><span class="material-symbols-outlined"> home </span>
-            </a>
+            <div class="tooltip">
+              <span class="tooltiptext">Home</span>
+
+              <a href="">
+                <span class="material-symbols-outlined"> home </span>
+              </a>
+            </div>
           </li>
           <li class="login-link">
-            <a href="login.html"
-              ><span class="material-symbols-outlined"> person </span>
-            </a>
+            <div class="tooltip">
+              <span class="tooltiptext">Login</span>
+              <a href="login.html">
+                <span class="material-symbols-outlined"> person </span>
+              </a>
           </li>
           <li class="register-link">
-            <a href="registration.html"
-              ><span class="material-symbols-outlined"> person_add </span>
-            </a>
+            <div class="tooltip">
+              <span class="tooltiptext">Register</span>
+              <a href="registration.html">
+                <span class="material-symbols-outlined"> person_add </span>
+              </a>
+
           </li>
           <li class="admin-link" style="display: none">
-            <a href="./admin.html"
-              ><span class="material-symbols-outlined"> shield_person </span>
-            </a>
+            <div class="tooltip">
+              <span class="tooltiptext">Admin</span>
+              <a href="admin.html">
+                <span class="material-symbols-outlined"> shield_person </span>
+              </a>
+
           </li>
           <li class="account-link" style="display: none">
-            <a href="./profile.html"
-              ><span class="material-symbols-outlined">
-                manage_accounts
-              </span></a
-            >
+            <div class="tooltip">
+              <span class="tooltiptext">Account</span>
+              <a href="profile.html">
+                <span class="material-symbols-outlined"> manage_accounts </span>
+              </a>
           </li>
           <li>
+            <div class="tooltip">
+              <span class="tooltiptext">Shop</span>
+
             <a href="#"
               ><span class="material-symbols-outlined" id="cart-icon">
                 shopping_cart
               </span>
             </a>
+          </div>
+          </li>
+          <li>
+            <div class="tooltip">
+              <span class="tooltiptext">Info</span>
+
+            <a href="hslDistruption.html">
+              <span class="material-symbols-outlined">
+                info
+                </span>
+            </a>
+            </div>
           </li>
           <li class="logout-link" style="display: none">
+            <div class="tooltip">
+              <span class="tooltiptext">Logout</span>
+
             <a href="#">
               <span class="material-symbols-outlined"> logout </span>
             </a>
+          </div>
           </li>
         </ul>
 
@@ -181,7 +215,6 @@
       </dialog>
 
       <aside class="sidebar">
-        <h1>Filter</h1>
         <form class="search-form">
           <div class="search">
             <span class="search-icon material-symbols-outlined"> search </span>

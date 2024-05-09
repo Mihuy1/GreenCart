@@ -17,13 +17,17 @@
     ></script>
     <link rel="stylesheet" href="/css/order.css" />
     <script src="/js/order.js" defer></script>
+
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
   </head>
   <body>
     <div class="container">
       <div id="map"></div>
       <div class="order-details">
         <h2>Current Order Status</h2>
-        <p class="order-status">Pending</p>
+        <p id="order-status">Pending <span id="order-timer"></span></p>
+
         <hr />
         <h2>Order Summary</h2>
         <table>
@@ -35,9 +39,8 @@
           <li id="address">Address: 123 Main St, Springfield, IL 62701</li>
           <li id="email">Email: johndoe@example.com</li>
         </ul>
-        <p id="order-timer"></p>
-        <p id="order-text"></p>
       </div>
+      <button class="home-button" style="display: none">Main Page</button>
     </div>
   </body>
 </html>

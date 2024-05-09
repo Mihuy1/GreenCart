@@ -1,7 +1,16 @@
+:root {
+  font-family: Inter, Helvetica, sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+}
+@supports (font-variation-settings: normal) {
+  :root {
+    font-family: InterVariable, sans-serif;
+  }
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Lexand', sans-serif;
   color: #424242;
   background-color: white;
 }
@@ -78,6 +87,11 @@ form input {
   border: 1px solid #ccc;
 }
 
+form input:focus {
+  border-color: #2e8b57;
+  outline: none;
+}
+
 form button {
   margin: 10px;
   padding: 10px;
@@ -86,4 +100,42 @@ form button {
   border: 1px solid #ccc;
   background-color: #516559;
   color: white;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  margin-top: 1rem;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltip .tooltiptext::after {
+  content: ' ';
+  position: absolute;
+  bottom: 100%; /* At the top of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
 }

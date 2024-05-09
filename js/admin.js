@@ -24,6 +24,29 @@ newProductCloseButton.addEventListener('click', function () {
   const dialog = document.querySelector('.add-product-dialog');
   dialog.close();
 });
+const getOrderedItems = async () => {
+  try {
+    const token =
+      localStorage.getItem('token') || sessionStorage.getItem('token');
+
+    const response = await fetch(url + '/orderItems', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+    });
+
+    if (response.status === 200) {
+      const data = await response.json();
+      return data;
+    }
+
+    console.error('Error:', response);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
 
 const getAllCategories = async () => {
   try {
@@ -56,24 +79,57 @@ const getAllProducts = async () => {
 };
 
 const deleteProduct = async (productId) => {
+  const token =
+    localStorage.getItem('token') ?? sessionStorage.getItem('token');
+
   try {
-    const token =
-      localStorage.getItem('token') ?? sessionStorage.getItem('token');
-    const options = {
-      method: 'DELETE',
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-    };
+    // Check if the product is in ordered items and delete it
+    const orderItems = await getOrderedItems();
 
-    const response = await fetch(`${url}/products/${productId}`, options);
+    const productsInOrder = orderItems.filter(
+      (item) => item.productId === productId
+    );
 
-    if (response.ok) {
-      alert('Product deleted successfully');
-      window.location.reload();
-    } else {
-      alert('Error deleting product');
-      console.error('Error deleting product');
+    if (productsInOrder.length > 0) {
+      // Delete the product from the order first
+      const orderOptions = {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token,
+        },
+      };
+
+      // Use Promise.all to delete all matching order items
+      await Promise.all(
+        productsInOrder.map(async (product) => {
+          const orderResponse = await fetch(
+            `${url}/orderItems/${product.orderItemId}`,
+            orderOptions
+          );
+
+          if (orderResponse.ok) {
+            console.log('Product deleted from order');
+          }
+        })
+      );
+
+      const options = {
+        method: 'DELETE',
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      };
+
+      const response = await fetch(`${url}/products/${productId}`, options);
+
+      if (response.ok) {
+        alert('Product deleted successfully');
+        window.location.reload();
+      } else {
+        alert('Error deleting product');
+        console.error('Error deleting product');
+      }
     }
   } catch (error) {
     console.error(error);

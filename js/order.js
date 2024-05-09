@@ -133,8 +133,8 @@ const updateOrderStatus = async (orderId, statusCode) => {
 };
 
 const startOrderTimers = async (orderId, statusCode) => {
-  const orderTimer = document.getElementById('order-timer');
-  const orderText = document.getElementById('order-text');
+  //const orderTimer = document.getElementById('order-timer');
+  const orderText = document.getElementById('order-status');
 
   switch (statusCode) {
     case 1:
@@ -144,7 +144,7 @@ const startOrderTimers = async (orderId, statusCode) => {
 
       const timer1 = setInterval(async () => {
         timeLeft1--;
-        orderTimer.textContent = timeLeft1;
+        //orderTimer.textContent = timeLeft1;
 
         if (timeLeft1 <= 0) {
           clearInterval(timer1);
@@ -162,7 +162,7 @@ const startOrderTimers = async (orderId, statusCode) => {
 
       const timer2 = setInterval(async () => {
         timeLeft2--;
-        orderTimer.textContent = timeLeft2;
+        //orderTimer.textContent = timeLeft2;
 
         if (timeLeft2 <= 0) {
           clearInterval(timer2);
@@ -175,21 +175,25 @@ const startOrderTimers = async (orderId, statusCode) => {
 
     case 3:
       orderText.textContent = 'Order has been picked up';
-      orderTimer.textContent = '';
+      //orderTimer.textContent = '';
       let randomTime3 = Math.floor(Math.random() * 10) + 10;
       let timeLeft3 = randomTime3;
 
       const timer3 = setInterval(async () => {
         timeLeft3--;
-        orderTimer.textContent = timeLeft3;
+        //orderTimer.textContent = timeLeft3;
 
         if (timeLeft3 <= 0) {
           clearInterval(timer3);
           orderText.textContent = 'Order has been delivered';
           await updateOrderStatus(orderId, 4);
-          // Send notification from browser
-          new Notification('Order has been delivered', {
-            body: 'Order has been delivered',
+
+          orderText.textContent = 'Order has been delivered';
+          const homeButton = document.querySelector('.home-button');
+          homeButton.style.display = 'block';
+
+          homeButton.addEventListener('click', async () => {
+            window.location.href = 'main.html';
           });
         }
       }, 1000); // Update every second
@@ -200,87 +204,6 @@ const startOrderTimers = async (orderId, statusCode) => {
       break;
   }
 };
-
-/*const startOrderTimers = async (orderId, statusCode) => {
-  if (statusCode === 1) {
-    const orderTimer = document.getElementById('order-timer');
-    const orderText = document.getElementById('order-text');
-
-    orderText.textContent = 'Order is being prepared';
-
-    // start timer for 10-60 seconds after which order is prepared to update status to 2
-    let randomTime = Math.floor(Math.random() * 30) + 10;
-    let timeLeft = randomTime;
-
-    const timer = setInterval(async () => {
-      timeLeft--;
-
-      console.log('timeLeft: statuscode 1', timeLeft);
-
-      if (timeLeft <= 0) {
-        clearInterval(timer);
-        orderText.textContent = 'Order is ready for pickup';
-        updateOrderStatus(orderId, 2);
-      }
-
-      orderTimer.textContent = timeLeft;
-    });
-  }
-
-  if (statusCode === 2) {
-    const orderTimer = document.getElementById('order-timer');
-    const orderText = document.getElementById('order-text');
-
-    orderText.textContent = 'Order is ready for pickup';
-
-    // start timer for 10-15 seconds after which order is prepared to update status to 3
-    let randomTime = Math.floor(Math.random() * 15) + 10;
-    let timeLeft = randomTime;
-
-    const timer = setInterval(async () => {
-      timeLeft--;
-
-      console.log('timeLeft: statuscode 2', timeLeft);
-
-      if (timeLeft <= 0) {
-        clearInterval(timer);
-        orderText.textContent = 'Order has been picked up';
-        updateOrderStatus(orderId, 3);
-      }
-
-      orderTimer.textContent = timeLeft;
-    });
-  }
-
-  if (statusCode === 3) {
-    const orderTimer = document.getElementById('order-timer');
-    const orderText = document.getElementById('order-text');
-
-    orderText.textContent = 'Order has been picked up';
-    orderTimer.textContent = '';
-
-    // start timer for 10-20 seconds after which order is delivered and status is updated to 4
-    let randomTime = Math.floor(Math.random() * 10) + 10;
-    let timeLeft = randomTime;
-
-    const timer = setInterval(async () => {
-      timeLeft--;
-
-      console.log('timeLeft: statuscode 3', timeLeft);
-
-      if (timeLeft <= 0) {
-        clearInterval(timer);
-        orderText.textContent = 'Order has been delivered';
-        updateOrderStatus(orderId, 4);
-        // send notification from browser
-        new Notification('Order has been delivered', {
-          body: 'Order has been delivered',
-        });
-      }
-      orderTimer.textContent = timeLeft;
-    });
-  }
-};*/
 
 window.addEventListener('load', async () => {
   const token =
@@ -330,13 +253,9 @@ window.addEventListener('load', async () => {
             const th2 = document.createElement('th');
             const th3 = document.createElement('th');
 
-            // Total price column
-            const th4 = document.createElement('th');
-
             productList.appendChild(th1);
             productList.appendChild(th2);
             productList.appendChild(th3);
-            productList.appendChild(th4);
 
             orderedItems.forEach((orderedItem) => {
               products.forEach((product) => {
@@ -365,8 +284,12 @@ window.addEventListener('load', async () => {
               });
             });
 
-            // set total price
-            th4.textContent = 'Total: ' + totalPrice + ' €';
+            const totalRow = document.createElement('tr');
+            const totalCell = document.createElement('td');
+            totalCell.colSpan = 3;
+            totalCell.textContent = 'Total: ' + totalPrice + ' €';
+            totalRow.appendChild(totalCell);
+            productList.appendChild(totalRow);
           }
 
           // start order timers
