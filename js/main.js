@@ -478,7 +478,7 @@ const updateCart = async (productId, quantity) => {
       ).price;
 
       total += productPrice * item.quantity;
-      console.log('Total:', total);
+
       totalEleemnt.textContent = total + ' €';
     });
 
