@@ -14,7 +14,7 @@ Green Cartin avulla voit selailla laajaa valikoimaamme tuoreita hedelmiä, vihan
 Kohderyhmänä ovat ruoan verkkokaupasta kiinnostuneet asiakkaat, jotka arvostavat nopeaa ja helppoa tapaa hankkia tuoretta ja laadukasta ruokaa.
 
 ## Miksi projekti on hyödyllinen?
-Green Cart tarjoaa käyttäjilleen monia etuja ja hyötyjä. Ensinnäkin, se säästää aikaa ja vaivaa, sillä ruokaostokset voi tehdä helposti kotona käsin ilman tarvetta fyysiselle kaupassa käynnille. Lisäksi verkkosivusto tarjoaa laajan valikoiman tuotteita, joten käyttäjät voivat löytää helposti kaiken tarvitsemansa yhdestä paikasta. Lisäksi turvallinen maksuympäristö ja kotiinkuljetus tekevät ostosten tekemisestä entistäkin mukavampaa ja huolettomampaa.
+Green Cart tarjoaa käyttäjilleen monia etuja ja hyötyjä. Se tarjoaa valmiin alustan nettiruokakaupan perustamiseen, mikä säästää aikaa ja vaivaa niiltä, jotka haluavat luoda oman ruokakauppa-alustan. Kloonatessa tämän projektin ja käyttäessä sitä omassa projektissaan käyttäjä saa valmiiksi rakennetun järjestelmän, jossa on perustoiminnot, kuten ostosten tekeminen, tuotteiden selailu ja maksaminen. Lisäksi Green Cart tarjoaa laajan valikoiman tuotteita valmiiksi integroituna, mikä helpottaa käyttäjää löytämään kaiken tarvitsemansa yhdestä paikasta. 
 
 ## Toiminnallisuudet 
 * Käyttäjä voi selata tuotteita eri kategorioissa, kuten hedelmät, vihannekset, liha ja maitotuotteet.
