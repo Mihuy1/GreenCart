@@ -23,6 +23,13 @@ Green Cart tarjoaa käyttäjilleen monia etuja ja hyötyjä. Ensinnäkin, se sä
 * Käyttäjä voi suorittaa maksun turvallisesti verkkosivustolla.
 * Tilauksen toimitus kotiovelle.
 
+## Käyttöohjeet
+
+1. Käyttäjä voi aloittaa Green Cartin käytön rekisteröitymällä verkkosivustolle tai kirjautumalla sisään, jos hänellä on jo tili.
+2. Valitsemasi tuotteet voi lisätä ostoskoriin yksinkertaisesti klikkaamalla "Lisää ostoskoriin" -painiketta tuotesivulla.
+3. Siirry ostoskorisivulle, jossa voit tarkastella ja muokata ostoskorin sisältöä.
+4. Kun olet valmis, siirry kassalle ja suorita maksu turvallisesti verkkosivustolla.
+5. Seuraa tilauksesi toimitusta ja odota tuotteiden saapumista kotiovellesi.
 
 ## Testaus ja käyttö
 
