@@ -24,19 +24,19 @@ const getUserInfo = async () => {
   if (response.status === 200) {
     const data = await response.json();
 
-    customerId = data.customer.customerId;
+    customerId = data.customer[0].customerId;
 
-    username.value = data.customer.name;
+    username.value = data.customer[0].name;
     if (data.customer.email === null) {
       email.value = '';
     } else {
-      email.value = data.customer.email;
+      email.value = data.customer[0].email;
     }
 
     if (data.customer.address === null) {
       address.value = '';
     } else {
-      address.value = data.customer.address;
+      address.value = data.customer[0].address;
     }
   } else {
     alert('Something went wrong');
