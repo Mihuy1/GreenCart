@@ -42,6 +42,12 @@ Green Cart tarjoaa käyttäjilleen monia etuja ja hyötyjä. Se tarjoaa valmiin 
    - JWT_SECRET
 4. Tietokannan osalta käytä localhost.sql-tiedostoa back-endin juuressa ja tuo se tietokantaasi.
 
-## Linkki Backendiin
-https://github.com/Mihuy1/GreenCart-backend
+## Linkit
+Backend
+- https://github.com/Mihuy1/GreenCart-backend
 
+Apidoc
+-
+
+Forms
+- https://docs.google.com/forms/d/e/1FAIpQLSevbjbThs_EhsFkwMhzRjqs-HNPdHINNbFAL5tT3FHhfwFUQw/viewform?usp=sf_link
