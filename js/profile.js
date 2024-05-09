@@ -24,31 +24,39 @@ const getUserInfo = async () => {
   if (response.status === 200) {
     const data = await response.json();
 
-    customerId = data.customer[0].customerId;
-
-    username.value = data.customer[0].name;
-    if (data.customer.email === null) {
-      email.value = '';
-    } else {
-      email.value = data.customer[0].email;
-    }
-
-    if (data.customer.address === null) {
-      address.value = '';
-    } else {
-      address.value = data.customer[0].address;
-    }
+    return data;
   } else {
     alert('Something went wrong');
   }
 };
 
+const setCustomerInfo = async (data) => {
+  customerId = data.customer[0].customerId;
+
+  username.value = data.customer[0].name;
+  if (data.customer[0].email === null) {
+    email.value = '';
+  } else {
+    email.value = data.customer[0].email;
+  }
+
+  if (data.customer[0].address === null) {
+    address.value = '';
+  } else {
+    address.value = data.customer[0].address;
+  }
+};
+
 window.onload = async () => {
-  await getUserInfo();
+  const data = await getUserInfo();
+  setCustomerInfo(data);
 };
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
+
+  const userData = await getUserInfo();
+
   try {
     if (customerId === null) {
       alert('customer id not found');
@@ -59,7 +67,7 @@ form.addEventListener('submit', async (e) => {
       address: address.value,
       email: email.value,
       password: password.value,
-      role: 'user',
+      role: userData.customer[0].role,
     };
 
     const options = {

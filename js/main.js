@@ -369,7 +369,7 @@ const checkIfAdmin = async (token) => {
     });
     const json = await response.json();
 
-    if (json.customer.role === 'admin') {
+    if (json.customer[0].role === 'admin') {
       adminLink.style.display = 'block';
     }
   } catch (error) {
