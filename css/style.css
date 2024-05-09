@@ -467,7 +467,6 @@ form {
 .tooltip {
   position: relative;
   display: inline-block;
-  border-bottom: 1px dotted black;
 }
 
 .tooltip .tooltiptext {
@@ -478,6 +477,7 @@ form {
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
+  margin-top: 1rem;
 
   /* Position the tooltip */
   position: absolute;
