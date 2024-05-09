@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, sans-serif;
+  font-family: Inter, Helvetica, sans-serif;
   font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
 }
 @supports (font-variation-settings: normal) {
@@ -56,7 +56,7 @@ h6 {
   align-items: center;
 }
 
-.navbar h2 {
+.navbar h3 {
   margin-left: 1rem;
 }
 
@@ -372,7 +372,9 @@ form {
 
 .foods article h3,
 .foods article p {
-  padding: 6px;
+  padding: 12px;
+  margin: 0;
+  margin: 10px 0 0 10px;
 }
 
 .food-info-content {
@@ -410,7 +412,6 @@ form {
   justify-content: space-between;
   align-items: center;
   margin: 10px;
-  background-color: #f5f5f5;
 }
 
 .quantity-button {
@@ -421,6 +422,13 @@ form {
   background-color: #516559;
   color: white;
   cursor: pointer;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .quantity-number {
@@ -456,6 +464,44 @@ form {
   border-radius: 50%;
 }
 
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltip .tooltiptext::after {
+  content: ' ';
+  position: absolute;
+  bottom: 100%; /* At the top of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
 @media screen and (max-width: 1130px) {
   .sidebar {
     left: -450px;
@@ -477,7 +523,7 @@ form {
     width: 80%;
   }
 
-  .navbar div {
+  .navbar .hamburger-logo-div {
     display: flex;
   }
 
@@ -497,10 +543,6 @@ form {
 
   .frontphoto {
     height: 50vh;
-  }
-
-  .sidebar {
-    display: none;
   }
 }
 /* CART SECTION */

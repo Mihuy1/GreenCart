@@ -17,6 +17,13 @@ const register = async () => {
       password: document.querySelector('.register-pswd').value,
     };
 
+    for (const key in data) {
+      if (data[key] === '') {
+        alert('Please fill in all fields');
+        return;
+      }
+    }
+
     const confirmPswd = document.querySelector('.register-confirm-pswd').value;
 
     if (data.password !== confirmPswd) {
@@ -38,12 +45,12 @@ const register = async () => {
     if (response.status === 201) {
       alert('Registration successful');
       window.location.href = 'login.html';
+    } else if (response.status === 400) {
+      alert(json.message);
     }
 
     if (json.error) {
       alert(json.error.message);
     }
-  } catch (error) {
-    console.error('Error:', error);
-  }
+  } catch (error) {}
 };

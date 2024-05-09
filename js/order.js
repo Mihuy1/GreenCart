@@ -187,9 +187,13 @@ const startOrderTimers = async (orderId, statusCode) => {
           clearInterval(timer3);
           orderText.textContent = 'Order has been delivered';
           await updateOrderStatus(orderId, 4);
-          // Send notification from browser
-          new Notification('Order has been delivered', {
-            body: 'Order has been delivered',
+
+          orderText.textContent = 'Order has been delivered';
+          const homeButton = document.querySelector('.home-button');
+          homeButton.style.display = 'block';
+
+          homeButton.addEventListener('click', async () => {
+            window.location.href = 'main.html';
           });
         }
       }, 1000); // Update every second
@@ -200,87 +204,6 @@ const startOrderTimers = async (orderId, statusCode) => {
       break;
   }
 };
-
-/*const startOrderTimers = async (orderId, statusCode) => {
-  if (statusCode === 1) {
-    const orderTimer = document.getElementById('order-timer');
-    const orderText = document.getElementById('order-text');
-
-    orderText.textContent = 'Order is being prepared';
-
-    // start timer for 10-60 seconds after which order is prepared to update status to 2
-    let randomTime = Math.floor(Math.random() * 30) + 10;
-    let timeLeft = randomTime;
-
-    const timer = setInterval(async () => {
-      timeLeft--;
-
-      console.log('timeLeft: statuscode 1', timeLeft);
-
-      if (timeLeft <= 0) {
-        clearInterval(timer);
-        orderText.textContent = 'Order is ready for pickup';
-        updateOrderStatus(orderId, 2);
-      }
-
-      orderTimer.textContent = timeLeft;
-    });
-  }
-
-  if (statusCode === 2) {
-    const orderTimer = document.getElementById('order-timer');
-    const orderText = document.getElementById('order-text');
-
-    orderText.textContent = 'Order is ready for pickup';
-
-    // start timer for 10-15 seconds after which order is prepared to update status to 3
-    let randomTime = Math.floor(Math.random() * 15) + 10;
-    let timeLeft = randomTime;
-
-    const timer = setInterval(async () => {
-      timeLeft--;
-
-      console.log('timeLeft: statuscode 2', timeLeft);
-
-      if (timeLeft <= 0) {
-        clearInterval(timer);
-        orderText.textContent = 'Order has been picked up';
-        updateOrderStatus(orderId, 3);
-      }
-
-      orderTimer.textContent = timeLeft;
-    });
-  }
-
-  if (statusCode === 3) {
-    const orderTimer = document.getElementById('order-timer');
-    const orderText = document.getElementById('order-text');
-
-    orderText.textContent = 'Order has been picked up';
-    orderTimer.textContent = '';
-
-    // start timer for 10-20 seconds after which order is delivered and status is updated to 4
-    let randomTime = Math.floor(Math.random() * 10) + 10;
-    let timeLeft = randomTime;
-
-    const timer = setInterval(async () => {
-      timeLeft--;
-
-      console.log('timeLeft: statuscode 3', timeLeft);
-
-      if (timeLeft <= 0) {
-        clearInterval(timer);
-        orderText.textContent = 'Order has been delivered';
-        updateOrderStatus(orderId, 4);
-        // send notification from browser
-        new Notification('Order has been delivered', {
-          body: 'Order has been delivered',
-        });
-      }
-      orderTimer.textContent = timeLeft;
-    });
-  }
-};*/
 
 window.addEventListener('load', async () => {
   const token =
