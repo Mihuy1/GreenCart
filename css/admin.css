@@ -392,7 +392,17 @@ form {
 }
 
 select {
-  border: 1px solid #000; /* Change the color as needed */
+  border: 1px solid #000;
+}
+
+select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 .food-edit form select {
