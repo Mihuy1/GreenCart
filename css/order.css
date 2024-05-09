@@ -11,9 +11,8 @@ body {
 }
 
 #map {
-  height: 1000px;
-  width: 100%;
-  /* Center the leaflet map */
+  height: 900px;
+  width: 90%;
   margin: 0 auto;
 }
 

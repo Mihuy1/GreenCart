@@ -133,8 +133,8 @@ const updateOrderStatus = async (orderId, statusCode) => {
 };
 
 const startOrderTimers = async (orderId, statusCode) => {
-  const orderTimer = document.getElementById('order-timer');
-  const orderText = document.getElementById('order-text');
+  //const orderTimer = document.getElementById('order-timer');
+  const orderText = document.getElementById('order-status');
 
   switch (statusCode) {
     case 1:
@@ -144,7 +144,7 @@ const startOrderTimers = async (orderId, statusCode) => {
 
       const timer1 = setInterval(async () => {
         timeLeft1--;
-        orderTimer.textContent = timeLeft1;
+        //orderTimer.textContent = timeLeft1;
 
         if (timeLeft1 <= 0) {
           clearInterval(timer1);
@@ -162,7 +162,7 @@ const startOrderTimers = async (orderId, statusCode) => {
 
       const timer2 = setInterval(async () => {
         timeLeft2--;
-        orderTimer.textContent = timeLeft2;
+        //orderTimer.textContent = timeLeft2;
 
         if (timeLeft2 <= 0) {
           clearInterval(timer2);
@@ -175,13 +175,13 @@ const startOrderTimers = async (orderId, statusCode) => {
 
     case 3:
       orderText.textContent = 'Order has been picked up';
-      orderTimer.textContent = '';
+      //orderTimer.textContent = '';
       let randomTime3 = Math.floor(Math.random() * 10) + 10;
       let timeLeft3 = randomTime3;
 
       const timer3 = setInterval(async () => {
         timeLeft3--;
-        orderTimer.textContent = timeLeft3;
+        //orderTimer.textContent = timeLeft3;
 
         if (timeLeft3 <= 0) {
           clearInterval(timer3);
@@ -330,13 +330,9 @@ window.addEventListener('load', async () => {
             const th2 = document.createElement('th');
             const th3 = document.createElement('th');
 
-            // Total price column
-            const th4 = document.createElement('th');
-
             productList.appendChild(th1);
             productList.appendChild(th2);
             productList.appendChild(th3);
-            productList.appendChild(th4);
 
             orderedItems.forEach((orderedItem) => {
               products.forEach((product) => {
@@ -365,8 +361,12 @@ window.addEventListener('load', async () => {
               });
             });
 
-            // set total price
-            th4.textContent = 'Total: ' + totalPrice + ' €';
+            const totalRow = document.createElement('tr');
+            const totalCell = document.createElement('td');
+            totalCell.colSpan = 3;
+            totalCell.textContent = 'Total: ' + totalPrice + ' €';
+            totalRow.appendChild(totalCell);
+            productList.appendChild(totalRow);
           }
 
           // start order timers
