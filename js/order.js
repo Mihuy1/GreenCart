@@ -136,6 +136,9 @@ const startOrderTimers = async (orderId, statusCode) => {
   //const orderTimer = document.getElementById('order-timer');
   const orderText = document.getElementById('order-status');
 
+  console.log('orderId:', orderId);
+  console.log('statusCode:', statusCode);
+
   switch (statusCode) {
     case 1:
       orderText.textContent = 'Order is being prepared';
@@ -210,15 +213,17 @@ window.addEventListener('load', async () => {
     localStorage.getItem('token') || sessionStorage.getItem('token');
 
   if (token) {
+    console.log('token:', token);
     const customer = await getCustomer(token);
     const orders = await getOrders();
     const orderItems = await getOrderItems();
     const products = await getProducts();
 
     if (customer) {
-      const name = customer.customer.name;
-      const email = customer.customer.email;
-      const address = customer.customer.address;
+      console.log('if customer');
+      const name = customer.customer[0].name;
+      const email = customer.customer[0].email;
+      const address = customer.customer[0].address;
 
       document.getElementById('name').textContent = 'Name: ' + name;
       document.getElementById('email').textContent = 'Email: ' + email;
@@ -227,15 +232,20 @@ window.addEventListener('load', async () => {
       if (orders) {
         let customerOrder;
 
+        console.log('if orders:', orders);
+
         orders.forEach((order) => {
-          if (order.customerId === customer.customer.customerId) {
+          console.log('in forEach:', order.customerId);
+          if (order.customerId === customer.customer[0].customerId) {
             if (order.status_code !== 4) {
+              console.log('in loop:', order);
               customerOrder = order;
             }
           }
         });
 
         if (customerOrder) {
+          console.log('if customer order:', customerOrder);
           const orderedItems = [];
 
           orderItems.forEach((orderItem) => {
@@ -244,8 +254,12 @@ window.addEventListener('load', async () => {
             }
           });
 
+          console.log('orderedItems:', orderedItems);
+
           if (orderedItems) {
             let totalPrice = 0;
+
+            console.log('orderedItems:', orderedItems);
 
             const productList = document.querySelector('.product-list');
 
@@ -280,6 +294,8 @@ window.addEventListener('load', async () => {
                   tr.appendChild(td3);
 
                   productList.appendChild(tr);
+
+                  console.log('product:', product);
                 }
               });
             });
@@ -294,6 +310,7 @@ window.addEventListener('load', async () => {
 
           // start order timers
           startOrderTimers(customerOrder.orderId, customerOrder.status_code);
+          console.log('customerOrder:', customerOrder);
         }
       }
     }
