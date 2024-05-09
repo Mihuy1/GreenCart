@@ -57,6 +57,14 @@ form.addEventListener('submit', async (e) => {
 
   const userData = await getUserInfo();
 
+  const passwordInput = document.querySelector('#password').value;
+  const confirmPswdInput = document.querySelector('#confirm-password').value;
+
+  if (passwordInput !== confirmPswdInput) {
+    alert('Passwords do not match');
+    window.location.href = 'profile.html';
+  }
+
   try {
     if (customerId === null) {
       alert('customer id not found');
@@ -69,6 +77,8 @@ form.addEventListener('submit', async (e) => {
       password: password.value,
       role: userData.customer[0].role,
     };
+
+    console.log('newInfo', newInfo);
 
     const options = {
       method: 'PUT',
