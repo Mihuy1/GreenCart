@@ -47,7 +47,7 @@ Backend
 - https://github.com/Mihuy1/GreenCart-backend
 
 Apidoc
--
+- xxx
 
-Forms
+Palaute google forms
 - https://docs.google.com/forms/d/e/1FAIpQLSevbjbThs_EhsFkwMhzRjqs-HNPdHINNbFAL5tT3FHhfwFUQw/viewform?usp=sf_link
