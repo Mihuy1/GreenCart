@@ -32,4 +32,13 @@ Green Cart tarjoaa käyttäjilleen monia etuja ja hyötyjä. Ensinnäkin, se sä
 5. Seuraa tilauksesi toimitusta ja odota tuotteiden saapumista kotiovellesi.
 
 ## Testaus ja käyttö
+1. Kloonaa sekä front-endin että back-endin repositoriot.
+2. Asenna kaikki npm-paketit suorittamalla komento _npm i_ back-end -repositorion juuressa.
+3. Luo .env-tiedosto back-endin juureen ja määritä seuraavat ympäristömuuttujat:
+   - DB_HOST
+   - DB_USER
+   - DB_PASSWORD
+   - DB_NAME
+   - JWT_SECRET
+4. Tietokannan osalta käytä localhost.sql-tiedostoa back-endin juuressa ja tuo se tietokantaasi.
 
