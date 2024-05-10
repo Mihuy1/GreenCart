@@ -44,6 +44,11 @@ Green Cart tarjoaa käyttäjilleen monia etuja ja hyötyjä. Se tarjoaa valmiin 
    - Vgnp.metropolia.fi
 5. Tietokannan osalta käytä localhost.sql-tiedostoa back-endin juuressa ja tuo se tietokantaasi.
 
+## Admin käyttäjä
+Jos haluaa testata admini sivua:
+username: patrikhy
+password: patrik123
+
 ## Linkit
 Sovellukseen
 - https://users.metropolia.fi/~patrikhy/Greencart/html/main.html
