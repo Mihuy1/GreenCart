@@ -45,6 +45,9 @@ Green Cart tarjoaa käyttäjilleen monia etuja ja hyötyjä. Se tarjoaa valmiin 
 5. Tietokannan osalta käytä localhost.sql-tiedostoa back-endin juuressa ja tuo se tietokantaasi.
 
 ## Linkit
+Sovellukseen
+- https://users.metropolia.fi/~patrikhy/Greencart/html/main.html
+
 Backend
 - https://github.com/Mihuy1/GreenCart-backend
 
