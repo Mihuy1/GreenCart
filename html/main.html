@@ -19,111 +19,45 @@
     <title>Green Cart</title>
   </head>
   <body>
-    <div class="navbar">
-      <div class="hamburger-logo-div">
-        <div class="hamburger-logo">
+    <div class="topnav">
+      <div class="topnav-left">
+
           <span
-            class="material-symbols-outlined hamburger"
+            class="material-symbols-outlined hamburger nav-toggle"
             id="nav-toggle"
             style="color: #ffff"
           >
             menu
           </span>
-        </div>
-        <h3><a href="#">Green Cart</a></h3>
+
       </div>
-      <nav>
-        <ul>
-          <li>
-            <div class="tooltip">
-              <span class="tooltiptext">Home</span>
+        <div class="topnav-right">
 
-              <a href="">
-                <span class="material-symbols-outlined"> home </span>
-              </a>
-            </div>
-          </li>
-          <li class="login-link">
-            <div class="tooltip">
-              <span class="tooltiptext">Login</span>
-              <a href="login.html">
-                <span class="material-symbols-outlined"> person </span>
-              </a>
-          </li>
-          <li class="register-link">
-            <div class="tooltip">
-              <span class="tooltiptext">Register</span>
-              <a href="registration.html">
-                <span class="material-symbols-outlined"> person_add </span>
-              </a>
+          <a href="../html/main.html" class="home-link">
+            <span class="material-symbols-outlined">home</span>
 
-          </li>
-          <li class="admin-link" style="display: none">
-            <div class="tooltip">
-              <span class="tooltiptext">Admin</span>
-              <a href="admin.html">
-                <span class="material-symbols-outlined"> shield_person </span>
-              </a>
-
-          </li>
-          <li class="account-link" style="display: none">
-            <div class="tooltip">
-              <span class="tooltiptext">Account</span>
-              <a href="profile.html">
-                <span class="material-symbols-outlined"> manage_accounts </span>
-              </a>
-          </li>
-          <li>
-            <div class="tooltip">
-              <span class="tooltiptext">Shop</span>
-
-            <a href="#"
-              ><span class="material-symbols-outlined" id="cart-icon">
-                shopping_cart
-              </span>
-            </a>
-          </div>
-          </li>
-          <li>
-            <div class="tooltip">
-              <span class="tooltiptext">Info</span>
-
-            <a href="hslDistruption.html">
-              <span class="material-symbols-outlined">
-                info
-                </span>
-            </a>
-            </div>
-          </li>
-          <li class="logout-link" style="display: none">
-            <div class="tooltip">
-              <span class="tooltiptext">Logout</span>
-
-            <a href="#">
-              <span class="material-symbols-outlined"> logout </span>
-            </a>
-          </div>
-          </li>
-        </ul>
-
-        <div class="shopping-cart">
-          <h2 class="cart-title">Your cart</h2>
-          <div class="cart-content"></div>
-
-          <div class="total">
-            <div class="total-title">Total</div>
-            <div class="total-price">0 €</div>
-          </div>
-
-          <button type="button" class="btn-buy">Buy Now</button>
-          <ion-icon
-            name="close-outline"
-            class="cart-removing"
-            id="close-cart"
-          ></ion-icon>
+          <a href="../html/admin.html" class="admin-link">
+            <span class="material-symbols-outlined">admin_panel_settings</span>
+          </a>
+          <a href="../html/profile.html" class="account-link">
+            <span class="material-symbols-outlined">account_circle</span>
+          </a>
+          <a href="../html/registration.html" class="register-link">
+            <span class="material-symbols-outlined"> person_add </span>
+          </a>
+          <a href="../html/login.html" class="login-link">
+            <span class="material-symbols-outlined">person</span>
+          </a>
+          <a href="" id="cart-icon">
+            <span class="material-symbols-outlined">shopping_cart</span>
+          </a>
+          <a href="#" class="logout-link">
+            <span class="material-symbols-outlined">logout</span>
+          </a>
         </div>
-      </nav>
+      </li>
     </div>
+
     <header>
       <img
         class="frontphoto"
@@ -133,6 +67,23 @@
         alt="Description of the image"
       />
     </header>
+
+    <div class="shopping-cart">
+      <h2 class="cart-title">Your cart</h2>
+      <div class="cart-content"></div>
+
+      <div class="total">
+        <div class="total-title">Total</div>
+        <div class="total-price">0 €</div>
+      </div>
+
+      <button type="button" class="btn-buy">Buy Now</button>
+      <ion-icon
+        name="close-outline"
+        class="cart-removing"
+        id="close-cart"
+      ></ion-icon>
+    </div>
     <div class="container">
       <dialog class="login-modal modal">
         <button class="close-button login-close-button">X</button>
@@ -215,6 +166,11 @@
       </dialog>
 
       <aside class="sidebar">
+        <ion-icon
+          name="close-outline"
+          class="cart-removing"
+          id="close-sidebar"
+        ></ion-icon>
         <form class="search-form">
           <div class="search">
             <span class="search-icon material-symbols-outlined"> search </span>

@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>Profile</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/profile.css" />
     <script type="module" src="../js/profile.js" defer></script>
 
@@ -14,32 +16,30 @@
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
   </head>
   <body>
-    <div class="navbar">
-      <h2><a href="#">Green Cart</a></h2>
-      <nav>
-        <ul>
-          <li>
-            <div class="tooltip">
-              <span class="tooltiptext">Home</span>
-              <a href="main.html"
-                ><span class="material-symbols-outlined"> home </span>
-              </a>
+    <div class="topnav">
+      <div class="topnav-left">
 
-          </li>
+          <span
+            class="material-symbols-outlined hamburger nav-toggle"
+            id="nav-toggle"
+            style="color: #ffff"
+          >
+            menu
+          </span>
+      </div>
+        <div class="topnav-right">
 
-          <li class="admin-link" style="display: none">
-            <a href="admin.html"
-              ><span class="material-symbols-outlined"> shield_person </span>
-            </a>
-          </li>
+          <a href="../html/main.html" class="home-link">
+            <span class="material-symbols-outlined">home</span>
+          </a>
 
-          <li class="logout-link" style="display: none">
-            <a href="#">
-              <span class="material-symbols-outlined"> logout </span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+
+
+          <a href="#" class="logout-link">
+            <span class="material-symbols-outlined">logout</span>
+          </a>
+        </div>
+      </li>
     </div>
 
     <div class="container">

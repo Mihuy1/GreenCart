@@ -46,40 +46,40 @@ h6 {
   color: #333;
 }
 
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.topnav {
+  overflow: hidden;
   background-color: #516559;
-  position: -webkit-sticky; /* Safari */
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  height: 70px;
-}
-
-.navbar div {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
-.navbar h3 {
-  margin-left: 1rem;
-}
-
-.navbar ul {
-  display: flex;
-  justify-content: space-between;
-}
-
-.navbar ul li {
-  list-style: none;
-  padding: 10px;
-  margin: 0 10px;
-}
-
-.navbar a {
-  color: #eeeeee;
+.topnav a {
+  color: #f2f2f2;
+  text-align: center;
+  padding: 17px 13px;
   text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav span {
+  color: white;
+  padding-left: 13px;
+}
+
+.topnav span:hover {
+  color: black;
+  cursor: pointer;
+}
+
+.topnav a.active {
+  background-color: #04aa6d;
+  color: white;
+}
+
+.topnav-right {
+  display: flex;
+  align-items: center;
 }
 
 .close-button {
@@ -193,6 +193,10 @@ h6 {
 }
 
 .main-section {
+  margin-left: 0;
+}
+
+.main-section.active {
   margin-left: 320px;
 }
 
@@ -207,16 +211,22 @@ form {
 .sidebar {
   position: fixed;
   left: 0;
-  width: 345px;
+  top: 0;
+  width: 310px;
   min-height: 100vh;
   background-color: white;
   box-shadow: 0 10px 30px rgba(68, 74, 107, 0.3);
   overflow-y: auto;
   padding: 1rem;
+  left: -450px;
+  height: 100vh;
+  transition: left 0.5s ease;
 }
 
-.sidebar h2 {
-  margin-bottom: 1rem;
+.sidebar.active {
+  left: 0;
+  height: 100vh;
+  z-index: 1000;
 }
 
 .aside-options {
@@ -531,20 +541,8 @@ dialog {
 }
 
 @media screen and (max-width: 1130px) {
-  .sidebar {
-    left: -450px;
-    height: 100vh;
-    transition: left 0.5s ease;
-  }
-  .main-section {
+  .main-section.active {
     margin-left: 0;
-  }
-
-  .sidebar.active {
-    left: 0;
-    width: 450px;
-    height: 100vh;
-    z-index: 1000;
   }
 
   .aside-options {

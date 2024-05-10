@@ -43,34 +43,40 @@ h6 {
   background-color: white;
 }
 
-.navbar {
-  display: flex;
-  justify-content: space-between;
+.topnav {
+  overflow: hidden;
   background-color: #516559;
-  position: -webkit-sticky; /* Safari */
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.navbar h2 {
-  margin-left: 1rem;
-}
-
-.navbar ul {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
-.navbar ul li {
-  list-style: none;
-  padding: 10px;
-  margin: 0 10px;
-}
-
-.navbar a {
-  color: #eeeeee;
+.topnav a {
+  color: #f2f2f2;
+  text-align: center;
+  padding: 17px 13px;
   text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav span {
+  color: white;
+  padding-left: 13px;
+}
+
+.topnav span:hover {
+  color: black;
+  cursor: pointer;
+}
+
+.topnav a.active {
+  background-color: #04aa6d;
+  color: white;
+}
+
+.topnav-right {
+  display: flex;
+  align-items: center;
 }
 
 form {

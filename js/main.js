@@ -9,11 +9,22 @@ const logoutLink = document.querySelector('.logout-link');
 const adminLink = document.querySelector('.admin-link');
 const accountLink = document.querySelector('.account-link');
 
+const closeSidebar = document.querySelector('#close-sidebar');
+
+const mainSection = document.querySelector('.main-section');
+
 const loginDialog = document.querySelector('.login-modal');
 const registerDialog = document.querySelector('.registration-modal');
 
 document.getElementById('nav-toggle').addEventListener('click', function () {
   document.querySelector('.sidebar').classList.toggle('active');
+  mainSection.classList.toggle('active');
+  console.log('clicked');
+});
+
+closeSidebar.addEventListener('click', function () {
+  document.querySelector('.sidebar').classList.remove('active');
+  mainSection.classList.remove('active');
 });
 
 const fetchData = async (url, options = {}) => {

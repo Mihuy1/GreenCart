@@ -5,6 +5,22 @@ const newProductCloseButton = document.querySelector('.new-product-close');
 
 const logoutLink = document.querySelector('.logout-link');
 
+const closeSidebar = document.querySelector('#close-sidebar');
+
+const mainSection = document.querySelector('.main-section');
+
+const sidebar = document.querySelector('.sidebar');
+
+document.getElementById('nav-toggle').addEventListener('click', function () {
+  mainSection.classList.toggle('active');
+  console.log('clicked');
+});
+
+closeSidebar.addEventListener('click', function () {
+  document.querySelector('.sidebar').classList.remove('active');
+  mainSection.classList.remove('active');
+});
+
 logoutLink.addEventListener('click', (evt) => {
   evt.preventDefault();
 

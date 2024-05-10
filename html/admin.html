@@ -4,68 +4,58 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/admin.css" />
+    <link rel="stylesheet" href="../css/shoppingCart.css">
     <script type="module" src="../js/admin.js" defer></script>
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
     />
 
+    <script
+    type="module"
+    src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+  ></script>
+  <script
+    nomodule
+    src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+  ></script>
+
     <link rel="preconnect" href="https://rsms.me/" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <title>Control Panel</title>
   </head>
   <body>
-    <div class="navbar">
-      <div>
-        <div class="hamburger-logo">
+    <div class="topnav">
+      <div class="topnav-left">
+        <a href="#">
           <span
-            class="material-symbols-outlined hamburger"
+            class="material-symbols-outlined hamburger nav-toggle"
             id="nav-toggle"
             style="color: #ffff"
           >
             menu
           </span>
-        </div>
-        <h3><a href="#">Control Panel</a></h3>
+        </a>
+
+
+
       </div>
+        <div class="topnav-right">
 
-      <nav>
-        <ul>
-          <li>
-            <div class="tooltip">
-              <span class="tooltiptext">Home</span>
+          <a href="../html/main.html" class="home-link">
+            <span class="material-symbols-outlined">home</span>
+          </a>
+          <a href="../html/profile.html" class="account-link">
+            <span class="material-symbols-outlined">account_circle</span>
+          </a>
 
-              <a href="../html/main.html"
-                ><span class="material-symbols-outlined"> home </span>
-              </a>
-            </div>
-          </li>
 
-          <li>
-            <div class="tooltip">
-              <span class="tooltiptext">Profile</span>
-              <a href="../html/profile.html"
-                ><span class="material-symbols-outlined"> person </span>
-            </div>
-          </li>
 
-          <li>
-            <div class="tooltip">
-              <span class="tooltiptext">Info</span>
-              <a href="../html/hslDistruption.html"
-                ><span class="material-symbols-outlined"> info </span>
-            </div>
-          </li>
-          <li class="logout-link">
-            <div class="tooltip">
-              <span class="tooltiptext">Logout </span>
-              <a href="../html/main.html"
-                ><span class="material-symbols-outlined"> logout </span>
-              </a>
-            </div>
-          </li>
-        </ul>
-      </nav>
+          <a href="#" class="logout-link">
+            <span class="material-symbols-outlined">logout</span>
+          </a>
+        </div>
+      </li>
     </div>
 
     <div class="container">
@@ -124,7 +114,11 @@
 
       <div class="main-section">
         <aside class="sidebar">
-
+            <ion-icon
+          name="close-outline"
+          class="cart-removing"
+          id="close-sidebar"
+            ></ion-icon>
           <button class="add-dialog-button aside-setting-button">
             Add new product
           </button>
