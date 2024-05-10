@@ -40,7 +40,9 @@ Green Cart tarjoaa käyttäjilleen monia etuja ja hyötyjä. Se tarjoaa valmiin 
    - DB_PASSWORD
    - DB_NAME
    - JWT_SECRET
-4. Tietokannan osalta käytä localhost.sql-tiedostoa back-endin juuressa ja tuo se tietokantaasi.
+4. VPN käyttöön tarvittaessa
+   - Vgnp.metropolia.fi
+5. Tietokannan osalta käytä localhost.sql-tiedostoa back-endin juuressa ja tuo se tietokantaasi.
 
 ## Linkit
 Backend
@@ -50,4 +52,4 @@ Apidoc
 - http://10.120.32.54/api/v1/apidoc/
 
 Palaute google forms
-- https://docs.google.com/forms/d/e/1FAIpQLSevbjbThs_EhsFkwMhzRjqs-HNPdHINNbFAL5tT3FHhfwFUQw/viewform?usp=sf_link
+-  https://docs.google.com/forms/d/e/1FAIpQLSevbjbThs_EhsFkwMhzRjqs-HNPdHINNbFAL5tT3FHhfwFUQw/viewform?usp=sf_link
