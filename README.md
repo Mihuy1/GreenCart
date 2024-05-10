@@ -48,6 +48,9 @@ Green Cart tarjoaa käyttäjilleen monia etuja ja hyötyjä. Se tarjoaa valmiin 
 Sovellukseen
 - https://users.metropolia.fi/~patrikhy/Greencart/html/main.html
 
+URL linkki serveriin joka pitää acceptaa
+- https://10.120.32.54/
+
 Backend
 - https://github.com/Mihuy1/GreenCart-backend
 
