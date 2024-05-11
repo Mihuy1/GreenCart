@@ -380,8 +380,12 @@ const checkIfAdmin = async (token) => {
     });
     const json = await response.json();
 
+    console.log('user role:', json.customer[0].role);
+
     if (json.customer[0].role === 'admin') {
       adminLink.style.display = 'block';
+    } else {
+      adminLink.style.display = 'none';
     }
   } catch (error) {
     console.error('Error:', error);

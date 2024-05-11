@@ -20,21 +20,28 @@
     <title>Shopping Cart</title>
   </head>
   <body>
-    <div class="navbar">
-      <h1><ion-icon name="cart-outline"></ion-icon> Checkout</h1>
-      <nav>
-        <ul>
-          <li>
-            <div class="tooltip">
-              <span class="tooltiptext">Home</span>
+    <div class="topnav">
+      <div class="topnav-left">
+        <div class="hamburger-logo">
+          <a href="#">
+          <span
+            class="material-symbols-outlined hamburger nav-toggle"
+            id="nav-toggle"
+            style="color: #ffff"
+          >
+            menu
+          </span>
+        </a>
+        </div>
+      </div>
+        <div class="topnav-right">
 
-              <a href="main.html"
-                ><span class="material-symbols-outlined"> home </span>
-              </a>
-            </div>
-          </li>
-        </ul>
-      </nav>
+
+          <a href="../html/main.html" class="home-link">
+            <span class="material-symbols-outlined">home</span>
+          </a>
+        </div>
+      </li>
     </div>
     <main class="containerr">
       <div class="item-flex">
@@ -139,7 +146,7 @@
               </div>
 
               <div class="total">
-                <span>Total</span><span id="total-text-span"> 3.00</span
+                <span>Total: </span><span id="total-text-span"> 3.00</span
                 ><span>€</span>
               </div>
             </div>

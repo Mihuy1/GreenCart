@@ -77,11 +77,44 @@ td {
 }
 
 button {
-  margin: 10px;
+  margin: 0 auto;
+  margin-top: 1rem;
   padding: 10px;
-  width: 100%;
+  width: 20%;
   border-radius: 5px;
   border: 1px solid #ccc;
   background-color: #516559;
   color: white;
+}
+
+@media screen and (max-width: 768px) {
+  #map {
+    width: 70%;
+  }
+
+  button {
+    width: 50%;
+  }
+
+  .container {
+    padding: 0;
+  }
+
+  .order-details {
+    padding: 10px;
+  }
+
+  th,
+  td {
+    padding: 0.5em;
+  }
+
+  .product-list li,
+  .user-info li {
+    margin-bottom: 2px;
+  }
+
+  button {
+    margin-top: 0.5rem;
+  }
 }

@@ -911,6 +911,34 @@ addCategoryButton.addEventListener('click', async (evt) => {
 });
 
 window.onload = async () => {
+  // Check if user is logged in and is an admin, if not redirect to main page
+  const token =
+    localStorage.getItem('token') || sessionStorage.getItem('token');
+
+  if (!token) {
+    window.location.href = '../html/main.html';
+  }
+
+  try {
+    const response = await fetch(url + '/auth/me', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+    });
+
+    if (response.status === 200) {
+      const data = await response.json();
+
+      if (data.customer[0].role !== 'admin') {
+        window.location.href = '../html/main.html';
+      }
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+
   await fetchAndAddProducts();
   await displayFoods(products);
 };

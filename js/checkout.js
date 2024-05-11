@@ -357,8 +357,14 @@ orderButton.addEventListener('click', async () => {
   const cardHolderInput = document.getElementById('cardholder-name');
   const cvvInput = document.getElementById('CVV');
 
-  if (!isValidCardNumber(cardNumberInput.value) || !isValidCardHolderName(cardHolderInput.value) || !isValidCVV(cvvInput.value)) {
-    alert('Please make sure all credit card information is valid.');
+  if (
+    !isValidCardNumber(cardNumberInput.value) ||
+    !isValidCardHolderName(cardHolderInput.value) ||
+    !isValidCVV(cvvInput.value)
+  ) {
+    alert(
+      'Please make sure all credit card information is valid. (16 digits for card number, letters only for card holder name, 3 digits for CVV)'
+    );
     window.location.reload(); // Refresh the page
     return;
   }

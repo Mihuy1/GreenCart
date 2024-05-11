@@ -142,7 +142,7 @@ const startOrderTimers = async (orderId, statusCode) => {
   switch (statusCode) {
     case 1:
       orderText.textContent = 'Order is being prepared';
-      let randomTime1 = Math.floor(Math.random() * 30) + 10;
+      let randomTime1 = Math.floor(Math.random() * 11) + 5;
       let timeLeft1 = randomTime1;
 
       const timer1 = setInterval(async () => {
@@ -198,8 +198,23 @@ const startOrderTimers = async (orderId, statusCode) => {
           homeButton.addEventListener('click', async () => {
             window.location.href = 'main.html';
           });
+
+          alert('Order has been delivered!');
         }
       }, 1000); // Update every second
+      break;
+
+    case 4:
+      alert('Order has been delivered!');
+
+      orderText.textContent = 'Order has been delivered';
+      const homeButton = document.querySelector('.home-button');
+      homeButton.style.display = 'block';
+
+      homeButton.addEventListener('click', async () => {
+        window.location.href = 'main.html';
+      });
+
       break;
 
     default:

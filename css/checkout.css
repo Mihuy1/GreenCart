@@ -32,34 +32,40 @@ body {
   background-color: white;
 }
 
-.navbar {
+.topnav {
+  overflow: hidden;
+  background-color: #516559;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 2rem;
-  background-color: #516559;
-  position: -webkit-sticky; /* Safari */
-  position: sticky;
-  top: 0;
-  z-index: 1000; /* Ensure navbar stays on top */
+  align-items: center;
 }
 
-.navbar h2 {
-  margin-left: 1rem;
-}
-
-.navbar ul {
-  display: flex;
-}
-
-.navbar ul li {
-  list-style: none;
-  padding: 10px;
-  margin: 0 10px;
-}
-
-.navbar a {
-  color: white;
+.topnav a {
+  color: #f2f2f2;
+  text-align: center;
+  padding: 17px 10px;
   text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav span {
+  color: white;
+  padding-left: 13px;
+}
+
+.topnav span:hover {
+  color: black;
+  cursor: pointer;
+}
+
+.topnav a.active {
+  background-color: #04aa6d;
+  color: white;
+}
+
+.topnav-right {
+  display: flex;
+  align-items: center;
 }
 
 .tooltip {
@@ -563,6 +569,10 @@ btnn btnn-primary {
 
 .btnn-primary b {
   margin-right: 20px;
+}
+
+.order-button {
+  border: none;
 }
 
 .cardholder-name input,

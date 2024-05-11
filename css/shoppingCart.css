@@ -10,21 +10,21 @@
 
 .shopping-cart {
   position: fixed;
-  display: none;
   top: 0;
-  right: -100%;
-  width: 360px;
+  width: 360px; /* Keep the width consistent */
   min-height: 100vh;
   padding: 20px;
   background: #faf9f6;
   box-shadow: -9px 0 18px hsl(0 4% 15% / 10%);
-  transition: 0.3s;
   overflow-y: auto;
+  right: 0; /* Initially, position it to the right */
+  transition: transform 0.5s ease, right 0.5s ease; /* Add smooth transition for both transform and right */
+  transform: translateX(100%); /* Initially translate it off-screen */
 }
 
 .shopping-cart.active {
-  display: block;
-  right: 0;
+  right: 0; /* Make sure it stays visible on smaller screens */
+  transform: translateX(0); /* Translate it back to its original position */
 }
 
 .nav-wrapper {
@@ -155,4 +155,10 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, auto));
   gap: 1.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .shopping-cart {
+    width: 100%;
+  }
 }

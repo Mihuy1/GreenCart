@@ -15,6 +15,7 @@ const register = async () => {
       address: document.querySelector('.register-address').value,
       email: document.querySelector('.register-email').value,
       password: document.querySelector('.register-pswd').value,
+      role: 'user',
     };
 
     for (const key in data) {

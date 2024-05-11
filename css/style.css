@@ -467,14 +467,13 @@ form {
 }
 
 .hamburger-logo {
-  display: none;
-  margin-left: 1rem;
   cursor: pointer;
   transform: scale(1.1);
   transition: transform 0.3s ease-in-out;
 }
 
-.hamburger-logo .hamburger:hover {
+/* Add effect for mobile on press */
+.hamburger-logo .hamburger:active {
   transform: scale(1.2);
 }
 
@@ -491,6 +490,7 @@ form {
 
 .tooltip .tooltiptext {
   visibility: hidden;
+  z-index: 9999;
   width: 120px;
   background-color: black;
   color: #fff;
@@ -501,7 +501,6 @@ form {
 
   /* Position the tooltip */
   position: absolute;
-  z-index: 1;
   top: 100%;
   left: 50%;
   margin-left: -60px;
